@@ -1,0 +1,294 @@
+{% extends "base.html" %} {% block title %}{{ get_setting('meta_title', 'BRICON
+VIỆT NAM | Keo của người Việt – Kết dính bền lâu, xây dựng niềm tin') }}
+{% endblock %} {% block meta_description %}{{ get_setting('index_meta_description',
+'Keo dán gạch, keo chà ron và chống thấm BRICON – Keo của người Việt, kết dính
+bền lâu, xây dựng niềm tin.') }}{% endblock %} {% block content %}
+<!-- ==================== BANNER SLIDER ==================== -->
+<section class="banner-slider">
+  <div
+    id="bannerCarousel"
+    class="carousel slide carousel-fade"
+    data-bs-ride="carousel"
+    data-bs-interval="5000"
+  >
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      {% for banner in banners %}
+      <button
+        type="button"
+        data-bs-target="#bannerCarousel"
+        data-bs-slide-to="{{ loop.index0 }}"
+        {% if loop.first %}class="active" aria-current="true"{% endif %}
+        aria-label="Slide {{ loop.index }}"
+      ></button>
+      {% endfor %}
+    </div>
+
+    <!-- Slides -->
+    <div class="carousel-inner">
+      {% for banner in banners %}
+      <div class="carousel-item {% if loop.first %}active{% endif %}">
+        {# Lấy thông tin SEO từ Media nếu có #}
+        {% set media_info = banner.get_media_seo_info() if banner.image else None %}
+        {% set mobile_info = banner.get_mobile_media_seo_info() if banner.image_mobile else media_info %}
+
+        <!-- ✅ Thêm hỗ trợ ảnh mobile -->
+        <picture>
+          {% if banner.image_mobile %}
+          <!-- Ảnh mobile khi màn hình nhỏ hơn 768px -->
+          <source media="(max-width: 767px)" srcset="{{ banner.image_mobile }}" type="image/webp">
+          {% endif %}
+          <!-- Ảnh desktop -->
+          <source media="(min-width: 768px)" srcset="{{ banner.image }}" type="image/webp">
+
+          <!-- Fallback -->
+          <img
+            src="{{ banner.image if banner.image else 'https://via.placeholder.com/1200x500/FFC107/FFFFFF?text=Banner+' + loop.index|string }}"
+            class="d-block w-100"
+            alt="{{ media_info.alt if media_info else banner.title }}"
+            title="{{ media_info.title if media_info else banner.title }}"
+            loading="lazy"
+          />
+        </picture>
+
+        <div class="carousel-caption">
+          {% if loop.first %}
+          <h1 class="display-4 fw-bold mb-3">{{ banner.title }}</h1>
+          {% else %}
+          <h2 class="display-4 fw-bold mb-3">{{ banner.title }}</h2>
+          {% endif %}
+          <p class="lead mb-4">{{ banner.subtitle }}</p>
+          {% if banner.button_text and banner.link %}
+          <a href="{{ banner.link }}" class="btn btn-warning btn-lg px-4 py-2">
+            {{ banner.button_text }} <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+          {% endif %}
+        </div>
+
+        {% if media_info and media_info.caption %}
+        <div class="visually-hidden">{{ media_info.caption }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#bannerCarousel"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#bannerCarousel"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
+
+
+<!-- ==================== WHY CHOOSE US ==================== -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Feature 1 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="text-center p-4">
+          <div class="mb-3">
+            <i
+              class="bi bi-shield-check text-warning"
+              style="font-size: 3rem"
+            ></i>
+          </div>
+          <h5 class="fw-semibold mb-2">Chất Lượng</h5>
+          <p class="text-muted small mb-0">
+              Chính Hãng
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="text-center p-4">
+          <div class="mb-3">
+            <i class="bi bi-truck text-warning" style="font-size: 3rem"></i>
+          </div>
+          <h5 class="fw-semibold mb-2">Giao Nhanh</h5>
+          <p class="text-muted small mb-0">Toàn Quốc</p>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="text-center p-4">
+          <div class="mb-3">
+            <i class="bi bi-headset text-warning" style="font-size: 3rem"></i>
+          </div>
+          <h5 class="fw-semibold mb-2">Hỗ Trợ 24/7</h5>
+          <p class="text-muted small mb-0">Tận Tình</p>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="text-center p-4">
+          <div class="mb-3">
+            <i class="bi bi-wallet2 text-warning" style="font-size: 3rem"></i>
+          </div>
+          <h5 class="fw-semibold mb-2">Giá Tốt</h5>
+          <p class="text-muted small mb-0">Cạnh Tranh</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURED PRODUCTS ==================== -->
+<section class="py-5 bg-gray-dark">
+  <div class="container">
+    <!-- Section Title -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">Sản phẩm nổi bật</h2>
+      <div class="title-underline mx-auto"></div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="row g-4">
+      {% for product in featured_products[:3] %}
+        {% include 'components/card-product.html' with context %}
+      {% endfor %}
+    </div>
+
+    <!-- View All Button -->
+    <div class="text-center mt-5">
+      <a
+        href="{{ url_for('main.products') }}"
+        class="btn btn-outline-warning btn-lg px-5"
+      >
+        Xem tất cả sản phẩm <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% include 'components/featured_projects.html' %}
+<!-- ==================== FEATURED BLOGS ==================== -->
+{% if featured_blogs %}
+<section class="py-5 bg-gray-dark">
+  <div class="container">
+    <!-- Section Title -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">Tin tức nổi bật</h2>
+      <div class="title-underline mx-auto"></div>
+      <p class="text-muted mt-3">Cập nhật kiến thức và xu hướng mới nhất</p>
+    </div>
+
+    <!-- Blog Grid -->
+    <div class="row g-4">
+      {% for blog in featured_blogs %}
+          {% include 'components/card-blog.html' with context %}
+      {% endfor %}
+    </div>
+
+    <!-- View All Button -->
+    <div class="text-center mt-5">
+      <a
+        href="{{ url_for('main.blog') }}"
+        class="btn btn-outline-warning btn-lg px-5"
+      >
+        Xem tất cả tin tức <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ==================== CALL TO ACTION ==================== -->
+<section class="py-5" style="background-color: #6c7b8b">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8 text-center text-lg-start mb-4 mb-lg-0">
+        <h3 class="fw-bold mb-2">Cần tư vấn thêm về sản phẩm?</h3>
+        <p class="mb-0 text-dark">
+          Đội ngũ chuyên gia của BRICON luôn sẵn sàng hỗ trợ bạn
+        </p>
+      </div>
+      <div class="col-lg-4 text-center text-lg-end">
+        <a
+          href="{{ url_for('main.contact') }}"
+          class="btn btn-dark btn-lg px-5"
+        >
+          <i class="bi bi-telephone-fill me-2"></i> Liên hệ ngay
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Schema WebSite -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ get_setting('website_name', 'BRICON VIỆT NAM') }}",
+    "url": "{{ get_setting('main_url', request.url_root) }}",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "{{ url_for('main.products') }}?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+</script>
+<!-- Schema Product cho featured_products -->
+{% if featured_products %}
+<script type="application/ld+json">
+  [
+  {% for product in featured_products %}
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "{{ product.name|e }}",
+      "image": "{{ product.image|e }}",
+      "description": "{{ (product.description or 'Keo dán gạch, chà ron BRICON - Keo của người Việt')|e }}",
+      "sku": "{{ product.id }}",
+      "brand": {
+        "@type": "Brand",
+        "name": "{{ get_setting('website_name', 'BRICON VIỆT NAM')|e }}"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "VND",
+        "price": "{{ product.price }}",
+        "url": "{{ url_for('main.product_detail', slug=product.slug, _external=True) }}",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    }{% if not loop.last %},{% endif %}
+  {% endfor %}
+  ]
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "{{ get_setting('website_name', 'BRICON VIỆT NAM') }} Banner Gallery",
+  "image": [
+    {% for banner in banners %}
+    {
+      "@type": "ImageObject",
+      "url": "{{ banner.image }}",
+      "name": "{{ banner.title }}",
+      "description": "{{ banner.subtitle }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %} {% endblock %}
