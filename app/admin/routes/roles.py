@@ -1,26 +1,9 @@
 """
-🔑 Roles & Permissions Management Routes
 Quản lý phân quyền RBAC (Role-Based Access Control)
-
-FEATURES:
-- Quản lý Roles: Admin, Editor, Moderator, User, Custom roles
-- Quản lý Permissions: Fine-grained permissions
-- Assign permissions to roles (many-to-many)
-- View role statistics (user count, permission count)
-- Permission categories (products, blogs, media, system, ...)
-
 MODELS:
 - Role: id, name, display_name, priority, color, is_active
 - Permission: id, name, display_name, category, icon, is_active
 - role_permissions: Join table (many-to-many)
-
-🔒 Permission: manage_roles (chỉ Admin)
-
-ROLE HIERARCHY (by priority):
-- Admin (100): Toàn quyền
-- Editor (70): Quản lý nội dung
-- Moderator (50): Kiểm duyệt
-- User (10): Xem thông tin cơ bản
 
 PERMISSION CATEGORIES:
 - products: Quản lý sản phẩm
@@ -47,11 +30,11 @@ WORKFLOW:
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models_rbac import Role, Permission
-from app.forms import RoleForm, PermissionForm
+from app.models.rbac import Role, Permission
+from app.forms.user import RoleForm, PermissionForm
 from app.decorators import permission_required
 from app.admin import admin_bp
-from app.models import User
+from app.models.user import User
 
 
 # ==================== ROLES: LIST ====================

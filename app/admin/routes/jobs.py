@@ -45,8 +45,8 @@ FRONTEND DISPLAY:
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models import Job
-from app.forms import JobForm
+from app.models.job import Job
+from app.forms.job import JobForm
 from app.decorators import permission_required
 from app.admin import admin_bp
 

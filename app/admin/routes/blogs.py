@@ -42,8 +42,8 @@ API ENDPOINTS:
 
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from app import db
-from app.models import Blog
-from app.forms import BlogForm
+from app.models.content import Blog
+from app.forms.content import BlogForm
 from app.decorators import permission_required
 from app.admin import admin_bp
 from app.admin.utils.helpers import get_image_from_form

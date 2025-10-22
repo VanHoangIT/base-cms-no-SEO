@@ -4,12 +4,11 @@
 from flask import render_template, request, flash, redirect, url_for
 from flask_login import current_user
 from app import db
-from app.models import User
-from app.forms import UserForm
+from app.models.user import User
+from app.forms.user import UserForm
 from app.decorators import permission_required
 from app.admin import admin_bp
-from app.models import User, Product, Category, Banner, Blog, FAQ, Contact, Media, Project, Job, Settings, get_setting, set_setting
-from app.models_rbac import Role, Permission
+from app.models.rbac import Role
 
 # ==================== QUẢN LÝ NGƯỜI DÙNG ====================
 @admin_bp.route('/users')

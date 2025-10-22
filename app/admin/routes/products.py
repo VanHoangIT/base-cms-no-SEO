@@ -11,8 +11,8 @@
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models import Product
-from app.forms import ProductForm
+from app.models.product import Product
+from app.forms.product import ProductForm
 from app.decorators import permission_required
 from app.admin import admin_bp
 from app.admin.utils.helpers import get_image_from_form

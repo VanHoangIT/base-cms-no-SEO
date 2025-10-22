@@ -13,12 +13,12 @@
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models import Settings, get_setting, set_setting
-from app.forms import SettingsForm
+from app.models.settings import get_setting, set_setting
+from app.forms.settings import SettingsForm
 from app.utils import save_upload_file
 from app.decorators import permission_required
 from app.admin import admin_bp
-from app.admin.utils.generators import generate_sitemap, generate_robots_txt  # ✅ Import generators
+from app.admin.utils.generators import generate_sitemap, generate_robots_txt
 
 @admin_bp.route('/settings', methods=['GET', 'POST'])
 @permission_required('manage_settings')

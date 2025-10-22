@@ -1,14 +1,5 @@
 """
-🏗️ Projects Management Routes
 Quản lý dự án tiêu biểu
-
-FEATURES:
-- CRUD đầy đủ
-- Gallery ảnh (multiple images)
-- Project type categories
-- Client & location info
-- Products used in project
-- Featured flag
 
 FIELDS:
 - title: Tên dự án *
@@ -31,13 +22,6 @@ FIELDS:
 - view_projects: Xem danh sách
 - manage_projects: CRUD dự án
 
-PROJECT TYPES (từ project_config.py):
-- Nhà ở
-- Văn phòng
-- Khách sạn
-- Nhà hàng
-- Showroom
-- ...
 
 FRONTEND DISPLAY:
 - List: Filter by project_type
@@ -46,8 +30,8 @@ FRONTEND DISPLAY:
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models import Project
-from app.forms import ProjectForm
+from app.models.media import Project
+from app.forms.media import ProjectForm
 from app.decorators import permission_required
 from app.admin import admin_bp
 from app.admin.utils.helpers import get_image_from_form

@@ -34,7 +34,7 @@ WORKFLOW:
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models import Contact
+from app.models.contact import Contact
 from app.decorators import permission_required
 from app.admin import admin_bp
 

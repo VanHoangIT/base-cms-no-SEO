@@ -92,7 +92,8 @@ def create_app(config_class=Config):
         - TTL cache (process-level) 5 phút để tránh query lặp qua nhiều request
         - Per-request cache bằng g.* để 1 request không query lại
         """
-        from app.models import get_setting, Category
+        from app.models.settings import get_setting
+        from app.models.product import Category
         from datetime import datetime
         import time
 
@@ -311,5 +312,5 @@ def clear_categories_cache():
 @login_manager.user_loader
 def load_user(user_id):
     """Load user by ID for Flask-Login"""
-    from app.models import User
+    from app.models.user import User
     return User.query.get(int(user_id))

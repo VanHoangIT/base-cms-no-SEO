@@ -1,6 +1,3 @@
-"""
-Decorators cho phân quyền (RBAC)
-"""
 from functools import wraps
 from flask import flash, redirect, url_for, abort, request
 from flask_login import current_user
@@ -31,18 +28,6 @@ def admin_required(f):
 # ==================== RBAC DECORATORS ====================
 
 def permission_required(permission_name):
-    """
-    Decorator kiểm tra permission cụ thể
-
-    Args:
-        permission_name (str): Tên permission (vd: 'manage_products')
-
-    Usage:
-        @permission_required('manage_products')
-        def add_product():
-            ...
-    """
-
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):

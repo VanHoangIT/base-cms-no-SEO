@@ -29,8 +29,8 @@ RELATIONSHIPS:
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models import Category
-from app.forms import CategoryForm
+from app.models.product import Category
+from app.forms.product import CategoryForm
 from app.utils import save_upload_file
 from app.decorators import permission_required
 from app.admin import admin_bp

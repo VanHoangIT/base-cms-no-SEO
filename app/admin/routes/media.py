@@ -23,7 +23,8 @@ from flask_login import current_user
 from werkzeug.utils import secure_filename
 
 from app import db
-from app.models import Media, get_setting
+from app.models.media import Media
+from app.models.settings import get_setting
 from app.forms import MediaSEOForm
 from app.utils import save_upload_file, delete_file, get_albums
 from app.decorators import permission_required
@@ -272,7 +273,7 @@ def delete_album(album_name):
 @permission_required('edit_media')  # ✅ Chỉnh sửa media
 def edit_media(id):
     """Sửa thông tin media với SEO fields và hiển thị điểm SEO"""
-    from app.forms import MediaSEOForm
+    from app.forms.media import MediaSEOForm
 
     media = Media.query.get_or_404(id)
     form = MediaSEOForm(obj=media)

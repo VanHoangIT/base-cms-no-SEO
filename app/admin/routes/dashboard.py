@@ -10,7 +10,9 @@
 from flask import render_template, redirect, url_for
 from flask_login import login_required, current_user
 
-from app.models import Product, Category, Blog, Contact
+from app.models.product import Product, Category
+from app.models.content import Blog
+from app.models.contact import  Contact
 from app.decorators import permission_required
 from app.admin import admin_bp
 

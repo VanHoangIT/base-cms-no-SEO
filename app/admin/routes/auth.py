@@ -12,9 +12,10 @@ from flask import render_template, request, flash, redirect, url_for, session, j
 from flask_login import login_user, logout_user, login_required, current_user
 
 from app import db
-from app.models import User, get_setting
-from app.forms import LoginForm
-from app.admin import admin_bp  # ✅ Import blueprint từ package
+from app.models.user import User
+from app.models.settings import get_setting
+from app.forms.auth import LoginForm
+from app.admin import admin_bp
 
 # ==================== LOGIN & LOGOUT ====================
 
@@ -31,9 +32,6 @@ def login():
 
     if form.validate_on_submit():
         email = form.email.data
-
-        # ✅ LẤY GIỚI HẠN TỪ SETTINGS
-        from app.models import get_setting
         max_attempts = int(get_setting('login_attempt_limit', '5'))
 
         # Keys cho session

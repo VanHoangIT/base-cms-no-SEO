@@ -1,7 +1,12 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, send_from_directory, current_app, abort
 from app import db
-from app.models import Product, Category, Banner, Blog, FAQ, Contact, Project, Job, get_setting
-from app.forms import ContactForm
+from app.models.product import Product, Category
+from app.models.media import Banner, Project
+from app.models.content import Blog, FAQ
+from app.models.contact import Contact
+from app.models.job import Job
+from app.models.settings import get_setting
+from app.forms.contact import ContactForm
 from sqlalchemy import or_
 from app.project_config import PROJECT_TYPES
 from jinja2 import Template

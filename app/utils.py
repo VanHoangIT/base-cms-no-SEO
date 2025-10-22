@@ -249,7 +249,7 @@ def delete_file(filepath):
 
 def get_albums():
     """Lấy danh sách albums với số lượng file"""
-    from app.models import Media
+    from app.models.media import Media
     from sqlalchemy import func
 
     # Lấy albums từ DB

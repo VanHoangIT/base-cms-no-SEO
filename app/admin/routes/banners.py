@@ -32,8 +32,8 @@ FIELDS:
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models import Banner
-from app.forms import BannerForm
+from app.models.media import Banner
+from app.forms.media import BannerForm
 from app.decorators import permission_required
 from app.admin import admin_bp
 from app.admin.utils.helpers import get_image_from_form

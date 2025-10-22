@@ -179,7 +179,7 @@ def init_default_permissions():
         ('manage_settings', 'Quản lý cài đặt hệ thống', 'system', 'bi-gear'),
         ('manage_roles', 'Quản lý phân quyền', 'system', 'bi-shield-lock'),
 
-        # ===== QUIZ (THÊM MỚI) =====
+        # ===== QUIZ =====
         ('view_quiz', 'Xem quiz', 'quiz', 'bi-card-checklist'),
         ('manage_quiz', 'Quản lý quiz', 'quiz', 'bi-card-list'),
     ]

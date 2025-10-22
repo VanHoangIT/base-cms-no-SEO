@@ -24,8 +24,8 @@ DISPLAY FRONTEND:
 
 from flask import render_template, request, flash, redirect, url_for
 from app import db
-from app.models import FAQ
-from app.forms import FAQForm
+from app.models.content import FAQ
+from app.forms.content import FAQForm
 from app.decorators import permission_required
 from app.admin import admin_bp
 
