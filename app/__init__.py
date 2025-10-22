@@ -66,7 +66,7 @@ def create_app(config_class=Config):
     login_manager.login_message_category = 'warning'
 
     # ==================== REGISTER BLUEPRINTS ====================
-    from app.main.routes import main_bp
+    from app.main import main_bp
     from app.admin import admin_bp
     from app.chatbot import chatbot_bp
     from app.quiz import quiz_bp, quiz_admin_bp
