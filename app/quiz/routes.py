@@ -32,7 +32,7 @@ def quiz_start(slug):
         # Validate tên (bắt buộc)
         if not user_name or len(user_name) < 2:
             flash('Vui lòng nhập tên của bạn (ít nhất 2 ký tự)', 'danger')
-            return render_template('quiz/quiz_start.html', quiz=quiz)
+            return render_template('public/trac_nghiem/start.html', quiz=quiz)
 
         # Tạo attempt mới
         attempt = QuizAttempt(
@@ -56,7 +56,7 @@ def quiz_start(slug):
         flash(f'Chào {user_name}! Bắt đầu làm bài "{quiz.title}"', 'success')
         return redirect(url_for('quiz.quiz_take', slug=slug))
 
-    return render_template('quiz/quiz_start.html', quiz=quiz)
+    return render_template('public/trac_nghiem/start.html', quiz=quiz)
 
 
 # ==================== TRANG LÀM BÀI ====================
@@ -107,7 +107,7 @@ def quiz_take(slug):
     elapsed_seconds = int((datetime.utcnow() - start_time).total_seconds())
     remaining_seconds = max(0, (quiz.duration_minutes * 60) - elapsed_seconds)
 
-    return render_template('quiz/quiz_take.html',
+    return render_template('public/trac_nghiem/take.html',
                            quiz=quiz,
                            attempt=attempt,
                            questions=questions,
@@ -245,32 +245,7 @@ def quiz_result(attempt_id):
             'is_correct': user_answer.is_correct
         })
 
-    return render_template('quiz/quiz_result.html',
+    return render_template('public/trac_nghiem/result.html',
                            attempt=attempt,
                            quiz=quiz,
                            questions_detail=questions_detail)
-
-
-# ==================== XEM LẠI KẾT QUẢ (PUBLIC) ====================
-@quiz_bp.route('/results')
-def public_results():
-    """
-    Trang xem lại kết quả của các lần làm bài (public)
-    Search bằng tên hoặc email
-    """
-    search_query = request.args.get('search', '').strip()
-
-    if not search_query:
-        return render_template('quiz/public_results.html', attempts=[])
-
-    # Tìm kiếm theo tên hoặc email
-    attempts = QuizAttempt.query.filter(
-        QuizAttempt.is_completed == True
-    ).filter(
-        db.or_(
-            QuizAttempt.user_name.ilike(f'%{search_query}%'),
-            QuizAttempt.user_email.ilike(f'%{search_query}%')
-        )
-    ).order_by(QuizAttempt.completed_at.desc()).all()
-
-    return render_template('quiz/public_results.html', attempts=attempts, search_query=search_query)

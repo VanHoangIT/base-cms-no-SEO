@@ -24,7 +24,7 @@ def users():
             query = query.filter_by(role_id=role_obj.id)
 
     users = query.order_by(User.created_at.desc()).all()
-    return render_template('admin/users.html', users=users)
+    return render_template('admin/nguoi_dung/users.html', users=users)
 
 
 @admin_bp.route('/users/add', methods=['GET', 'POST'])
@@ -44,7 +44,7 @@ def add_user():
             user.set_password(form.password.data)
         else:
             flash('Vui lòng nhập mật khẩu!', 'danger')
-            return render_template('admin/user_form.html', form=form, title='Thêm người dùng')
+            return render_template('admin/nguoi_dung/user_form.html', form=form, title='Thêm người dùng')
 
         db.session.add(user)
         db.session.commit()
@@ -52,7 +52,7 @@ def add_user():
         flash(f'Đã thêm người dùng "{user.username}" với vai trò "{user.role_display_name}"!', 'success')
         return redirect(url_for('admin.users'))
 
-    return render_template('admin/user_form.html', form=form, title='Thêm người dùng')
+    return render_template('admin/nguoi_dung/user_form.html', form=form, title='Thêm người dùng')
 
 
 @admin_bp.route('/users/edit/<int:id>', methods=['GET', 'POST'])
@@ -75,7 +75,7 @@ def edit_user(id):
         flash(f'Đã cập nhật người dùng "{user.username}"!', 'success')
         return redirect(url_for('admin.users'))
 
-    return render_template('admin/user_form.html', form=form, title='Sửa người dùng')
+    return render_template('admin/nguoi_dung/user_form.html', form=form, title='Sửa người dùng')
 
 
 @admin_bp.route('/users/delete/<int:id>')

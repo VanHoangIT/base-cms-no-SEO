@@ -23,7 +23,7 @@ def careers():
     departments = db.session.query(Job.department).filter_by(is_active=True).distinct().all()
     locations = db.session.query(Job.location).filter_by(is_active=True).distinct().all()
 
-    return render_template('careers.html',
+    return render_template('public/tuyen_dung/careers.html',
                            jobs=jobs,
                            departments=[d[0] for d in departments if d[0]],
                            locations=[l[0] for l in locations if l[0]])
@@ -44,6 +44,6 @@ def job_detail(slug):
         Job.is_active == True
     ).order_by(Job.is_urgent.desc()).limit(5).all()
 
-    return render_template('job_detail.html',
+    return render_template('public/tuyen_dung/job_detail.html',
                            job=job,
                            other_jobs=other_jobs)

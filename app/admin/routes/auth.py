@@ -54,7 +54,7 @@ def login():
                 seconds = int(remaining_time.total_seconds() % 60)
 
                 flash(f'🔒 Tài khoản đang bị khóa! Vui lòng thử lại sau {minutes} phút {seconds} giây.', 'danger')
-                return render_template('admin/login.html', form=form)
+                return render_template('admin/auth/login.html', form=form)
             else:
                 # Hết thời gian khóa - reset
                 session.pop(attempt_key, None)
@@ -90,7 +90,7 @@ def login():
                 session[lockout_key] = lockout_time.isoformat()
 
                 flash(f'Tài khoản đã bị khóa 30 phút do đăng nhập sai {max_attempts} lần liên tiếp!', 'danger')
-                return render_template('admin/login.html', form=form)
+                return render_template('admin/auth/login.html', form=form)
 
             # ⚠️ CẢNH BÁO LẦN CUỐI CÙNG
             elif remaining == 1:
@@ -102,7 +102,7 @@ def login():
             else:
                 flash(f'Email hoặc mật khẩu không đúng! Còn {remaining} lần thử.', 'warning')
 
-    return render_template('admin/login.html', form=form)
+    return render_template('admin/auth/login.html', form=form)
 
 
 @admin_bp.route('/logout')

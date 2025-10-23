@@ -29,7 +29,7 @@ def search():
         Blog.is_active == True
     ).limit(5).all()
 
-    return render_template('search.html',
+    return render_template('public/search.html',
                            keyword=keyword,
                            products=products,
                            blogs=blogs)

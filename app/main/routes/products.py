@@ -90,7 +90,7 @@ def products(category_slug=None):
     products = pagination.items
     categories = Category.query.filter_by(is_active=True).all()
 
-    return render_template('products.html',
+    return render_template('public/san_pham/products.html',
                            products=products,
                            categories=categories,
                            pagination=pagination,
@@ -145,7 +145,7 @@ def product_detail(slug):
         # Fallback mặc định nếu không có template
         rendered_meta_description = f"Mua {product.name} chất lượng cao từ {get_setting('website_name', 'BRICON VIỆT NAM')} với giá tốt nhất."
 
-    return render_template('product_detail.html',
+    return render_template('public/san_pham/product_detail.html',
                            product=product,
                            related_products=related_products,
                            rendered_meta_description=rendered_meta_description,

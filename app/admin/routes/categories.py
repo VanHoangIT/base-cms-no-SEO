@@ -50,7 +50,7 @@ def categories():
     categories = Category.query.order_by(Category.created_at.desc()).paginate(
         page=page, per_page=20, error_out=False
     )
-    return render_template('admin/categories.html', categories=categories)
+    return render_template('admin/danh_muc/categories.html', categories=categories)
 
 
 # ==================== ADD ====================
@@ -86,7 +86,7 @@ def add_category():
         flash('Đã thêm danh mục thành công!', 'success')
         return redirect(url_for('admin.categories'))
 
-    return render_template('admin/category_form.html', form=form, title='Thêm danh mục')
+    return render_template('admin/danh_muc/category_form.html', form=form, title='Thêm danh mục')
 
 
 # ==================== EDIT ====================
@@ -119,7 +119,7 @@ def edit_category(id):
         flash('Đã cập nhật danh mục thành công!', 'success')
         return redirect(url_for('admin.categories'))
 
-    return render_template('admin/category_form.html', form=form, title='Sửa danh mục')
+    return render_template('admin/danh_muc/category_form.html', form=form, title='Sửa danh mục')
 
 
 # ==================== DELETE ====================

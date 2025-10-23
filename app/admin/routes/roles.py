@@ -56,7 +56,7 @@ def roles():
         'active_roles': Role.query.filter_by(is_active=True).count()
     }
 
-    return render_template('admin/roles.html', roles=roles, stats=stats)
+    return render_template('admin/phan_quyen/roles.html', roles=roles, stats=stats)
 
 
 
@@ -85,7 +85,7 @@ def add_role():
         existing = Role.query.filter_by(name=form.name.data).first()
         if existing:
             flash('Tên role đã tồn tại!', 'danger')
-            return render_template('admin/role_form.html', form=form, title='Thêm vai trò')
+            return render_template('admin/phan_quyen/role_form.html', form=form, title='Thêm vai trò')
 
         role = Role(
             name=form.name.data,
@@ -102,7 +102,7 @@ def add_role():
         flash(f'Đã tạo vai trò "{role.display_name}" thành công!', 'success')
         return redirect(url_for('admin.roles'))
 
-    return render_template('admin/role_form.html', form=form, title='Thêm vai trò')
+    return render_template('admin/phan_quyen/role_form.html', form=form, title='Thêm vai trò')
 
 
 # ==================== ROLES: EDIT ====================
@@ -122,7 +122,7 @@ def edit_role(id):
     if form.validate_on_submit():
         if role.name in ['admin', 'user'] and form.name.data != role.name:
             flash('Không thể đổi tên role hệ thống!', 'danger')
-            return render_template('admin/role_form.html', form=form, title='Sửa vai trò', role=role)
+            return render_template('admin/phan_quyen/role_form.html', form=form, title='Sửa vai trò', role=role)
 
         role.name = form.name.data
         role.display_name = form.display_name.data
@@ -136,7 +136,7 @@ def edit_role(id):
         flash(f'Đã cập nhật vai trò "{role.display_name}" thành công!', 'success')
         return redirect(url_for('admin.roles'))
 
-    return render_template('admin/role_form.html', form=form, title='Sửa vai trò', role=role)
+    return render_template('admin/phan_quyen/role_form.html', form=form, title='Sửa vai trò', role=role)
 
 
 
@@ -205,7 +205,7 @@ def edit_role_permissions(id):
         flash(f'Đã cập nhật quyền cho vai trò "{role.display_name}"', 'success')
         return redirect(url_for('admin.roles'))
 
-    return render_template('admin/edit_role_permissions.html',
+    return render_template('admin/phan_quyen/permissions.html',
                            role=role,
                            perms_by_category=perms_by_category,
                            current_perm_ids=current_perm_ids)
@@ -224,7 +224,7 @@ def permissions():
             perms_by_category[cat] = []
         perms_by_category[cat].append(perm)
 
-    return render_template('admin/permissions.html', perms_by_category=perms_by_category)
+    return render_template('admin/phan_quyen/permissions.html', perms_by_category=perms_by_category)
 
 # ==================== ROLES: ADD PERMISSIONS ====================
 @admin_bp.route('/permissions/add', methods=['GET', 'POST'])

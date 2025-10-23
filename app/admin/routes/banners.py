@@ -49,7 +49,7 @@ def banners():
     - Hiển thị preview ảnh desktop + mobile
     """
     banners = Banner.query.order_by(Banner.order).all()
-    return render_template('admin/banners.html', banners=banners)
+    return render_template('admin/banner/banners.html', banners=banners)
 
 
 # ==================== ADD ====================
@@ -71,7 +71,7 @@ def add_banner():
         image_path = get_image_from_form(form.image, 'image', folder='banners')
         if not image_path:
             flash('Vui lòng chọn hoặc upload ảnh banner!', 'danger')
-            return render_template('admin/banner_form.html', form=form, title='Thêm banner')
+            return render_template('admin/banner/banner_form.html', form=form, title='Thêm banner')
 
         # ✅ Upload ảnh Mobile (nếu có)
         image_mobile_path = None
@@ -95,7 +95,7 @@ def add_banner():
         flash('Đã thêm banner thành công!', 'success')
         return redirect(url_for('admin.banners'))
 
-    return render_template('admin/banner_form.html', form=form, title='Thêm banner')
+    return render_template('admin/banner/banner_form.html', form=form, title='Thêm banner')
 
 
 # ==================== EDIT ====================
@@ -151,7 +151,7 @@ def edit_banner(id):
         flash('Đã cập nhật banner thành công!', 'success')
         return redirect(url_for('admin.banners'))
 
-    return render_template('admin/banner_form.html', form=form, title='Sửa banner', banner=banner)
+    return render_template('admin/banner/banner_form.html', form=form, title='Sửa banner', banner=banner)
 
 
 

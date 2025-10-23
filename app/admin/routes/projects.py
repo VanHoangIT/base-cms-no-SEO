@@ -51,7 +51,7 @@ def projects():
     projects = Project.query.order_by(Project.created_at.desc()).paginate(
         page=page, per_page=20, error_out=False
     )
-    return render_template('admin/projects.html', projects=projects)
+    return render_template('admin/du_an/projects.html', projects=projects)
 
 
 
@@ -97,7 +97,7 @@ def add_project():
         flash('Đã thêm dự án thành công!', 'success')
         return redirect(url_for('admin.projects'))
 
-    return render_template('admin/project_form.html', form=form, title='Thêm dự án')
+    return render_template('admin/du_an/project_form.html', form=form, title='Thêm dự án')
 
 
 
@@ -138,7 +138,7 @@ def edit_project(id):
         flash('Đã cập nhật dự án thành công!', 'success')
         return redirect(url_for('admin.projects'))
 
-    return render_template('admin/project_form.html', form=form, title='Sửa dự án', project=project)
+    return render_template('admin/du_an/project_form.html', form=form, title='Sửa dự án', project=project)
 
 
 

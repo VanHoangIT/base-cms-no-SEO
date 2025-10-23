@@ -54,7 +54,7 @@ def contacts():
     contacts = Contact.query.order_by(Contact.created_at.desc()).paginate(
         page=page, per_page=20, error_out=False
     )
-    return render_template('admin/contacts.html', contacts=contacts)
+    return render_template('admin/lien_he/contacts.html', contacts=contacts)
 
 
 
@@ -80,7 +80,7 @@ def view_contact(id):
         contact.is_read = True
         db.session.commit()
 
-    return render_template('admin/contact_detail.html', contact=contact)
+    return render_template('admin/lien_he/contact_detail.html', contact=contact)
 
 
 # ==================== DELETE ====================

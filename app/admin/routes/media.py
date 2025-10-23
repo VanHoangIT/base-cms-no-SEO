@@ -68,7 +68,7 @@ def media():
     }
 
     return render_template(
-        'admin/media.html',
+        'admin/media/media.html',
         media_files=media_files,
         albums=albums,
         total_files=total_files,
@@ -159,7 +159,7 @@ def upload_media():
 
     # GET request - hiển thị form
     albums = get_albums()
-    return render_template('admin/upload_media.html', albums=albums)
+    return render_template('admin/media/media_upload.html', albums=albums)
 
 
 @admin_bp.route('/media/create-album', methods=['POST'])
@@ -287,7 +287,7 @@ def edit_media(id):
         if not media.alt_text:
             flash('Alt Text là bắt buộc cho SEO!', 'warning')
             albums = get_albums()
-            return render_template('admin/edit_media.html',
+            return render_template('admin/media/media_edit.html',
                                    media=media,
                                    form=form,
                                    albums=albums)
@@ -313,7 +313,7 @@ def edit_media(id):
 
     albums = get_albums()
 
-    return render_template('admin/edit_media.html',
+    return render_template('admin/media/media_edit.html',
                            media=media,
                            form=form,
                            albums=albums)

@@ -65,7 +65,7 @@ def jobs():
     jobs = Job.query.order_by(Job.created_at.desc()).paginate(
         page=page, per_page=20, error_out=False
     )
-    return render_template('admin/jobs.html', jobs=jobs)
+    return render_template('admin/tuyen_dung/jobs.html', jobs=jobs)
 
 
 
@@ -110,7 +110,7 @@ def add_job():
         flash('Đã thêm tin tuyển dụng thành công!', 'success')
         return redirect(url_for('admin.jobs'))
 
-    return render_template('admin/job_form.html', form=form, title='Thêm tin tuyển dụng')
+    return render_template('admin/tuyen_dung/job_form.html', form=form, title='Thêm tin tuyển dụng')
 
 
 
@@ -150,7 +150,7 @@ def edit_job(id):
         flash('Đã cập nhật tin tuyển dụng thành công!', 'success')
         return redirect(url_for('admin.jobs'))
 
-    return render_template('admin/job_form.html', form=form, title='Sửa tin tuyển dụng', job=job)
+    return render_template('admin/tuyen_dung/job_form.html', form=form, title='Sửa tin tuyển dụng', job=job)
 
 
 

@@ -32,7 +32,7 @@ def index():
     featured_projects = Project.query.filter_by(is_featured=True, is_active=True).order_by(
         Project.created_at.desc()).limit(6).all()
 
-    return render_template('index.html',
+    return render_template('public/index.html',
                            banners=banners,
                            featured_products=featured_products,
                            latest_products=latest_products,
@@ -43,10 +43,10 @@ def index():
 @main_bp.route('/gioi-thieu')
 def about():
     """Trang giới thiệu"""
-    return render_template('about.html')
+    return render_template('public/about.html')
 
 
 @main_bp.route('/chinh-sach')
 def policy():
     """Trang chính sách"""
-    return render_template('policy.html')
+    return render_template('public/policy.html')

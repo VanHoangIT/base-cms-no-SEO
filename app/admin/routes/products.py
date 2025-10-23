@@ -26,7 +26,7 @@ def products():
     products = Product.query.order_by(Product.created_at.desc()).paginate(
         page=page, per_page=20, error_out=False
     )
-    return render_template('admin/products.html', products=products)
+    return render_template('admin/san_pham/products.html', products=products)
 
 
 @admin_bp.route('/products/add', methods=['GET', 'POST'])
@@ -101,7 +101,7 @@ def add_product():
             db.session.rollback()
             flash(f'❌ Lỗi lưu sản phẩm: {str(e)}', 'danger')
 
-    return render_template('admin/product_form.html', form=form, title='Thêm sản phẩm')
+    return render_template('admin/san_pham/product_form.html', form=form, title='Thêm sản phẩm')
 
 
 @admin_bp.route('/products/edit/<int:id>', methods=['GET', 'POST'])
@@ -222,7 +222,7 @@ def edit_product(id):
             else:
                 form.technical_specs.data = product.technical_specs
 
-    return render_template('admin/product_form.html', form=form, title=f'Sửa sản phẩm: {product.name}', product=product)
+    return render_template('admin/san_pham/product_form.html', form=form, title=f'Sửa sản phẩm: {product.name}', product=product)
 
 
 @admin_bp.route('/products/delete/<int:id>')

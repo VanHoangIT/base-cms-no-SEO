@@ -256,4 +256,4 @@ def settings():
     form.contact_form.data = get_setting('contact_form', '')
     form.default_posts_per_page.data = int(get_setting('default_posts_per_page', '12'))
 
-    return render_template('admin/settings.html', form=form)
+    return render_template('admin/cai_dat/settings.html', form=form)

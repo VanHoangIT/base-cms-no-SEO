@@ -63,7 +63,7 @@ def quizzes():
         }
         quiz_stats.append(stats)
 
-    return render_template('admin/quiz/quizzes.html',
+    return render_template('admin/trac_nghiem/quizzes.html',
                            quizzes=quizzes,
                            quiz_stats=quiz_stats)
 
@@ -104,7 +104,7 @@ def add_quiz():
         flash(f'✅ Đã tạo quiz "{quiz.title}" thành công!', 'success')
         return redirect(url_for('quiz_admin.edit_questions', quiz_id=quiz.id))
 
-    return render_template('admin/quiz/quiz_form.html', form=form, title='Thêm Quiz')
+    return render_template('admin/trac_nghiem/quiz_form.html', form=form, title='Thêm Quiz')
 
 
 # ✨ QR_CACHE: Sửa hàm edit_quiz - update QR nếu slug thay đổi
@@ -139,7 +139,7 @@ def edit_quiz(id):
         flash('✅ Đã cập nhật quiz thành công!', 'success')
         return redirect(url_for('quiz_admin.quizzes'))
 
-    return render_template('admin/quiz/quiz_form.html',
+    return render_template('admin/trac_nghiem/quiz_form.html',
                            form=form,
                            quiz=quiz,
                            title=f'Sửa Quiz: {quiz.title}')
@@ -179,7 +179,7 @@ def edit_questions(quiz_id):
         .order_by(Question.order.asc()).all()
 
     return render_template(
-        'admin/quiz/questions.html',
+        'admin/trac_nghiem/questions.html',
         quiz=quiz,
         questions=questions
     )
@@ -295,7 +295,7 @@ def edit_question(id):
             traceback.print_exc()
 
     answers = question.answers.order_by(Answer.order).all()
-    return render_template('admin/quiz/question_form.html',
+    return render_template('admin/trac_nghiem/question_form.html',
                            question=question,
                            answers=answers)
 
@@ -357,7 +357,7 @@ def results():
 
     quizzes = Quiz.query.filter_by(is_active=True).all()
 
-    return render_template('admin/quiz/results.html',
+    return render_template('admin/trac_nghiem/results.html',
                            attempts=attempts,
                            quizzes=quizzes)
 
@@ -382,7 +382,7 @@ def view_result(attempt_id):
             'is_correct': user_answer.is_correct
         })
 
-    return render_template('admin/quiz/result_detail.html',
+    return render_template('admin/trac_nghiem/result_detail.html',
                            attempt=attempt,
                            questions_detail=questions_detail)
 
@@ -436,7 +436,7 @@ def statistics():
     passed_count = QuizAttempt.query.filter_by(is_completed=True, passed=True).count()
     failed_count = QuizAttempt.query.filter_by(is_completed=True, passed=False).count()
 
-    return render_template('admin/quiz/statistics.html',
+    return render_template('admin/trac_nghiem/statistics.html',
                            total_quizzes=total_quizzes,
                            total_questions=total_questions,
                            total_attempts=total_attempts,

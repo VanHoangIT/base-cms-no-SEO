@@ -173,20 +173,20 @@ def create_app(config_class=Config):
     @app.errorhandler(404)
     def not_found_error(error):
         from flask import render_template
-        return render_template('404.html'), 404
+        return render_template('errors/404.html'), 404
 
     @app.errorhandler(500)
     def internal_error(error):
         from flask import render_template
         db.session.rollback()
-        return render_template('500.html'), 500
+        return render_template('errors/500.html'), 500
 
     # Render đôi khi trả 502/503 khi cold start/quá tải
     @app.errorhandler(502)
     @app.errorhandler(503)
     def service_unavailable(error):
         from flask import render_template
-        return render_template('500.html'), 503
+        return render_template('errors/500.html'), 503
 
     @app.errorhandler(413)
     def request_entity_too_large(error):

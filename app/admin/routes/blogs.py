@@ -65,7 +65,7 @@ def blogs():
     blogs = Blog.query.order_by(Blog.created_at.desc()).paginate(
         page=page, per_page=20, error_out=False
     )
-    return render_template('admin/blogs.html', blogs=blogs)
+    return render_template('admin/tin_tuc/blogs.html', blogs=blogs)
 
 
 
@@ -96,7 +96,7 @@ def add_blog():
 
         return redirect(url_for('admin.blogs'))
 
-    return render_template('admin/blog_form.html', form=form, title='Thêm bài viết')
+    return render_template('admin/tin_tuc/blog_form.html', form=form, title='Thêm bài viết')
 
 
 
@@ -126,7 +126,7 @@ def edit_blog(id):
 
         return redirect(url_for('admin.blogs'))
 
-    return render_template('admin/blog_form.html', form=form, title='Sửa bài viết', blog=blog)
+    return render_template('admin/tin_tuc/blog_form.html', form=form, title='Sửa bài viết', blog=blog)
 
 
 # ==================== DELETE ====================

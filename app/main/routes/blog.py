@@ -54,7 +54,7 @@ def blog():
                       .filter_by(is_featured=True, is_active=True)
                       ).limit(5).all()
 
-    return render_template('blog.html',
+    return render_template('public/tin_tuc/blogs.html',
                            blogs=blogs,
                            pagination=pagination,
                            featured_blogs=featured_blogs,
@@ -80,7 +80,7 @@ def blog_detail(slug):
                      .order_by(Blog.created_at.desc())
                      ).limit(3).all()
 
-    return render_template('blog_detail.html',
+    return render_template('public/tin_tuc/blog_detail.html',
                            blog=blog,
                            related_blogs=related_blogs)
 
@@ -89,4 +89,4 @@ def blog_detail(slug):
 def faq():
     """Trang câu hỏi thường gặp"""
     faqs = FAQ.query.filter_by(is_active=True).order_by(FAQ.order).all()
-    return render_template('faq.html', faqs=faqs)
+    return render_template('public/faq.html', faqs=faqs)

@@ -40,7 +40,7 @@ def faqs():
     - Drag & drop để reorder (future feature)
     """
     faqs = FAQ.query.order_by(FAQ.order).all()
-    return render_template('admin/faqs.html', faqs=faqs)
+    return render_template('admin/faq/faqs.html', faqs=faqs)
 
 
 # ==================== ADD ====================
@@ -71,7 +71,7 @@ def add_faq():
         flash('Đã thêm FAQ thành công!', 'success')
         return redirect(url_for('admin.faqs'))
 
-    return render_template('admin/faq_form.html', form=form, title='Thêm FAQ')
+    return render_template('admin/faq/faq_form.html', form=form, title='Thêm FAQ')
 
 
 # ==================== EDIT ====================
@@ -98,7 +98,7 @@ def edit_faq(id):
         flash('Đã cập nhật FAQ thành công!', 'success')
         return redirect(url_for('admin.faqs'))
 
-    return render_template('admin/faq_form.html', form=form, title='Sửa FAQ')
+    return render_template('admin/faq/faq_form.html', form=form, title='Sửa FAQ')
 
 
 

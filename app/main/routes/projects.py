@@ -35,7 +35,7 @@ def projects():
                          .filter_by(is_featured=True, is_active=True)
                          ).limit(6).all()
 
-    return render_template('projects.html',
+    return render_template('public/du_an/projects.html',
                            projects=projects,
                            featured_projects=featured_projects,
                            project_types=PROJECT_TYPES,
@@ -61,6 +61,6 @@ def project_detail(slug):
     )
     ).limit(2).all()
 
-    return render_template('project_detail.html',
+    return render_template('public/du_an/project_detail.html',
                            project=project,
                            related=related)

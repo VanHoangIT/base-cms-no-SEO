@@ -26,5 +26,5 @@ def contact():
         flash('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất.', 'success')
         return redirect(url_for('main.contact'))
 
-    return render_template('contact.html', form=form)
+    return render_template('public/contact.html', form=form)
 

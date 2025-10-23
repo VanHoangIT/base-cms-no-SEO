@@ -58,4 +58,4 @@ def welcome():
     if current_user.has_any_permission('view_contacts', 'manage_contacts'):
         total_contacts = Contact.query.filter_by(is_read=False).count()
 
-    return render_template('admin/welcome.html', total_contacts=total_contacts)
+    return render_template('admin/auth/welcome.html', total_contacts=total_contacts)
