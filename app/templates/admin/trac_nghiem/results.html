@@ -88,13 +88,13 @@
                         <td>{{ attempt.get_time_spent_formatted() }}</td>
                         <td>{{ attempt.completed_at|vn_datetime_friendly }}</td>
                         <td>
-                            <a href="{{ url_for('quiz_admin.view_result', attempt_id=attempt.id) }}"
+                            <a href="{{ url_for('admin.view_result', attempt_id=attempt.id) }}"
                                class="btn btn-sm btn-info">
                                 <i class="bi bi-eye"></i> Chi Tiết
                             </a>
 
                             <form method="POST"
-                                  action="{{ url_for('quiz_admin.delete_attempt', attempt_id=attempt.id) }}"
+                                  action="{{ url_for('admin.delete_attempt', attempt_id=attempt.id) }}"
                                   style="display:inline;"
                                   onsubmit="return confirm('Bạn có chắc chắn muốn xóa kết quả này không?');">
                                 <button type="submit" class="btn btn-sm btn-danger">

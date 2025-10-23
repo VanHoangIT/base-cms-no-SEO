@@ -69,13 +69,10 @@ def create_app(config_class=Config):
     from app.main import main_bp
     from app.admin import admin_bp
     from app.chatbot import chatbot_bp
-    from app.quiz import quiz_bp, quiz_admin_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(chatbot_bp)
-    app.register_blueprint(quiz_bp)
-    app.register_blueprint(quiz_admin_bp)
 
     # ==================== GEMINI INIT ====================
     with app.app_context():

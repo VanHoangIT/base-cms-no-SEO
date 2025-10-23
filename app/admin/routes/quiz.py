@@ -10,22 +10,20 @@ Chức năng:
 Yêu cầu: Login và có quyền manage_quiz
 """
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-from flask_login import login_required, current_user
+from flask import render_template, request, flash, redirect, url_for, jsonify
+from flask_login import current_user
 from app import db
-from app.quiz.models import Quiz, Question, Answer, QuizAttempt, UserAnswer
+from app.models.quiz import Quiz, Question, Answer, QuizAttempt, UserAnswer
 from app.decorators import permission_required
+from app.admin import admin_bp
 from datetime import datetime
 from sqlalchemy import func
 
-quiz_admin_bp = Blueprint('quiz_admin', __name__, url_prefix='/admin/quiz')
 
 
 # ==================== QUẢN LÝ QUIZ ====================
 
-# ✨ QR_CACHE: Thay thế hàm quizzes() hoàn toàn (từ dòng @quiz_admin_bp.route('/quizzes'))
-
-@quiz_admin_bp.route('/quizzes')
+@admin_bp.route('/quizzes')
 @permission_required('manage_quiz')
 def quizzes():
     """
@@ -50,7 +48,7 @@ def quizzes():
         # ✨ QR_CACHE: QUAN TRỌNG - Tạo/Update QR code cache tại đây
         # Chỉ tạo 1 lần hoặc khi URL thay đổi
         from flask import url_for
-        quiz_url = url_for('quiz.quiz_take', slug=quiz.slug, _external=True)
+        quiz_url = url_for('main.quiz_take', slug=quiz.slug, _external=True)
         quiz.generate_or_get_qr_code(quiz_url)
 
         stats = {
@@ -69,7 +67,7 @@ def quizzes():
 
 
 # ✨ QR_CACHE: Sửa hàm add_quiz - tạo QR khi thêm quiz mới
-@quiz_admin_bp.route('/quizzes/add', methods=['GET', 'POST'])
+@admin_bp.route('/quizzes/add', methods=['GET', 'POST'])
 @permission_required('manage_quiz')
 def add_quiz():
     """✨ QR_CACHE: Thêm quiz mới + Generate QR ngay"""
@@ -98,17 +96,17 @@ def add_quiz():
         db.session.commit()
 
         # ✨ QR_CACHE: Tạo QR code ngay sau khi tạo quiz
-        quiz_url = url_for('quiz.quiz_take', slug=quiz.slug, _external=True)
+        quiz_url = url_for('main.quiz_take', slug=quiz.slug, _external=True)
         quiz.generate_or_get_qr_code(quiz_url)
 
         flash(f'✅ Đã tạo quiz "{quiz.title}" thành công!', 'success')
-        return redirect(url_for('quiz_admin.edit_questions', quiz_id=quiz.id))
+        return redirect(url_for('admin.edit_questions', quiz_id=quiz.id))
 
     return render_template('admin/trac_nghiem/quiz_form.html', form=form, title='Thêm Quiz')
 
 
 # ✨ QR_CACHE: Sửa hàm edit_quiz - update QR nếu slug thay đổi
-@quiz_admin_bp.route('/quizzes/edit/<int:id>', methods=['GET', 'POST'])
+@admin_bp.route('/quizzes/edit/<int:id>', methods=['GET', 'POST'])
 @permission_required('manage_quiz')
 def edit_quiz(id):
     """✨ QR_CACHE: Sửa quiz + Regenerate QR nếu slug thay đổi"""
@@ -133,11 +131,11 @@ def edit_quiz(id):
         db.session.commit()
 
         # ✨ QR_CACHE: Nếu slug thay đổi, regenerate QR code
-        quiz_url = url_for('quiz.quiz_take', slug=quiz.slug, _external=True)
+        quiz_url = url_for('main.quiz_take', slug=quiz.slug, _external=True)
         quiz.generate_or_get_qr_code(quiz_url)
 
         flash('✅ Đã cập nhật quiz thành công!', 'success')
-        return redirect(url_for('quiz_admin.quizzes'))
+        return redirect(url_for('admin.quizzes'))
 
     return render_template('admin/trac_nghiem/quiz_form.html',
                            form=form,
@@ -145,7 +143,7 @@ def edit_quiz(id):
                            title=f'Sửa Quiz: {quiz.title}')
 
 
-@quiz_admin_bp.route('/quizzes/delete/<int:id>')
+@admin_bp.route('/quizzes/delete/<int:id>')
 @permission_required('manage_quiz')
 def delete_quiz(id):
     """Xóa quiz"""
@@ -154,18 +152,18 @@ def delete_quiz(id):
     # Kiểm tra có attempt nào chưa
     if quiz.attempts.count() > 0:
         flash('⚠️ Không thể xóa quiz đã có người làm bài! Hãy vô hiệu hóa thay vì xóa.', 'warning')
-        return redirect(url_for('quiz_admin.quizzes'))
+        return redirect(url_for('admin.quizzes'))
 
     db.session.delete(quiz)
     db.session.commit()
 
     flash('✅ Đã xóa quiz thành công!', 'success')
-    return redirect(url_for('quiz_admin.quizzes'))
+    return redirect(url_for('admin.quizzes'))
 
 
 # ==================== QUẢN LÝ QUESTIONS & ANSWERS ====================
 
-@quiz_admin_bp.route('/quizzes/<int:quiz_id>/questions', methods=['GET', 'POST'])
+@admin_bp.route('/quizzes/<int:quiz_id>/questions', methods=['GET', 'POST'])
 @permission_required('manage_quiz')
 def edit_questions(quiz_id):
     """
@@ -186,7 +184,7 @@ def edit_questions(quiz_id):
 
 
 
-@quiz_admin_bp.route('/questions/add', methods=['POST'])
+@admin_bp.route('/questions/add', methods=['POST'])
 @permission_required('manage_quiz')
 def add_question():
     print("=== DEBUG FORM DATA ===")
@@ -201,12 +199,12 @@ def add_question():
     # Kiểm tra dữ liệu tối thiểu
     if not quiz_id or not question_text or len(question_text.strip()) < 1:
         flash('❌ Dữ liệu không hợp lệ (thiếu quiz_id hoặc nội dung câu hỏi)!', 'danger')
-        return redirect(url_for('quiz_admin.edit_questions', quiz_id=quiz_id))
+        return redirect(url_for('admin.edit_questions', quiz_id=quiz_id))
 
     quiz = Quiz.query.get(quiz_id)
     if not quiz:
         flash('❌ Quiz không tồn tại!', 'danger')
-        return redirect(url_for('quiz_admin.quizzes'))
+        return redirect(url_for('admin.quizzes'))
 
     # Tạo câu hỏi
     question = Question(
@@ -238,10 +236,10 @@ def add_question():
     db.session.commit()
 
     flash('✅ Đã thêm câu hỏi thành công!', 'success')
-    return redirect(url_for('quiz_admin.edit_questions', quiz_id=quiz.id))
+    return redirect(url_for('admin.edit_questions', quiz_id=quiz.id))
 
 
-@quiz_admin_bp.route('/questions/edit/<int:id>', methods=['GET', 'POST'])
+@admin_bp.route('/questions/edit/<int:id>', methods=['GET', 'POST'])
 @permission_required('manage_quiz')
 def edit_question(id):
     """Sửa câu hỏi - Xóa user_answers nếu cần"""
@@ -256,7 +254,7 @@ def edit_question(id):
 
             if not question.question_text:
                 flash('❌ Nội dung câu hỏi không được để trống!', 'danger')
-                return redirect(url_for('quiz_admin.edit_question', id=id))
+                return redirect(url_for('admin.edit_question', id=id))
 
             correct_index = int(request.form.get('correct_answer', 0))
             answers_data = request.form.getlist('answers[]')
@@ -264,7 +262,7 @@ def edit_question(id):
             valid_answers = [a.strip() for a in answers_data if a.strip()]
             if len(valid_answers) < 2:
                 flash('❌ Phải có ít nhất 2 đáp án!', 'danger')
-                return redirect(url_for('quiz_admin.edit_question', id=id))
+                return redirect(url_for('admin.edit_question', id=id))
 
             # ✅ XÓA USER_ANSWERS TRƯỚC (nếu có)
             UserAnswer.query.filter_by(question_id=question.id).delete()
@@ -285,7 +283,7 @@ def edit_question(id):
 
             db.session.commit()
             flash('✅ Đã cập nhật câu hỏi thành công!', 'success')
-            return redirect(url_for('quiz_admin.edit_questions', quiz_id=question.quiz_id))
+            return redirect(url_for('admin.edit_questions', quiz_id=question.quiz_id))
 
         except Exception as e:
             db.session.rollback()
@@ -300,7 +298,7 @@ def edit_question(id):
                            answers=answers)
 
 
-@quiz_admin_bp.route('/questions/delete/<int:id>')
+@admin_bp.route('/questions/delete/<int:id>')
 @permission_required('manage_quiz')
 def delete_question(id):
     """Xóa câu hỏi"""
@@ -316,12 +314,12 @@ def delete_question(id):
     db.session.commit()
 
     flash('✅ Đã xóa câu hỏi thành công!', 'success')
-    return redirect(url_for('quiz_admin.edit_questions', quiz_id=quiz_id))
+    return redirect(url_for('admin.edit_questions', quiz_id=quiz_id))
 
 
 # ==================== XEM KẾT QUẢ CỦA ỨNG VIÊN ====================
 
-@quiz_admin_bp.route('/results')
+@admin_bp.route('/results')
 @permission_required('manage_quiz')
 def results():
     """
@@ -362,7 +360,7 @@ def results():
                            quizzes=quizzes)
 
 
-@quiz_admin_bp.route('/results/<int:attempt_id>')
+@admin_bp.route('/results/<int:attempt_id>')
 @permission_required('manage_quiz')
 def view_result(attempt_id):
     """Xem chi tiết kết quả của 1 lượt làm bài"""
@@ -387,10 +385,11 @@ def view_result(attempt_id):
                            questions_detail=questions_detail)
 
 # ==================== XOÁ KẾT QUẢ ỨNG VIÊN ====================
-@quiz_admin_bp.route('/results/<int:attempt_id>/delete', methods=['POST'])
+@admin_bp.route('/results/<int:attempt_id>/delete', methods=['POST'])
+@permission_required('manage_quiz')
 def delete_attempt(attempt_id):
     """Xóa kết quả làm bài (QuizAttempt)"""
-    from app.quiz.models import QuizAttempt, UserAnswer
+    from app.models.quiz import QuizAttempt, UserAnswer
     from app import db
 
     attempt = QuizAttempt.query.get_or_404(attempt_id)
@@ -403,13 +402,13 @@ def delete_attempt(attempt_id):
     db.session.commit()
 
     flash(f'✅ Đã xóa kết quả của "{attempt.user_name}"', 'success')
-    return redirect(url_for('quiz_admin.results'))
+    return redirect(url_for('admin.results'))
 
 
 
 # ==================== THỐNG KÊ CHI TIẾT ====================
 
-@quiz_admin_bp.route('/statistics')
+@admin_bp.route('/statistics')
 @permission_required('manage_quiz')
 def statistics():
     """

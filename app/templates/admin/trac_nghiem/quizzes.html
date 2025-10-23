@@ -39,7 +39,7 @@
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0"><i class="bi bi-card-list me-2"></i> Quản lý Test</h2>
-        <a href="{{ url_for('quiz_admin.add_quiz') }}" class="btn btn-primary">
+        <a href="{{ url_for('admin.add_quiz') }}" class="btn btn-primary">
             <i class="bi bi-plus-circle"></i> Thêm Quiz Mới
         </a>
     </div>
@@ -88,22 +88,22 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ url_for('quiz_admin.edit_quiz', id=quiz.id) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ url_for('admin.edit_quiz', id=quiz.id) }}" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
                             </a>
 
-                            <a href="{{ url_for('quiz_admin.edit_questions', quiz_id=quiz.id) }}" class="btn btn-sm btn-info">
+                            <a href="{{ url_for('admin.edit_questions', quiz_id=quiz.id) }}" class="btn btn-sm btn-info">
                                 <i class="bi bi-question-circle"></i>
                             </a>
 
                             <!-- ✨ QR_CACHE: Nút xem QR - KHÔNG TẠO QR MỚI NỮA -->
                             <!-- Chỉ gọi hàm pass dữ liệu (QR từ DB + link) -->
                             <button class="btn btn-sm btn-success"
-                                    onclick="showSurveyModal('{{ quiz.get_qr_code_data_url() }}', '{{ quiz.title|escape }}', '{{ url_for('quiz.quiz_take', slug=quiz.slug, _external=True) }}')">
+                                    onclick="showSurveyModal('{{ quiz.get_qr_code_data_url() }}', '{{ quiz.title|escape }}', '{{ url_for('main.quiz_take', slug=quiz.slug, _external=True) }}')">
                                 <i class="bi bi-eye"></i>
                             </button>
 
-                            <a href="{{ url_for('quiz_admin.delete_quiz', id=quiz.id) }}" class="btn btn-sm btn-danger"
+                            <a href="{{ url_for('admin.delete_quiz', id=quiz.id) }}" class="btn btn-sm btn-danger"
                                onclick="return confirm('Xác nhận xóa?')">
                                <i class="bi bi-trash"></i>
                             </a>

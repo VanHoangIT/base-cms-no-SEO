@@ -23,6 +23,7 @@ from app.admin.routes import (
     faqs,
     projects,
     jobs,
+    quiz,
     users,
     contacts,
     media,

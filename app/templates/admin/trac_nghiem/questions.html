@@ -26,7 +26,7 @@
         <h2 class="mb-0"><i class="bi bi-question-circle me-2"></i> Câu Hỏi cho Quiz: {{ quiz.title }}</h2>
         <div class="d-flex gap-2">
             <!-- 🔙 Quay lại -->
-            <a href="{{ url_for('quiz_admin.quizzes') }}" class="btn btn-secondary">
+            <a href="{{ url_for('admin.quizzes') }}" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Quay lại
             </a>
         </div>
@@ -36,7 +36,7 @@
     <div class="card mb-4">
         <div class="card-header bg-warning text-dark">Thêm Câu Hỏi Mới</div>
         <div class="card-body">
-            <form method="POST" action="{{ url_for('quiz_admin.add_question') }}">
+            <form method="POST" action="{{ url_for('admin.add_question') }}">
                 <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
                 <div class="mb-3">
                     <label class="form-label">Câu Hỏi</label>
@@ -84,8 +84,8 @@
                     <div class="question-header d-flex justify-content-between align-items-center">
                         <strong>Câu {{ loop.index }}:</strong>
                         <div>
-                            <a href="{{ url_for('quiz_admin.edit_question', id=question.id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
-                            <a href="{{ url_for('quiz_admin.delete_question', id=question.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Xác nhận xóa?')"><i class="bi bi-trash"></i></a>
+                            <a href="{{ url_for('admin.edit_question', id=question.id) }}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                            <a href="{{ url_for('admin.delete_question', id=question.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Xác nhận xóa?')"><i class="bi bi-trash"></i></a>
                         </div>
                     </div>
                     <div class="card-body">

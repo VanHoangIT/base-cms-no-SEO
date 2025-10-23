@@ -1,10 +1,10 @@
 """
-Status: 200 (OK), 302 (Redirect to login), 401/403 (Unauthorized)
-
+🧪 TEST ADMIN ROUTES (Login as admin@example.com)
 Chạy: python test/test_admin_routes.py
 """
 
 import sys
+import re
 import requests
 from requests.exceptions import RequestException
 
@@ -19,64 +19,37 @@ class Colors:
 
 
 BASE_URL = "http://localhost:5000"
+LOGIN_URL = f"{BASE_URL}/admin/login"
+USERNAME = "admin@example.com"
+PASSWORD = "admin123"
 
 # Danh sách routes admin cần test
 ADMIN_ROUTES = [
-    # Auth
-    ("/admin/login", "🔐 Login", "GET"),
-
-    # Dashboard
     ("/admin/dashboard", "📊 Dashboard", "GET"),
     ("/admin/welcome", "👋 Welcome", "GET"),
-
-    # Banners
     ("/admin/banners", "🎨 Danh sách Banner", "GET"),
     ("/admin/banners/add", "➕ Thêm Banner", "GET"),
-
-    # Blogs
     ("/admin/blogs", "📝 Danh sách Blog", "GET"),
     ("/admin/blogs/add", "➕ Thêm Blog", "GET"),
-
-    # Categories
     ("/admin/categories", "📁 Danh mục", "GET"),
     ("/admin/categories/add", "➕ Thêm Danh mục", "GET"),
-
-    # Products
     ("/admin/products", "🛍️ Sản phẩm", "GET"),
     ("/admin/products/add", "➕ Thêm Sản phẩm", "GET"),
-
-    # Projects
     ("/admin/projects", "🏗️ Dự án", "GET"),
     ("/admin/projects/add", "➕ Thêm Dự án", "GET"),
-
-    # Jobs
     ("/admin/jobs", "💼 Tuyển dụng", "GET"),
     ("/admin/jobs/add", "➕ Thêm Tuyển dụng", "GET"),
-
-    # FAQs
     ("/admin/faqs", "❓ FAQ", "GET"),
     ("/admin/faqs/add", "➕ Thêm FAQ", "GET"),
-
-    # Contacts
     ("/admin/contacts", "📧 Liên hệ", "GET"),
-
-    # Media
     ("/admin/media", "🖼️ Thư viện Media", "GET"),
     ("/admin/media/upload", "⬆️ Upload Media", "GET"),
-
-    # Users
     ("/admin/users", "👥 Người dùng", "GET"),
     ("/admin/users/add", "➕ Thêm User", "GET"),
-
-    # Roles & Permissions
     ("/admin/roles", "🔑 Vai trò", "GET"),
     ("/admin/roles/add", "➕ Thêm Vai trò", "GET"),
     ("/admin/permissions", "🔐 Quyền hạn", "GET"),
-
-    # Settings
     ("/admin/settings", "⚙️ Cài đặt", "GET"),
-
-    # Quiz
     ("/admin/quizzes", "📝 Quản lý Quiz", "GET"),
     ("/admin/quizzes/add", "➕ Thêm Quiz", "GET"),
     ("/admin/results", "📊 Kết quả Quiz", "GET"),
@@ -87,67 +60,81 @@ def check_server():
     """Kiểm tra server có chạy không"""
     try:
         response = requests.get(BASE_URL, timeout=5)
-        return True
+        return response.status_code == 200 or response.status_code == 302
     except RequestException:
         return False
 
 
-def test_route(route, name, method):
-    """
-    Test một route admin
-    Chấp nhận: 200 (OK), 302 (Redirect to login), 401/403 (Unauthorized)
-    """
-    url = BASE_URL + route
+def get_csrf_token(html):
+    """Trích xuất CSRF token từ form login"""
+    match = re.search(r'name="csrf_token" type="hidden" value="([^"]+)"', html)
+    return match.group(1) if match else None
+
+
+def login_as_admin(session):
+    """Đăng nhập bằng tài khoản admin"""
+    print(f"{Colors.BLUE}🔑 Đang đăng nhập với admin@example.com...{Colors.END}")
 
     try:
-        if method == "GET":
-            response = requests.get(url, timeout=10, allow_redirects=False)
-        else:
-            response = requests.post(url, timeout=10, allow_redirects=False)
+        # Lấy trang login để có CSRF token
+        r = session.get(LOGIN_URL, timeout=10)
+        token = get_csrf_token(r.text)
 
-        status = response.status_code
+        if not token:
+            print(f"{Colors.RED}❌ Không tìm thấy CSRF token trong form login.{Colors.END}")
+            return False
 
-        # Status codes được chấp nhận
-        if status == 200:
-            print(f"{Colors.GREEN}✅{Colors.END} {name:<40} {Colors.CYAN}{url}{Colors.END}")
+        payload = {
+            "email": USERNAME,
+            "password": PASSWORD,
+            "csrf_token": token,
+            "submit": "Đăng nhập"
+        }
+
+        res = session.post(LOGIN_URL, data=payload, allow_redirects=False, timeout=10)
+
+        if res.status_code in [302, 303]:
+            print(f"{Colors.GREEN}✅ Đăng nhập thành công (redirect).{Colors.END}")
             return True
-        elif status == 302:
-            # Redirect (thường là chưa login)
-            location = response.headers.get('Location', '')
-            if '/admin/login' in location or 'login' in location.lower():
-                print(f"{Colors.GREEN}✅{Colors.END} {name:<40} {Colors.YELLOW}(→ Login required){Colors.END}")
-                return True
-            else:
-                print(f"{Colors.GREEN}✅{Colors.END} {name:<40} {Colors.YELLOW}(→ Redirect){Colors.END}")
-                return True
-        elif status in [401, 403]:
-            # Unauthorized/Forbidden (cũng OK - route tồn tại nhưng không có quyền)
-            print(f"{Colors.GREEN}✅{Colors.END} {name:<40} {Colors.YELLOW}(🔒 No permission){Colors.END}")
+        elif res.status_code == 200 and "dashboard" in res.text.lower():
+            print(f"{Colors.GREEN}✅ Đăng nhập thành công (OK).{Colors.END}")
             return True
-        elif status == 404:
-            print(f"{Colors.RED}❌{Colors.END} {name:<40} {Colors.RED}404 Not Found{Colors.END}")
-            return False
-        elif status == 500:
-            print(f"{Colors.RED}❌{Colors.END} {name:<40} {Colors.RED}500 Server Error{Colors.END}")
-            return False
         else:
-            print(f"{Colors.YELLOW}⚠️{Colors.END} {name:<40} {Colors.YELLOW}Status: {status}{Colors.END}")
+            print(f"{Colors.RED}❌ Đăng nhập thất bại. Kiểm tra credentials hoặc CSRF field name.{Colors.END}")
             return False
 
     except RequestException as e:
-        print(f"{Colors.RED}❌{Colors.END} {name:<40} {Colors.RED}Connection error{Colors.END}")
+        print(f"{Colors.RED}❌ Lỗi kết nối khi đăng nhập: {e}{Colors.END}")
+        return False
+
+
+def test_route(session, route, name, method):
+    """Test một route admin"""
+    url = BASE_URL + route
+    try:
+        response = session.get(url, allow_redirects=False, timeout=10)
+        status = response.status_code
+
+        if status == 200:
+            print(f"{Colors.GREEN}✅{Colors.END} {name:<40} {Colors.CYAN}{url}{Colors.END}")
+            return True
+        elif status == 302 and '/login' in response.headers.get('Location', ''):
+            print(f"{Colors.YELLOW}⚠️ {name:<40} (Redirect to login){Colors.END}")
+            return False
+        else:
+            print(f"{Colors.YELLOW}⚠️ {name:<40} Status: {status}{Colors.END}")
+            return False
+
+    except RequestException:
+        print(f"{Colors.RED}❌ {name:<40} Connection error{Colors.END}")
         return False
 
 
 def main():
     print("\n" + "=" * 80)
-    print(f"{Colors.BLUE}🧪 TEST ADMIN ROUTES {Colors.END}")
+    print(f"{Colors.BLUE}🧪 TEST ADMIN ROUTES (Login as admin@example.com){Colors.END}")
     print("=" * 80 + "\n")
 
-    print(f"🌐 Server URL: {Colors.CYAN}{BASE_URL}{Colors.END}\n")
-
-    # Check server
-    print("🔍 Kiểm tra server...")
     if not check_server():
         print(f"{Colors.RED}❌ Server không chạy tại {BASE_URL}{Colors.END}")
         print(f"{Colors.YELLOW}💡 Vui lòng chạy: flask run hoặc python run.py{Colors.END}\n")
@@ -155,8 +142,13 @@ def main():
 
     print(f"{Colors.GREEN}✅ Server đang chạy{Colors.END}\n")
 
+    session = requests.Session()
+
+    if not login_as_admin(session):
+        sys.exit(1)
+
     # Test routes
-    print("=" * 80)
+    print("\n" + "=" * 80)
     print(f"{Colors.BLUE}📍 TEST ADMIN ROUTES{Colors.END}")
     print("=" * 80 + "\n")
 
@@ -164,29 +156,26 @@ def main():
     failed = 0
 
     for route, name, method in ADMIN_ROUTES:
-        if test_route(route, name, method):
+        if test_route(session, route, name, method):
             passed += 1
         else:
             failed += 1
 
-    # Summary
+    total = len(ADMIN_ROUTES)
     print("\n" + "=" * 80)
     print(f"{Colors.BLUE}📊 KẾT QUẢ TEST{Colors.END}")
     print("=" * 80 + "\n")
 
-    total = len(ADMIN_ROUTES)
     print(f"  {Colors.GREEN}✅ Passed: {passed}/{total}{Colors.END}")
     print(f"  {Colors.RED}❌ Failed: {failed}/{total}{Colors.END}")
-
     if failed > 0:
-        percentage = (passed / total) * 100
-        print(f"  {Colors.YELLOW}📈 Success rate: {percentage:.1f}%{Colors.END}")
+        print(f"  {Colors.YELLOW}📈 Success rate: {(passed / total) * 100:.1f}%{Colors.END}")
 
     print(f"\n{'=' * 80}")
     if failed == 0:
-        print(f"{Colors.GREEN}🎉 TẤT CẢ ADMIN ROUTES ĐỀU HOẠT ĐỘNG TỐT!{Colors.END}")
+        print(f"{Colors.GREEN}🎉 TẤT CẢ ADMIN ROUTES HOẠT ĐỘNG TỐT!{Colors.END}")
     else:
-        print(f"{Colors.RED}⚠️  CÓ {failed} ROUTES BỊ LỖI - KIỂM TRA LẠI!{Colors.END}")
+        print(f"{Colors.RED}⚠️ CÓ {failed} ROUTES LỖI - KIỂM TRA LẠI!{Colors.END}")
     print(f"{'=' * 80}\n")
 
     return 0 if failed == 0 else 1
@@ -194,8 +183,7 @@ def main():
 
 if __name__ == '__main__':
     try:
-        exit_code = main()
-        sys.exit(exit_code)
+        sys.exit(main())
     except KeyboardInterrupt:
         print(f"\n{Colors.YELLOW}⚠️  Test bị hủy bởi user{Colors.END}\n")
         sys.exit(1)

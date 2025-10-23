@@ -7,16 +7,15 @@ Chức năng:
 3. Làm bài quiz
 4. Nộp bài và xem kết quả
 """
-
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import render_template, request, redirect, url_for, flash, session, jsonify
 from app import db
-from app.quiz.models import Quiz, Question, Answer, QuizAttempt, UserAnswer
+from app.models.quiz import Quiz, Question, Answer, QuizAttempt, UserAnswer
+from app.main import main_bp
 from datetime import datetime
 import random
 
-quiz_bp = Blueprint('quiz', __name__, url_prefix='/quiz')
 # ==================== TRANG NHẬP THÔNG TIN TRƯỚC KHI LÀM BÀI ====================
-@quiz_bp.route('/<slug>/start', methods=['GET', 'POST'])
+@main_bp.route('/<slug>/start', methods=['GET', 'POST'])
 def quiz_start(slug):
     """
     Trang nhập thông tin trước khi làm bài
@@ -54,13 +53,13 @@ def quiz_start(slug):
         session['quiz_start_time'] = datetime.utcnow().isoformat()
 
         flash(f'Chào {user_name}! Bắt đầu làm bài "{quiz.title}"', 'success')
-        return redirect(url_for('quiz.quiz_take', slug=slug))
+        return redirect(url_for('main.quiz_take', slug=slug))
 
     return render_template('public/trac_nghiem/start.html', quiz=quiz)
 
 
 # ==================== TRANG LÀM BÀI ====================
-@quiz_bp.route('/<slug>/take')
+@main_bp.route('/<slug>/take')
 def quiz_take(slug):
     """
     Trang làm bài quiz - Giao diện giống ảnh mẫu
@@ -72,18 +71,18 @@ def quiz_take(slug):
     attempt_id = session.get('current_attempt_id')
     if not attempt_id:
         flash('Vui lòng nhập thông tin để bắt đầu làm bài!', 'warning')
-        return redirect(url_for('quiz.quiz_start', slug=slug))
+        return redirect(url_for('main.quiz_start', slug=slug))
 
     attempt = QuizAttempt.query.get(attempt_id)
     if not attempt or attempt.quiz_id != quiz.id:
         flash('Phiên làm bài không hợp lệ!', 'danger')
         session.pop('current_attempt_id', None)
-        return redirect(url_for('quiz.quiz_start', slug=slug))
+        return redirect(url_for('main.quiz_start', slug=slug))
 
     # Kiểm tra đã hoàn thành chưa
     if attempt.is_completed:
         flash('Bạn đã hoàn thành bài quiz này rồi!', 'info')
-        return redirect(url_for('quiz.quiz_result', attempt_id=attempt.id))
+        return redirect(url_for('main.quiz_result', attempt_id=attempt.id))
 
     # Lấy danh sách câu hỏi
     questions = quiz.questions.order_by(Question.order).all()
@@ -116,7 +115,7 @@ def quiz_take(slug):
 
 
 # ==================== LƯU CÂU TRẢ LỜI (AJAX) ====================
-@quiz_bp.route('/answer', methods=['POST'])
+@main_bp.route('/answer', methods=['POST'])
 def save_answer():
     """
     API lưu câu trả lời của user (AJAX)
@@ -178,7 +177,7 @@ def save_answer():
 
 
 # ==================== NỘP BÀI ====================
-@quiz_bp.route('/submit', methods=['POST'])
+@main_bp.route('/submit', methods=['POST'])
 def submit_quiz():
     """
     Nộp bài và chuyển đến trang kết quả
@@ -187,12 +186,12 @@ def submit_quiz():
 
     if not attempt_id:
         flash('Phiên làm bài không hợp lệ!', 'danger')
-        return redirect(url_for('quiz.quiz_list'))
+        return redirect(url_for('main.quiz_list'))
 
     attempt = QuizAttempt.query.get(attempt_id)
     if not attempt or attempt.is_completed:
         flash('Bài quiz này đã được nộp rồi!', 'info')
-        return redirect(url_for('quiz.quiz_result', attempt_id=attempt.id))
+        return redirect(url_for('main.quiz_result', attempt_id=attempt.id))
 
     # Tính thời gian làm bài
     start_time = datetime.fromisoformat(session.get('quiz_start_time'))
@@ -213,11 +212,11 @@ def submit_quiz():
     db.session.commit()
 
     flash('Đã nộp bài thành công!', 'success')
-    return redirect(url_for('quiz.quiz_result', attempt_id=attempt.id))
+    return redirect(url_for('main.quiz_result', attempt_id=attempt.id))
 
 
 # ==================== TRANG KẾT QUẢ ====================
-@quiz_bp.route('/result/<int:attempt_id>')
+@main_bp.route('/result/<int:attempt_id>')
 def quiz_result(attempt_id):
     """
     Trang kết quả sau khi nộp bài
@@ -227,7 +226,7 @@ def quiz_result(attempt_id):
 
     if not attempt.is_completed:
         flash('Bài quiz chưa được hoàn thành!', 'warning')
-        return redirect(url_for('quiz.quiz_take', slug=attempt.quiz.slug))
+        return redirect(url_for('main.quiz_take', slug=attempt.quiz.slug))
 
     quiz = attempt.quiz
 

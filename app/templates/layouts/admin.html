@@ -323,16 +323,16 @@
             <div class="sidebar-section-title">Quiz/Test</div>
 
             <li class="nav-item">
-                <a class="nav-link {% if request.endpoint == 'quiz_admin.quizzes' %}active{% endif %}"
-                   href="{{ url_for('quiz_admin.quizzes') }}">
+                <a class="nav-link {% if request.endpoint == 'admin.quizzes' %}active{% endif %}"
+                   href="{{ url_for('admin.quizzes') }}">
                     <i class="bi bi-card-checklist"></i> Quản lý Câu hỏi
                 </a>
             </li>
 
             {% if current_user.has_permission('manage_quiz') %}
             <li class="nav-item">
-                <a class="nav-link {% if request.endpoint == 'quiz_admin.results' %}active{% endif %}"
-                   href="{{ url_for('quiz_admin.results') }}">
+                <a class="nav-link {% if request.endpoint == 'admin.results' %}active{% endif %}"
+                   href="{{ url_for('admin.results') }}">
                     <i class="bi bi-clipboard-data"></i> Kết quả ứng viên
                 </a>
             </li>

@@ -396,7 +396,7 @@
             </div>
 
             <!-- Submit Button -->
-            <form method="POST" action="{{ url_for('quiz.submit_quiz') }}" id="submit-form">
+            <form method="POST" action="{{ url_for('main.submit_quiz') }}" id="submit-form">
                 <button type="button" class="submit-quiz-btn" onclick="confirmSubmit()">
                     <i class="bi bi-send"></i> NỘP BÀI
                 </button>
@@ -466,7 +466,7 @@ document.querySelectorAll('.answer-option').forEach(option => {
 
 // ==================== SAVE ANSWER (AJAX) ====================
 function saveAnswer(questionId, answerId) {
-    fetch('{{ url_for("quiz.save_answer") }}', {
+    fetch('{{ url_for("main.save_answer") }}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -11,5 +11,6 @@ from app.main.routes import (
     contact,
     projects,
     careers,
+    quiz,
     misc
 )

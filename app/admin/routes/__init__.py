@@ -23,6 +23,7 @@ from . import blogs             # 📝 Blogs CRUD + SEO
 from . import faqs              # ❓ FAQs CRUD
 from . import projects          # 🏗️ Projects CRUD
 from . import jobs              # 💼 Jobs/Careers CRUD
+from . import quiz              # 💼 Quiz CRUD
 
 # ==================== 4. USER & CONTACT MANAGEMENT ====================
 from . import users             # 👥 Users CRUD với RBAC
@@ -48,6 +49,7 @@ __all__ = [
     'faqs',
     'projects',
     'jobs',
+    'quiz',
     'users',
     'contacts',
     'media',
