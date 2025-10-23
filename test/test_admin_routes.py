@@ -1,7 +1,7 @@
 """
 Status: 200 (OK), 302 (Redirect to login), 401/403 (Unauthorized)
 
-Chạy: python test_admin_routes.py
+Chạy: python test/test_admin_routes.py
 """
 
 import sys

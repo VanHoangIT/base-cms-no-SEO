@@ -1,5 +1,5 @@
 """
-Chạy: python test_main_routes.py
+Chạy: python test/test_main_routes.py
 """
 
 import sys
