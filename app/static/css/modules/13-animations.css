@@ -1,0 +1,22 @@
+/* ==================== CSS ANIMATIONS ====================
+ * File: 13-animations.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== UTILITY ANIMATIONS ==================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  animation: fadeInUp 0.6s ease;
+}
+

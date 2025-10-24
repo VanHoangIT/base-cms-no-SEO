@@ -1,0 +1,108 @@
+/* ==================== FOOTER STYLES ====================
+ * File: 12-footer.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== FOOTER ==================== */
+footer {
+  background: linear-gradient(180deg, #212529 0%, #1a1d20 100%);
+  padding: 2.75rem 0;
+}
+
+footer h5 {
+  color: #ffc107;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+footer h5::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #ffc107;
+}
+
+footer p,
+footer li,
+footer a {
+  color: #adb5bd;
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+
+footer a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+footer a:hover {
+  color: #ffc107 !important;
+  padding-left: 5px;
+}
+
+footer .social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background-color: #343a40;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+footer .social-links a:hover {
+  background-color: #ffc107;
+  color: #212529 !important;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+footer hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 1;
+  margin: 2rem 0 1.5rem;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  margin-bottom: 0.5rem;
+}
+
+footer ul li:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 767.98px) {
+  footer .row > [class*="col-"] {
+    text-align: center !important;
+  }
+
+  footer .row .text-md-start {
+    text-align: center !important;
+  }
+
+  footer .row .text-md-end {
+    text-align: center !important;
+  }
+
+  footer ul li {
+    text-align: center;
+  }
+}
+

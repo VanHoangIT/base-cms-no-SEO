@@ -1,0 +1,39 @@
+/* ==================== CUSTOM SCROLLBAR ====================
+ * File: 15-scrollbar.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== CUSTOM SCROLLBAR ẨN ĐANG TẮT ====================
+::-webkit-scrollbar {
+  width: 0px;
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none;
+} */
+
+/* ==================== CUSTOM SCROLLBAR ==================== */
+::-webkit-scrollbar {
+  width: 8px; /* Độ rộng thanh cuộn */
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Nền của vùng cuộn */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bfbfbf; /* Màu xám nhạt cho thanh kéo */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a6a6a6; /* Màu đậm hơn khi hover */
+}
+

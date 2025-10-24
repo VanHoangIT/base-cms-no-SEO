@@ -1,0 +1,78 @@
+/* ==================== FLOATING ACTION BUTTONS ====================
+ * File: 09-floating-buttons.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== FLOATING ACTION BUTTONS ==================== */
+.floating-buttons {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1030;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.floating-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: pulse 2.5s infinite ease-in-out;
+  border: none;
+  cursor: pointer;
+  z-index: 1030;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  animation: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.zalo-btn {
+  background: linear-gradient(135deg, #0068ff, #0084ff);
+}
+
+.phone-btn {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+}
+
+.messenger-btn {
+  background: linear-gradient(135deg, #00b2ff, #006aff);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 3px 15px rgba(255, 193, 7, 0.4),
+      0 0 0 6px rgba(255, 193, 7, 0.1);
+    transform: scale(1.03);
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-buttons {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .floating-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+}
+

@@ -1,0 +1,19 @@
+/* ==================== CAROUSEL DOTS OVERRIDE ====================
+ * File: 23-carousel-dots.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== FORCE ROUND DOTS - MUST BE AT END OF FILE ==================== */
+.carousel-indicators button,
+.carousel-indicators [data-bs-target] {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+}
+
+.carousel-indicators button.active,
+.carousel-indicators [data-bs-target].active {
+  width: 10px !important;
+  height: 10px !important;
+}

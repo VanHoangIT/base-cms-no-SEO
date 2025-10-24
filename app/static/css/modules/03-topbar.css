@@ -1,0 +1,14 @@
+/* ==================== TOP BAR STYLES ====================
+ * File: 03-topbar.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== TOP BAR ==================== */
+.bg-dark a {
+  transition: color 0.3s ease;
+}
+
+.bg-dark a:hover {
+  color: #ffc107 !important;
+}

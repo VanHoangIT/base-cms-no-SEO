@@ -1,0 +1,16 @@
+/* ==================== PAGE HEADER STYLES ====================
+ * File: 10-page-header.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== PAGE HEADER ==================== */
+.page-header {
+  background: linear-gradient(to bottom, #fff, #fffbf0);
+}
+
+.page-header h1 {
+  color: #212529;
+  font-weight: 700;
+}
+

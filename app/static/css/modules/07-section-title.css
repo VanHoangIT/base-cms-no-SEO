@@ -1,0 +1,25 @@
+/* ==================== SECTION TITLE STYLES ====================
+ * File: 07-section-title.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== SECTION TITLE ==================== */
+.title-underline {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ffc107, #ffb300);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+/* ==================== SECTIONS ==================== */
+.py-5 {
+  padding-top: 2.75rem ;
+  padding-bottom: 2.75rem;
+}
+
+section h2 {
+  font-size: 1.85rem !important;
+}
+

@@ -1,0 +1,72 @@
+/* ==================== ABOUT PAGE STYLES ====================
+ * File: 18-about-page.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== GIỚI THIỆU PAGE ==================== */
+.row.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.row.align-items-center .col-lg-6 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.video-container {
+  background: #000;
+  transition: transform 0.3s ease;
+}
+
+.video-container:hover {
+  transform: scale(1.02);
+}
+
+.video-container .ratio {
+  background: #000;
+}
+
+.play-btn {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  animation: pulse-play 2s infinite;
+}
+
+.play-btn:hover {
+  transform: scale(1.1);
+  animation: none;
+}
+
+@keyframes pulse-play {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(255, 193, 7, 0);
+  }
+}
+
+.row.align-items-center .col-lg-6 img,
+.row.align-items-center .col-lg-6 .video-container {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 991px) {
+  .video-container {
+    margin-bottom: 2rem;
+  }
+
+  .row.align-items-center .col-lg-6 {
+    margin-bottom: 2rem;
+  }
+}
+

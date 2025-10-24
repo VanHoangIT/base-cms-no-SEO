@@ -1,0 +1,36 @@
+/* ==================== SCROLLBAR OVERRIDE ====================
+ * File: 21-scrollbar-override.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== FORCE GRAY SCROLLBAR - OVERRIDE ALL ==================== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #bfbfbf #f0f0f0 !important;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f0f0f0 !important;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #bfbfbf !important;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #a6a6a6 !important;
+}
+
+/* Override for body and html */
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: #bfbfbf !important;
+}

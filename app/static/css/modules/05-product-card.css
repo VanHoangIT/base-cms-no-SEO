@@ -1,0 +1,145 @@
+/* ==================== PRODUCT CARD COMPONENT ====================
+ * File: 05-product-card.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== PRODUCT CARD ==================== */
+.product-card {
+  transition: all 0.3s ease;
+  border-radius: 0.75rem;
+  border: 1px solid #e9ecef;
+  background: #fff;
+  position: relative;
+}
+
+.product-card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
+  border-color: #ffc107;
+}
+
+.product-image {
+  overflow: hidden;
+  background: #f8f9fa;
+  height: 210px;
+  border-bottom: 1px solid #e9ecef;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.1);
+}
+
+.product-image .badge {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  font-weight: 600;
+}
+
+.product-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1.9;
+  height: auto;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+}
+
+.product-name a {
+  color: #212529;
+  transition: color 0.3s;
+}
+
+.product-name a:hover {
+  color: #ffc107;
+}
+
+.product-name:hover {
+  color: #ffc107;
+}
+
+.product-price {
+  margin-top: auto;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.card-body .btn {
+  align-self: center;
+  width: auto;
+}
+
+.product-price .price {
+  color: #ffc107;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.product-price .old-price {
+  color: #6c757d;
+  text-decoration: line-through;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .product-image {
+    height: 200px;
+  }
+
+  .product-name {
+    font-size: 1.5rem;
+    min-height: 42px;
+  }
+
+  .product-price .price {
+    font-size: 1.1rem;
+  }
+}
+
+/* ==================== PRODUCT CARD - 1 CARD/ROW ON TABLET ==================== */
+@media (min-width: 768px) and (max-width: 991px) {
+  .col-lg-3.col-md-4.col-sm-12 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  .product-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .product-image {
+    height: 280px !important;
+  }
+
+  .product-image img {
+    height: 100% !important;
+  }
+}
+

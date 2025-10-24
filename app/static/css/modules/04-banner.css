@@ -1,0 +1,109 @@
+/* ==================== BANNER CAROUSEL STYLES ====================
+ * File: 04-banner.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== BANNER  ==================== */
+.banner-img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.banner-img.loaded {
+  opacity: 1;
+}
+.carousel-item img {
+  height: 602px;
+}
+
+.carousel-item {
+  min-height: 602px;
+}
+
+.carousel-caption h1,
+.carousel-caption h2 {
+  color: #ffd700;
+  font-size: 2.25rem;
+  text-shadow: 0 0 6px rgba(255,255,255,0.8);
+}
+
+.carousel-caption p {
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .carousel-item img {
+    height: 300px;
+  }
+  .carousel-item {
+    min-height: 300px;
+  }
+.carousel-caption h1,
+.carousel-caption h2 {
+  font-size: 1.3rem;
+}
+
+.carousel-caption p {
+  font-size: 0.75rem;
+}
+.carousel-caption a.btn {
+  font-size: 0.75rem;}
+}
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ==================== SKELETON LOADING ==================== */
+.carousel-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-item.loading::before {
+  opacity: 1;
+}
+
+/* ==================== SMOOTH TRANSITIONS ==================== */
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.carousel-fade .carousel-item.active {
+  opacity: 1;
+}
+
+.carousel-item:first-child .banner-img {
+  content-visibility: auto;
+}
+  /*

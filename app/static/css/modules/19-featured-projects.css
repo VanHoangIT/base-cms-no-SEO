@@ -1,0 +1,306 @@
+/* ==================== FEATURED PROJECTS CAROUSEL ====================
+ * File: 19-featured-projects.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 00:28:19
+ * ========================================================================== */
+
+/* ==================== FEATURED PROJECTS CAROUSEL ==================== */
+/* Scope all carousel styles to avoid conflicts */
+#featured-projects .projects-carousel-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+#featured-projects .projects-carousel {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+#featured-projects .project-slide {
+  min-width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#featured-projects .project-card {
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: row;
+  height: 360px;
+  pointer-events: auto;
+}
+
+#featured-projects .project-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+#featured-projects .project-image {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8f9fa 0%, #dee2e6 100%);
+}
+
+#featured-projects .project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+#featured-projects .project-card:hover .project-image img {
+  transform: scale(1.1);
+}
+
+#featured-projects .project-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#featured-projects .project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+#featured-projects .project-info {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+#featured-projects .project-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#featured-projects .project-meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 0.75rem;
+}
+
+#featured-projects .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#featured-projects .project-description {
+  color: #6c757d;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#featured-projects .carousel-nav {
+  display: none !important;
+}
+
+#featured-projects .carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+#featured-projects .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #dee2e6;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+#featured-projects .dot:hover {
+  background: #adb5bd;
+  transform: scale(1.2);
+}
+
+#featured-projects .dot.active {
+  background: #ffc107;
+  width: 40px;
+  border-radius: 6px;
+  border-color: #ffc107;
+}
+
+/* Responsive for Featured Projects */
+@media (max-width: 991px) {
+  #featured-projects .projects-carousel-wrapper {
+    padding: 0 15px;
+    max-width: 100%;
+  }
+
+  #featured-projects .project-card {
+    flex-direction: row;
+    height: 200px;
+    display: flex;
+    overflow: hidden;
+  }
+
+  #featured-projects .project-image {
+    width: 40% !important;
+    height: 100% !important;
+    flex-shrink: 0;
+  }
+
+   #featured-projects .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #featured-projects .project-info {
+    width: 60%;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #featured-projects .project-title {
+    font-size: 0.95rem;
+    line-height: 1.3;
+    margin-bottom: 0.35rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  /* Meta info */
+  #featured-projects .project-meta {
+    font-size: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  /* Description - 2 dòng */
+  #featured-projects .project-description {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    flex: 1;
+  }
+
+  /* Button nhỏ gọn */
+  #featured-projects .project-info .btn {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #featured-projects .projects-carousel-wrapper {
+    padding: 0 10px;
+  }
+
+  #featured-projects .project-image {
+    height: 220px;
+  }
+
+  #featured-projects .project-info {
+    padding: 1.5rem;
+  }
+
+  #featured-projects .project-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  #featured-projects .project-meta {
+    gap: 1rem;
+    font-size: 0.85rem;
+  }
+
+  #featured-projects .project-description {
+    font-size: 0.9rem;
+    -webkit-line-clamp: 2;
+  }
+
+  #featured-projects .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  #featured-projects .dot.active {
+    width: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  #featured-projects .project-card {
+    height: 180px !important;
+  }
+
+  #featured-projects .projects-carousel-wrapper {
+    padding: 0 10px;
+  }
+
+  #featured-projects .project-image {
+    height: 180px;
+  }
+
+  #featured-projects .project-info {
+    padding: 1.25rem;
+  }
+
+  #featured-projects .project-title {
+    font-size: 0.85rem;
+  }
+
+  #featured-projects .project-description {
+    font-size: 0.75rem;
+  }
+
+  #featured-projects .project-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
