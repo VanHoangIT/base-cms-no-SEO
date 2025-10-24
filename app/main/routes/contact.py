@@ -5,6 +5,7 @@ from app.models.contact import Contact
 from app.forms.contact import ContactForm
 
 
+
 @main_bp.route('/lien-he', methods=['GET', 'POST'])
 def contact():
     """Trang liên hệ"""

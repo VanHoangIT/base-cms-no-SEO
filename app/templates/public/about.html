@@ -46,49 +46,8 @@ người Việt.') }}{% endblock %} {% block extra_css %}
           <h2 itemprop="name">Về chúng tôi</h2>
           <div itemprop="description" class="company-description">
             {% if get_setting('company_info') %}
-            <p class="intro-text">{{ get_setting('company_info', '') }}</p>
+            <p class="intro-text">{{ get_setting('company_info', '')|safe }}</p>
             {% endif %}
-
-            <p class="intro-text">
-              Lời đầu, <strong>Công Ty TNHH Bricon Việt Nam</strong> xin gửi đến
-              Quý khách hàng và đối tác lời chúc sức khỏe, thành công và thịnh
-              vượng. Chúng tôi xin cảm ơn Quý khách hàng đã tín nhiệm, tin dùng
-              và đồng hành cùng sự phát triển của Công ty trong thời gian qua.
-            </p>
-
-            <p>
-              Chúng tôi chuyên
-              <strong>sản xuất và phân phối Keo xây dựng</strong>: Keo dán gạch,
-              Keo chà ron, Xi măng chống thấm, vữa khô trộn sẵn, vữa xây tô,...
-              và Chống thấm.
-            </p>
-
-            <p>
-              Với diện tích sản xuất và kho chứa
-              <strong>hơn 10.000m²</strong> phân bổ ở 5 chi nhánh và 1 nhà máy.
-              Chúng tôi cung ứng giải pháp thương mại giá sỉ cho các Đại lý, Nhà
-              phân phối, Chủ đầu tư, Thầu xây dựng,... Đáp ứng nhu cầu về sản
-              lượng cho các công trình lớn trong và ngoài nước.
-            </p>
-
-            <p>
-              Hệ thống <strong>KCS bài bản</strong> với phòng thí nghiệm độc lập
-              cùng các kỹ sư nghiên cứu dày dặn kinh nghiệm. Chúng tôi chủ động
-              về công nghệ, đảm bảo về chất lượng của các công trình.
-            </p>
-
-            <p>
-              Hệ thống phân phối của BRICON với
-              <strong>7.820 khách hàng</strong> trên cả nước. Hệ thống vận
-              chuyển đáp ứng nhiều đầu xe và là đối tác của các hãng vận chuyển
-              uy tín Bắc Nam.
-            </p>
-
-            <p>
-              Kết hợp chặt chẽ với các trang bán hàng thương mại điện tử để đáp
-              ứng các nhu cầu nhỏ lẻ từ các khách hàng có lượng cầu nhỏ nhất.
-            </p>
-
             <p class="highlight-text" style="text-decoration: none !important;">
               BRICON luôn đặt chất lượng sản phẩm, lấy sự hài lòng của Quý khách
               hàng làm tôn chỉ hành động. Theo tiêu chí
@@ -96,8 +55,6 @@ người Việt.') }}{% endblock %} {% block extra_css %}
               BRICON tin rằng với giải pháp tối ưu cùng chất lượng vượt trội sẽ làm hài lòng
               Quý khách hàng.
             </p>
-
-
             <p class="closing-text">
               <em
                 >BRICON xin trân trọng gửi lời chào và lời cảm tạ Quý khách đã

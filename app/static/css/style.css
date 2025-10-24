@@ -1781,3 +1781,1242 @@ body::-webkit-scrollbar-thumb {
 	width: 3rem;
 	height: 3rem;
 }
+/* ============ CHATBOT WIDGET - PHIÊN BẢN THỐNG NHẤT ============ */
+
+/* ===== BIẾN CSS - DỄ DÀNG CHỈNH SỬA ===== */
+:root {
+  /* Màu sắc chính */
+  --chatbot-primary: #ffc107;
+  --chatbot-primary-dark: #ff9800;
+  --chatbot-text-dark: #212529;
+  --chatbot-text-light: #666;
+  --chatbot-text-muted: #999;
+  --chatbot-success: #28a745;
+  --chatbot-danger: #dc3545;
+
+  /* Màu nền */
+  --chatbot-bg-light: #f8f9fa;
+  --chatbot-bg-white: #ffffff;
+  --chatbot-border: #e0e0e0;
+  --chatbot-shadow: rgba(0, 0, 0, 0.1);
+
+  /* Kích thước */
+  --chatbot-button-size: 55px;
+  --chatbot-widget-width: 300px;
+  --chatbot-widget-height: 450px;
+  --chatbot-border-radius: 14px;
+  --chatbot-border-radius-sm: 10px;
+  --chatbot-border-radius-xs: 3px;
+
+  /* Khoảng cách */
+  --chatbot-spacing-xs: 4px;
+  --chatbot-spacing-sm: 7px;
+  --chatbot-spacing-md: 10px;
+  --chatbot-spacing-lg: 16px;
+
+  /* Font size */
+  --chatbot-font-xs: 9.5px;
+  --chatbot-font-sm: 11px;
+  --chatbot-font-md: 11.5px;
+  --chatbot-font-lg: 13px;
+  --chatbot-font-input: 16px; /* iOS cần ≥16px để tránh auto-zoom */
+
+  /* Transition */
+  --chatbot-transition: 0.3s ease;
+}
+
+/* ===== NÚT CHAT NỔI ===== */
+.chatbot-button {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  width: var(--chatbot-button-size);
+  height: var(--chatbot-button-size);
+  background: linear-gradient(135deg, var(--chatbot-primary) 0%, var(--chatbot-primary-dark) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+  transition: all var(--chatbot-transition);
+  z-index: 998;
+  color: white;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.chatbot-button:hover {
+  box-shadow: 0 6px 25px rgba(255, 193, 7, 0.6);
+  transform: scale(1.05);
+}
+
+.chatbot-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.chatbot-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform var(--chatbot-transition);
+}
+
+/* ===== BADGE THÔNG BÁO ===== */
+.chatbot-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--chatbot-danger);
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: var(--chatbot-font-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ===== CỬA SỔ CHAT ===== */
+.chatbot-widget {
+  position: fixed;
+  bottom: 95px;
+  left: 30px;
+  width: var(--chatbot-widget-width);
+  height: var(--chatbot-widget-height);
+  max-height: 80vh;
+  background: var(--chatbot-bg-white);
+  border-radius: var(--chatbot-border-radius);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: column;
+  z-index: 999;
+  overflow: hidden;
+  animation: slideUp var(--chatbot-transition);
+}
+
+.chatbot-widget.active {
+  display: flex;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== HEADER ===== */
+.chatbot-header {
+  background: linear-gradient(135deg, var(--chatbot-primary) 0%, var(--chatbot-primary-dark) 100%);
+  color: var(--chatbot-text-dark);
+  padding: var(--chatbot-spacing-md) 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-header-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chatbot-avatar {
+  width: 28px;
+  height: 28px;
+  background: #FFFFFF;
+  color: var(--chatbot-primary-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: var(--chatbot-font-sm);
+  flex-shrink: 0;
+}
+
+.chatbot-header h3 {
+  margin: 0;
+  font-size: var(--chatbot-font-lg);
+  font-weight: 600;
+}
+
+.chatbot-status {
+  font-size: var(--chatbot-font-xs);
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: var(--chatbot-spacing-xs);
+}
+
+.chatbot-status-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--chatbot-success);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.chatbot-close-btn {
+  background: none;
+  border: none;
+  color: var(--chatbot-text-dark);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.chatbot-close-btn:hover {
+  opacity: 0.7;
+}
+
+/* ===== KHU VỰC TIN NHẮN ===== */
+.chatbot-messages {
+  flex: 1;
+  padding: var(--chatbot-spacing-md);
+  overflow-y: auto;
+  background: var(--chatbot-bg-light);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Custom scrollbar */
+.chatbot-messages::-webkit-scrollbar {
+  width: 3px;
+}
+
+.chatbot-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb:hover {
+  background: var(--chatbot-text-muted);
+}
+
+/* ===== TIN NHẮN ===== */
+.chatbot-message {
+  display: flex;
+  animation: fadeIn var(--chatbot-transition);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chatbot-message-content {
+  max-width: 85%;
+  padding: var(--chatbot-spacing-sm) var(--chatbot-spacing-md);
+  border-radius: var(--chatbot-border-radius-sm);
+  line-height: 1.5;
+  word-wrap: break-word;
+  font-size: var(--chatbot-font-md);
+}
+
+.chatbot-message-content ul {
+  margin: 6px 0;
+  padding-left: var(--chatbot-spacing-lg);
+}
+
+.chatbot-message-content li {
+  margin-bottom: var(--chatbot-spacing-xs);
+  font-size: var(--chatbot-font-sm);
+  line-height: 1.5;
+}
+
+/* Tin nhắn từ bot */
+.chatbot-message.bot .chatbot-message-content {
+  background: var(--chatbot-bg-white);
+  color: #333;
+  border-bottom-left-radius: var(--chatbot-border-radius-xs);
+  box-shadow: 0 1px 3px var(--chatbot-shadow);
+}
+
+/* Tin nhắn từ user */
+.chatbot-message.user {
+  justify-content: flex-end;
+}
+
+.chatbot-message.user .chatbot-message-content {
+  background: linear-gradient(135deg, var(--chatbot-primary) 0%, var(--chatbot-primary-dark) 100%);
+  color: var(--chatbot-text-dark);
+  border-bottom-right-radius: var(--chatbot-border-radius-xs);
+  font-weight: 500;
+}
+
+/* ===== HIỆU ỨNG "ĐANG NHẬP" ===== */
+.chatbot-typing {
+  display: flex;
+  gap: 3px;
+  padding: var(--chatbot-spacing-sm) var(--chatbot-spacing-md);
+  background: var(--chatbot-bg-white);
+  border-radius: var(--chatbot-border-radius-sm);
+  width: fit-content;
+  box-shadow: 0 1px 3px var(--chatbot-shadow);
+}
+
+.chatbot-typing span {
+  width: 5px;
+  height: 5px;
+  background: var(--chatbot-text-muted);
+  border-radius: 50%;
+  animation: typing 1.4s infinite;
+}
+
+.chatbot-typing span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.chatbot-typing span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+/* ===== KHU VỰC NHẬP LIỆU ===== */
+.chatbot-input {
+  display: flex;
+  padding: 9px;
+  background: var(--chatbot-bg-white);
+  border-top: 1px solid var(--chatbot-border);
+  gap: var(--chatbot-spacing-sm);
+}
+
+.chatbot-input input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  padding: var(--chatbot-spacing-sm) 11px;
+  font-size: 16px;
+  outline: none;
+  transition: border var(--chatbot-transition);
+}
+
+.chatbot-input input:focus {
+  border-color: var(--chatbot-primary);
+}
+
+.chatbot-input button {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, var(--chatbot-primary) 0%, var(--chatbot-primary-dark) 100%);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.chatbot-input button:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.chatbot-input button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chatbot-input button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== FOOTER ===== */
+.chatbot-footer {
+  padding: var(--chatbot-spacing-sm) 9px;
+  background: var(--chatbot-bg-light);
+  border-top: 1px solid var(--chatbot-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.chatbot-reset-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: var(--chatbot-spacing-xs) 8px;
+  border-radius: var(--chatbot-border-radius);
+  cursor: pointer;
+  font-size: var(--chatbot-font-xs);
+  color: var(--chatbot-text-light);
+  transition: all var(--chatbot-transition);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.chatbot-reset-btn:hover {
+  background: var(--chatbot-primary);
+  color: var(--chatbot-text-dark);
+  border-color: var(--chatbot-primary);
+}
+
+.chatbot-request-count {
+  font-size: var(--chatbot-font-xs);
+  color: var(--chatbot-text-muted);
+}
+
+/* ===== RESPONSIVE - TABLET (≤768px) ===== */
+@media (max-width: 768px) {
+  .chatbot-widget {
+    width: calc(100% - 20px);
+    right: auto;
+    left: 10px;
+    bottom: 105px;
+    height: calc(100vh - 150px);
+    max-height: 480px;
+  }
+
+  .chatbot-button {
+    bottom: 35px;
+    left: 15px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .chatbot-button svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* ===== RESPONSIVE - MOBILE (≤576px) ===== */
+@media (max-width: 576px) {
+  .chatbot-widget {
+    height: calc(100vh - 170px);
+    max-height: 430px;
+    width: calc(100% - 14px);
+    left: 7px;
+  }
+
+  .chatbot-header {
+    padding: 9px 11px;
+  }
+
+  .chatbot-header h3 {
+    font-size: 12px;
+  }
+
+  .chatbot-messages {
+    padding: 9px;
+  }
+
+  .chatbot-message-content {
+    font-size: var(--chatbot-font-sm);
+    padding: var(--chatbot-spacing-sm) var(--chatbot-spacing-md);
+  }
+
+  .chatbot-message-content li {
+    font-size: 10.5px;
+  }
+
+  .chatbot-input input {
+    font-size: 16px;
+    padding: var(--chatbot-spacing-sm) var(--chatbot-spacing-md);
+  }
+}
+
+/* ===== DARK MODE ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --chatbot-bg-white: #2d2d2d;
+    --chatbot-bg-light: #1a1a1a;
+    --chatbot-text-dark: #e0e0e0;
+    --chatbot-border: #444;
+    --chatbot-shadow: rgba(255, 255, 255, 0.1);
+  }
+
+  .chatbot-message.bot .chatbot-message-content {
+    background: #3d3d3d;
+    color: #e0e0e0;
+  }
+
+  .chatbot-input input {
+    background: #3d3d3d;
+    color: #e0e0e0;
+    border-color: #555;
+  }
+
+  .chatbot-reset-btn {
+    color: #e0e0e0;
+    border-color: #555;
+  }
+
+  .chatbot-reset-btn:hover {
+    background: var(--chatbot-primary);
+    color: #212529;
+  }
+}
+/* ==================== CHATBOT MOBILE FIX - FULL MÀN HÌNH ==================== */
+
+/* Ẩn hoàn toàn chatbot button khi widget đang mở trên mobile */
+@media (max-width: 768px) {
+  /* Ẩn icon chatbot khi mở */
+  body.chatbot-open .chatbot-button {
+    display: none !important;
+  }
+
+  /* Ẩn luôn các nút Messenger & Phone khi chatbot mở */
+  body.chatbot-open .floating-btn,
+  body.chatbot-open .scroll-to-top {
+    display: none !important;
+  }
+
+  /* Khóa scroll body */
+  body.chatbot-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+  }
+
+  /* ✅ CHATBOT FULL MÀN HÌNH 100% */
+  .chatbot-widget {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+    transform: translateY(100%) !important;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 99999 !important; /* Cao nhất - che hết mọi thứ */
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+
+  .chatbot-widget.active {
+    transform: translateY(0) !important;
+  }
+
+  /* Header không bo góc */
+  .chatbot-widget .chatbot-header {
+    border-radius: 0 !important;
+  }
+
+  /* Messages container chiếm toàn bộ không gian */
+  .chatbot-widget .chatbot-messages {
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    height: calc(100vh - 140px) !important; /* Trừ đi header + input + footer */
+  }
+
+  /* Tối ưu cho iOS */
+  @supports (-webkit-touch-callout: none) {
+    .chatbot-widget {
+      height: 100dvh !important; /* Dynamic viewport height cho iOS */
+    }
+  }
+}
+
+/* ==================== ẨN CÁC NÚT FLOATING KHI CHATBOT MỞ (ALL DEVICES) ==================== */
+body.chatbot-open .floating-btn,
+body.chatbot-open .scroll-to-top {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: all 0.3s ease !important;
+}
+
+/* ==================== SMOOTH TRANSITION ==================== */
+.chatbot-widget {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.chatbot-button {
+  transition: all 0.3s ease !important;
+}
+/* ==================== THU NHỎ NHẸ NHÀNG - CHỈ ĐIỀU CHỈNH NHỮNG GÌ CẦN THIẾT ==================== */
+
+/* Font-size tổng thể giảm nhẹ */
+body {
+  font-size: 0.9rem;
+}
+
+/* ==================== NAVBAR ==================== */
+.navbar-brand img {
+  height: 45px !important;
+}
+
+.nav-link {
+  font-size: 0.9rem !important;
+  padding: 0.45rem 0.9rem !important;
+}
+
+.navbar .btn-dark {
+  font-size: 0.85rem !important;
+  padding: 0.45rem 1.2rem !important;
+}
+
+/* ==================== BANNER ==================== */
+.carousel-item img {
+  height: 602px !important;
+}
+
+.carousel-item {
+  min-height: 602px !important;
+}
+
+.carousel-caption h1,
+.carousel-caption h2 {
+  font-size: 2.25rem !important;
+}
+
+.carousel-caption p {
+  font-size: 1.25rem !important;
+}
+
+@media (max-width: 768px) {
+  .carousel-item img {
+    height: 300px !important;
+  }
+  .carousel-item {
+    min-height: 300px !important;
+  }
+.carousel-caption h1,
+.carousel-caption h2 {
+  font-size: 1.3rem !important;
+}
+
+.carousel-caption p {
+  font-size: 0.75rem !important;
+}
+.carousel-caption a.btn {
+  font-size: 0.75rem !important;}
+}
+
+/* ==================== SECTIONS ==================== */
+.py-5 {
+  padding-top: 2.75rem !important;
+  padding-bottom: 2.75rem !important;
+}
+
+section h2 {
+  font-size: 1.85rem !important;
+}
+
+/* ==================== PRODUCT CARDS ==================== */
+.product-image {
+  height: 210px;
+}
+
+.product-name {
+  font-size: 1rem !important;
+  height: auto !important;
+  -webkit-line-clamp: 3 !important;
+}
+
+.product-price .price {
+  font-size: 1.2rem !important;
+}
+
+/* ==================== BLOG CARDS ==================== */
+/* Desktop */
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng hover */
+}
+
+.blog-card:hover {
+  transform: translateY(-5px); /* Nhấc lên khi hover */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15) !important; /* Bóng đổ đẹp */
+}
+
+.blog-card img {
+  height: 180px !important;
+  object-fit: cover; /* Ảnh không bị méo */
+  flex-shrink: 0;
+}
+
+.blog-card .card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem; /* Padding đều */
+}
+
+/* Meta info đẹp hơn */
+.blog-card .d-flex.align-items-center {
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Title - 2 dòng, font đẹp */
+.blog-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  height: 2.8em; /* 2 dòng */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-bottom: 0.75rem;
+}
+
+.blog-card .card-title a {
+  color: #212529;
+  transition: color 0.3s ease; /* Hiệu ứng hover */
+}
+
+.blog-card .card-title a:hover {
+  color: #ffc107; /* Màu vàng khi hover */
+}
+
+/* Description - 3 dòng */
+.blog-card .card-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  height: 4.5em; /* 3 dòng */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+/* Button đẹp, luôn ở dưới */
+.blog-card .mt-auto {
+  margin-top: auto !important;
+}
+
+.blog-card .btn {
+  transition: all 0.3s ease; /* Hiệu ứng mượt */
+}
+
+/* ==================== MOBILE - BLOG CARDS ==================== */
+@media (max-width: 767px) {
+  .blog-card img {
+    height: 140px !important;
+  }
+
+  .blog-card .card-body {
+    padding: 0.75rem !important;
+  }
+
+  .blog-card .d-flex.align-items-center {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .blog-card .card-title {
+    font-size: 0.9rem !important;
+    height: 2.4em; /* 2 dòng */
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Description - CHỈ 1 DÒNG trên mobile */
+  .blog-card .card-text {
+    font-size: 0.8rem !important;
+    line-height: 1.3;
+    height: 1.3em !important;
+    -webkit-line-clamp: 1 !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .blog-card .btn {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.8rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .blog-card img {
+    height: 120px !important;
+  }
+
+  .blog-card .card-title {
+    font-size: 0.85rem !important;
+  }
+
+  .blog-card .card-text {
+    font-size: 0.75rem !important;
+  }
+}
+
+
+/* ==================== FEATURED PROJECTS ==================== */
+#featured-projects .projects-carousel-wrapper {
+  max-width: 900px !important;
+}
+
+/* Desktop - giữ nguyên */
+#featured-projects .project-card {
+  height: 360px !important;
+}
+
+/* Mobile - Layout ngang giống PC */
+@media (max-width: 991px) {
+  #featured-projects .projects-carousel-wrapper {
+    max-width: 100% !important; /* Full width trên mobile */
+  }
+
+  /* Card có chiều cao cố định */
+  #featured-projects .project-card {
+    height: 200px !important; /* Chiều cao cố định = không cao thấp */
+    display: flex;
+    flex-direction: row; /* Layout ngang: hình trái, text phải */
+    overflow: hidden;
+  }
+
+  /* Hình ảnh bên trái - 40% */
+  #featured-projects .project-image {
+    width: 40% !important;
+    height: 100% !important;
+    flex-shrink: 0;
+  }
+
+  #featured-projects .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Text bên phải - 60% */
+  #featured-projects .project-info {
+    width: 60%;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Title - 2 dòng */
+  #featured-projects .project-title {
+    font-size: 0.95rem;
+    line-height: 1.3;
+    margin-bottom: 0.35rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  /* Meta info */
+  #featured-projects .project-meta {
+    font-size: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  /* Description - 2 dòng */
+  #featured-projects .project-description {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    flex: 1;
+  }
+
+  /* Button nhỏ gọn */
+  #featured-projects .project-info .btn {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+  }
+}
+
+/* Màn hình rất nhỏ */
+@media (max-width: 576px) {
+  #featured-projects .project-card {
+    height: 180px !important;
+  }
+
+  #featured-projects .project-title {
+    font-size: 0.85rem;
+  }
+
+  #featured-projects .project-description {
+    font-size: 0.75rem;
+  }
+}
+/* ==================== FLOATING BUTTONS ==================== */
+.floating-btn {
+  width: 44px !important;
+  height: 44px !important;
+}
+
+/* ==================== SCROLL TO TOP ==================== */
+.scroll-to-top {
+  width: 44px !important;
+  height: 44px !important;
+  bottom: 165px !important;
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+  padding: 2.75rem 0 !important;
+}
+
+footer h5 {
+  font-size: 1rem !important;
+}
+
+footer p,
+footer li,
+footer a {
+  font-size: 0.85rem !important;
+}
+
+/* ==================== ✅ WHY CHOOSE US - 4 COLUMNS (ALL DEVICES) ==================== */
+/* Áp dụng cho TẤT CẢ thiết bị - không có media query */
+.bg-white .row.g-4 > .col-lg-3,
+.bg-white .row.g-4 > .col-md-6 {
+  flex: 0 0 25% !important; /* 4 cột = 25% */
+  max-width: 25% !important;
+}
+
+/* Điều chỉnh responsive cho mobile */
+@media (max-width: 576px) {
+  .bg-white .row.g-4 .bi {
+    font-size: 1.75rem !important;
+  }
+
+  .bg-white .row.g-4 h5 {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .bg-white .row.g-4 p {
+    font-size: 0.65rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .bg-white .row.g-4 .text-center {
+    padding: 0.5rem !important;
+  }
+
+  .bg-white .row.g-4 {
+    --bs-gutter-x: 0.25rem !important;
+  }
+}
+
+/* ==================== ✅ PRODUCT GRID - 3 SẢN PHẨM (ALL DEVICES) ==================== */
+/* Áp dụng cho TẤT CẢ thiết bị */
+.products-grid .row.g-4 > .col-lg-4,
+.products-grid .row.g-4 > .col-md-4,
+.products-grid .row.g-4 > .col-sm-6,
+.products-grid .row.g-4 > .col-6,
+.bg-gray-dark .row.g-4 > .col-lg-4,
+.bg-gray-dark .row.g-4 > .col-md-4,
+.bg-gray-dark .row.g-4 > .col-sm-6,
+.bg-gray-dark .row.g-4 > .col-6 {
+  flex: 0 0 33.333% !important; /* 3 cột = 33.333% */
+  max-width: 33.333% !important;
+}
+
+/* Điều chỉnh responsive cho mobile */
+@media (max-width: 576px) {
+  /* Giảm padding container */
+  .container {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  /* Giảm gap */
+  .row.g-4 {
+    --bs-gutter-x: 0.25rem !important;
+    --bs-gutter-y: 0.5rem !important;
+  }
+
+  /* Thu nhỏ product card */
+  .products-grid .product-image,
+  .bg-gray-dark .product-image {
+    height: 120px !important;
+  }
+
+  .products-grid .product-name,
+  .bg-gray-dark .product-name {
+    font-size: 0.8rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.2 !important;
+  }
+
+  .products-grid .product-price .price,
+  .bg-gray-dark .product-price .price {
+    font-size: 0.9rem !important;
+  }
+
+  .products-grid .product-price .old-price,
+  .bg-gray-dark .product-price .old-price {
+    font-size: 0.7rem !important;
+  }
+
+  .products-grid .card-body,
+  .bg-gray-dark .card-body {
+    padding: 0.5rem !important;
+  }
+
+  .products-grid .btn,
+  .bg-gray-dark .btn {
+    font-size: 0.7rem !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+}
+
+/* Điều chỉnh cho tablet */
+@media (min-width: 577px) and (max-width: 991px) {
+  .products-grid .product-image,
+  .bg-gray-dark .product-image {
+    height: 180px !important;
+  }
+
+  .products-grid .product-name,
+  .bg-gray-dark .product-name {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Điều chỉnh cho desktop */
+@media (min-width: 992px) {
+  .products-grid .product-image,
+  .bg-gray-dark .product-image {
+    height: 210px !important;
+  }
+}
+
+/* Màn hình rất nhỏ (< 360px) */
+@media (max-width: 359px) {
+  .products-grid .product-image,
+  .bg-gray-dark .product-image {
+    height: 100px !important;
+  }
+
+  .products-grid .product-name,
+  .bg-gray-dark .product-name {
+    font-size: 0.7rem !important;
+  }
+
+  .products-grid .product-price .price,
+  .bg-gray-dark .product-price .price {
+    font-size: 0.8rem !important;
+  }
+}
+/* ==================== ✅ CENTER CAPTION ON DESKTOP ==================== */
+@media (min-width: 992px) {
+  .carousel-caption {
+    top: 50% !important;
+    bottom: auto !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+  }
+}
+/* ==================== ✅ BANNER TEXT COLOR BLACK (DESKTOP + MOBILE) ==================== */
+.carousel-caption h1,
+.carousel-caption h2 {
+  color: #ffd700!important;
+  text-shadow: 0 0 6px rgba(255,255,255,0.8) !important;
+}
+
+.carousel-caption p {
+  color: #ffffff !important;
+}
+/* ==================== CHATBOT Z-INDEX FIX - LOAD CUỐI CÙNG ==================== */
+/* File này phải được load SAU tất cả CSS khác trong base.html */
+
+/* Đảm bảo chatbot widget luôn ở trên cùng */
+.chatbot-widget {
+  z-index: 9999 !important;
+}
+
+.chatbot-widget.active {
+  z-index: 9999 !important;
+}
+
+/* Nút chatbot ở dưới widget */
+.chatbot-button {
+  z-index: 9998 !important;
+}
+
+/* Floating buttons ở dưới chatbot */
+.floating-buttons {
+  z-index: 1030 !important;
+}
+
+.floating-btn {
+  z-index: 1030 !important;
+}
+
+/* Scroll to top ở dưới chatbot */
+.scroll-to-top {
+  z-index: 1029 !important;
+}
+
+/* Đảm bảo các phần tử khác không vượt qua chatbot */
+.navbar,
+header {
+  z-index: 1020 !important;
+}
+
+/* Responsive - Trên mobile chatbot che hết */
+@media (max-width: 768px) {
+  .chatbot-widget {
+    z-index: 9999 !important;
+  }
+
+  .chatbot-widget.active {
+    z-index: 9999 !important;
+  }
+
+  /* Ẩn hoặc mờ các nút khi chatbot mở */
+  .chatbot-widget.active ~ .floating-buttons,
+  .chatbot-widget.active ~ .scroll-to-top {
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+}
+/* ==================== PROJECT FILTER BUTTONS - MOBILE FIX ==================== */
+/* File: app/static/css/project-filters.css */
+/* Chỉ ảnh hưởng đến .project-filters, không ghi đè code khác */
+
+/* Desktop - giữ nguyên layout hiện tại */
+@media (min-width: 768px) {
+  .project-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .project-filters > .btn,
+  .project-filters > button.btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+}
+
+/* ==================== MOBILE FILTER FIX (chuẩn thực tế) ==================== */
+@media (max-width: 767px) {
+  /* Bỏ flex gốc của Bootstrap */
+  .project-filters .d-flex {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0.75rem; /* có khoảng cách hai bên */
+    box-sizing: border-box;
+  }
+
+
+  /* Căn full width trong container Bootstrap */
+  .filter-section .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Các nút filter */
+  .project-filters .btn {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 0.6rem 0.5rem;
+    line-height: 1.3;
+    text-align: center;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+  }
+
+  /* Icon trong nút */
+  .project-filters .btn i {
+    font-size: 0.9rem;
+    margin-right: 0.35rem;
+  }
+}
+
+/* Màn rất nhỏ (ví dụ iPhone 5/SE) */
+@media (max-width: 359px) {
+  .project-filters .d-flex {
+    grid-template-columns: 1fr;
+    padding: 0 0.5rem;
+  }
+
+  .project-filters .btn {
+    font-size: 0.8rem;
+  }
+}
+/* ==================== ACTIVE FILTER STYLE ==================== */
+.project-filters .btn-warning {
+  background-color: #ffe45c !important; /* vàng BRICON dịu mắt */
+  border-color: #ffe45c !important;
+  color: #212529 !important;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.project-filters .btn-warning i {
+  color: #212529 !important;
+}
+
+/* Hover trạng thái active (vàng đậm hơn một chút) */
+.project-filters .btn-warning:hover {
+  background-color: #ffd633 !important;
+  border-color: #ffd633 !important;
+}
+
+/* Hover nút chưa chọn (viền xám) */
+.project-filters .btn-outline-secondary:hover {
+  background-color: #f8f9fa !important;
+  color: #212529 !important;
+  border-color: #dcdcdc !important;
+}

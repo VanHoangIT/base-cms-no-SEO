@@ -4,12 +4,10 @@ from flask_login import current_user
 
 
 # ==================== BACKWARD COMPATIBILITY ====================
-
 def admin_required(f):
     """
     Đã chuyển qua permissions rồi giữ code để tránh lỗi :D
     """
-
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not current_user.is_authenticated:

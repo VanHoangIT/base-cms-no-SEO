@@ -30,13 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ==================== AUTO DISMISS ALERTS ====================
 document.addEventListener("DOMContentLoaded", function () {
-  // Chỉ đóng alerts có nút close (alert-dismissible), không đóng các alert tĩnh
   const alerts = document.querySelectorAll(".alert.alert-dismissible");
   alerts.forEach((alert) => {
     setTimeout(() => {
       const bsAlert = new bootstrap.Alert(alert);
       bsAlert.close();
-    }, 5000); // Auto close after 5 seconds
+    }, 3000);
   });
 });
 
@@ -371,5 +370,561 @@ window.addEventListener('load', function() {
     if (loader) {
     loader.style.opacity = '0';
     setTimeout(() => loader.remove(), 300);
+    }
+});
+// ==================== FEATURED PROJECTS CAROUSEL WITH MOUSE DRAG ====================
+(function () {
+  "use strict";
+
+  const carousel = document.getElementById("projectsCarousel");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const dotsContainer = document.getElementById("carouselDots");
+
+  // Exit if carousel doesn't exist
+  if (!carousel || !dotsContainer) {
+    console.warn("Featured Projects Carousel: Required elements not found");
+    return;
+  }
+
+  const slides = carousel.querySelectorAll(".project-slide");
+  const totalSlides = slides.length;
+
+  if (totalSlides === 0) {
+    console.warn("Featured Projects Carousel: No slides found");
+    return;
+  }
+
+  let currentIndex = 0;
+  let autoSlideInterval = null;
+
+  // Mouse drag variables
+  let isDragging = false;
+  let startPos = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationID = 0;
+
+  // Configuration
+  const config = {
+    autoSlideDelay: 5000,
+    transitionDuration: 600,
+    dragThreshold: 50,
+  };
+
+  // ==================== INITIALIZATION ====================
+  function init() {
+    createDots();
+    setupEventListeners();
+    updateCarousel(false);
+    startAutoSlide();
+
+    // Pause when tab is hidden
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Handle window resize
+    window.addEventListener("resize", debounce(handleResize, 250));
+
+    console.log(
+      `Featured Projects Carousel: Initialized with ${totalSlides} slides`
+    );
+  }
+
+  // ==================== DOTS CREATION ====================
+  function createDots() {
+    dotsContainer.innerHTML = ""; // Clear existing dots
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement("div");
+      dot.className = "dot";
+      if (index === 0) dot.classList.add("active");
+      dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
+      dot.setAttribute("data-index", index);
+      dot.addEventListener("click", () => goToSlide(index));
+      dotsContainer.appendChild(dot);
+    });
+
+    console.log(`Created ${slides.length} dots`);
+  }
+
+  // ==================== CAROUSEL UPDATES ====================
+  function updateCarousel(smooth = true) {
+    // Set transition
+    if (smooth) {
+      carousel.style.transition = `transform ${config.transitionDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+    } else {
+      carousel.style.transition = "none";
+    }
+
+    // Calculate and apply transform
+    const offset = -currentIndex * 100;
+    carousel.style.transform = `translateX(${offset}%)`;
+
+    // Update dots
+    const currentDots = dotsContainer.querySelectorAll(".dot");
+    currentDots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentIndex);
+    });
+
+    // Update ARIA attributes
+    slides.forEach((slide, index) => {
+      slide.setAttribute("aria-hidden", index !== currentIndex);
+    });
+  }
+
+  function goToSlide(index) {
+    if (index < 0 || index >= totalSlides) return;
+    currentIndex = index;
+    updateCarousel();
+    resetAutoSlide();
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  // ==================== AUTO SLIDE ====================
+  function startAutoSlide() {
+    stopAutoSlide(); // Clear any existing interval
+    autoSlideInterval = setInterval(nextSlide, config.autoSlideDelay);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideInterval) {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = null;
+    }
+  }
+
+  function resetAutoSlide() {
+    stopAutoSlide();
+    startAutoSlide();
+  }
+
+  // ==================== DRAG FUNCTIONALITY ====================
+  function getPositionX(event) {
+    return event.type.includes("mouse")
+      ? event.pageX
+      : event.touches[0].clientX;
+  }
+
+  function dragStart(event) {
+    // Ignore if clicking on buttons or links
+    if (event.target.closest("a, button")) {
+      return;
+    }
+
+    isDragging = true;
+    startPos = getPositionX(event);
+    animationID = requestAnimationFrame(animation);
+    stopAutoSlide();
+
+    carousel.style.cursor = "grabbing";
+    carousel.classList.add("dragging");
+  }
+
+  function dragMove(event) {
+    if (!isDragging) return;
+
+    const currentPosition = getPositionX(event);
+    const diff = currentPosition - startPos;
+    currentTranslate = prevTranslate + diff;
+  }
+
+  function dragEnd() {
+    if (!isDragging) return;
+
+    isDragging = false;
+    cancelAnimationFrame(animationID);
+
+    carousel.style.cursor = "grab";
+    carousel.classList.remove("dragging");
+
+    const movedBy = currentTranslate - prevTranslate;
+
+    // Determine if we should change slide
+    if (Math.abs(movedBy) > config.dragThreshold) {
+      if (movedBy < 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    } else {
+      updateCarousel();
+    }
+
+    prevTranslate = -currentIndex * carousel.offsetWidth;
+    currentTranslate = prevTranslate;
+    startAutoSlide();
+  }
+
+  function animation() {
+    if (!isDragging) return;
+
+    const slideWidth = carousel.offsetWidth;
+    const maxTranslate = 0;
+    const minTranslate = -(totalSlides - 1) * slideWidth;
+
+    // Limit dragging beyond boundaries
+    if (currentTranslate > maxTranslate) {
+      currentTranslate = maxTranslate + (currentTranslate - maxTranslate) * 0.3; // Rubber band effect
+    }
+    if (currentTranslate < minTranslate) {
+      currentTranslate = minTranslate + (currentTranslate - minTranslate) * 0.3;
+    }
+
+    const percentageTranslate = (currentTranslate / slideWidth) * 100;
+
+    carousel.style.transition = "none";
+    carousel.style.transform = `translateX(${percentageTranslate}%)`;
+
+    animationID = requestAnimationFrame(animation);
+  }
+
+  // ==================== EVENT LISTENERS ====================
+  function setupEventListeners() {
+    // Mouse events
+    carousel.addEventListener("mousedown", dragStart);
+    carousel.addEventListener("mousemove", dragMove);
+    carousel.addEventListener("mouseup", dragEnd);
+    carousel.addEventListener("mouseleave", () => {
+      if (isDragging) dragEnd();
+    });
+
+    // Touch events
+    carousel.addEventListener("touchstart", dragStart, { passive: true });
+    carousel.addEventListener("touchmove", dragMove, { passive: true });
+    carousel.addEventListener("touchend", dragEnd);
+
+    // Prevent context menu and text selection
+    carousel.addEventListener("contextmenu", (e) => e.preventDefault());
+    carousel.addEventListener("dragstart", (e) => e.preventDefault());
+
+    // Set cursor style
+    carousel.style.cursor = "grab";
+
+    // Hover to pause auto-slide
+    carousel.addEventListener("mouseenter", stopAutoSlide);
+    carousel.addEventListener("mouseleave", () => {
+      if (!isDragging) startAutoSlide();
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keydown", handleKeyboard);
+
+    // Button events (if visible)
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        resetAutoSlide();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        prevSlide();
+        resetAutoSlide();
+      });
+    }
+  }
+
+  // ==================== UTILITY FUNCTIONS ====================
+  function handleKeyboard(e) {
+    // Only handle if carousel is in viewport
+    const rect = carousel.getBoundingClientRect();
+    const isInView = rect.top < window.innerHeight && rect.bottom >= 0;
+
+    if (!isInView) return;
+
+    if (e.key === "ArrowLeft") {
+      prevSlide();
+      resetAutoSlide();
+    } else if (e.key === "ArrowRight") {
+      nextSlide();
+      resetAutoSlide();
+    }
+  }
+
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      stopAutoSlide();
+    } else {
+      startAutoSlide();
+    }
+  }
+
+  function handleResize() {
+    prevTranslate = -currentIndex * carousel.offsetWidth;
+    currentTranslate = prevTranslate;
+    updateCarousel(false);
+  }
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // ==================== CLEANUP ====================
+  function destroy() {
+    stopAutoSlide();
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+    window.removeEventListener("resize", handleResize);
+    document.removeEventListener("keydown", handleKeyboard);
+    console.log("Featured Projects Carousel: Destroyed");
+  }
+
+  // Expose destroy method globally if needed
+  window.destroyProjectsCarousel = destroy;
+
+  // Initialize carousel
+  init();
+})();
+/**
+ * Chatbot Widget - MOBILE OPTIMIZED
+ * ✅ Full màn hình + Tắt auto-focus bàn phím
+ */
+
+class ChatbotWidget {
+    constructor() {
+        this.isOpen = false;
+        this.isTyping = false;
+        this.remainingRequests = 20;
+
+        // DOM elements
+        this.chatButton = document.getElementById('chatbotButton');
+        this.chatWidget = document.getElementById('chatbotWidget');
+        this.closeBtn = document.getElementById('chatbotCloseBtn');
+        this.messagesContainer = document.getElementById('chatbotMessages');
+        this.userInput = document.getElementById('chatbotInput');
+        this.sendBtn = document.getElementById('chatbotSendBtn');
+        this.resetBtn = document.getElementById('chatbotResetBtn');
+        this.requestCountEl = document.getElementById('requestCount');
+
+        if (!this.chatButton || !this.chatWidget) {
+            console.error('Chatbot elements not found');
+            return;
+        }
+
+        this.init();
+    }
+
+    init() {
+        this.chatButton.addEventListener('click', () => this.toggleChat());
+        this.closeBtn.addEventListener('click', () => this.toggleChat());
+        this.sendBtn.addEventListener('click', () => this.sendMessage());
+        this.resetBtn.addEventListener('click', () => this.resetChat());
+
+        this.userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                this.sendMessage();
+            }
+        });
+
+        // ❌ XÓA AUTO-FOCUS - KHÔNG CÒN TỰ ĐỘNG MỞ BÀN PHÍM
+        // Không dùng transitionend để focus nữa
+
+        console.log('Chatbot initialized successfully');
+    }
+
+    toggleChat() {
+        this.isOpen = !this.isOpen;
+        this.chatWidget.classList.toggle('active');
+
+        // ✅ THÊM/XÓA CLASS VÀO BODY
+        if (this.isOpen) {
+            document.body.classList.add('chatbot-open');
+            this.scrollToBottom();
+
+            // Fix cho iOS: Ngăn body scroll
+            if (this.isMobile()) {
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+                document.body.style.top = '0';
+            }
+        } else {
+            document.body.classList.remove('chatbot-open');
+
+            // Khôi phục scroll
+            if (this.isMobile()) {
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+                document.body.style.top = '';
+            }
+        }
+    }
+
+    isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    async sendMessage() {
+        const message = this.userInput.value.trim();
+
+        if (!message || this.isTyping) {
+            return;
+        }
+
+        if (message.length > 500) {
+            alert('Tin nhắn quá dài! Vui lòng nhập tối đa 500 ký tự.');
+            return;
+        }
+
+        this.addMessage(message, 'user');
+        this.userInput.value = '';
+        this.setInputState(false);
+        this.showTyping();
+
+        try {
+            const response = await fetch('/chatbot/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+            this.hideTyping();
+
+            if (response.ok) {
+                this.addMessage(data.response, 'bot');
+
+                if (data.remaining_requests !== undefined) {
+                    this.remainingRequests = data.remaining_requests;
+                    this.updateRequestCount();
+                }
+            } else {
+                this.addMessage(
+                    data.error || data.response || 'Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại! 😊',
+                    'bot'
+                );
+            }
+
+        } catch (error) {
+            console.error('Chatbot error:', error);
+            this.hideTyping();
+            this.addMessage(
+                'Xin lỗi, không thể kết nối đến server. Vui lòng kiểm tra kết nối mạng! 🔌',
+                'bot'
+            );
+        } finally {
+            this.setInputState(true);
+            // ❌ KHÔNG FOCUS SAU KHI GỬI - TRÁNH MỞ BÀN PHÍM
+            // this.userInput.focus(); // Đã xóa dòng này
+        }
+    }
+
+    addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chatbot-message ${sender}`;
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'chatbot-message-content';
+        contentDiv.innerHTML = this.escapeHtml(text).replace(/\n/g, '<br>');
+
+        messageDiv.appendChild(contentDiv);
+        this.messagesContainer.appendChild(messageDiv);
+        this.scrollToBottom();
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    showTyping() {
+        this.isTyping = true;
+
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chatbot-message bot';
+        typingDiv.id = 'chatbotTypingIndicator';
+
+        const typingContent = document.createElement('div');
+        typingContent.className = 'chatbot-typing';
+        typingContent.innerHTML = '<span></span><span></span><span></span>';
+
+        typingDiv.appendChild(typingContent);
+        this.messagesContainer.appendChild(typingDiv);
+        this.scrollToBottom();
+    }
+
+    hideTyping() {
+        this.isTyping = false;
+        const typingIndicator = document.getElementById('chatbotTypingIndicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }
+
+    setInputState(enabled) {
+        this.userInput.disabled = !enabled;
+        this.sendBtn.disabled = !enabled;
+        this.sendBtn.style.opacity = enabled ? '1' : '0.5';
+    }
+
+    scrollToBottom() {
+        setTimeout(() => {
+            this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        }, 100);
+    }
+
+    async resetChat() {
+        if (!confirm('Bạn có chắc muốn làm mới hội thoại? Tất cả tin nhắn sẽ bị xóa.')) {
+            return;
+        }
+
+        try {
+            const response = await fetch('/chatbot/reset', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (response.ok) {
+                const messages = this.messagesContainer.querySelectorAll('.chatbot-message');
+                messages.forEach((msg, index) => {
+                    if (index > 0) {
+                        msg.remove();
+                    }
+                });
+
+                this.remainingRequests = 20;
+                this.updateRequestCount();
+                this.addMessage('Đã làm mới hội thoại! Tôi có thể giúp gì cho bạn? 😊', 'bot');
+            }
+        } catch (error) {
+            console.error('Reset error:', error);
+            alert('Không thể làm mới hội thoại. Vui lòng thử lại!');
+        }
+    }
+
+    updateRequestCount() {
+        if (this.requestCountEl) {
+            this.requestCountEl.textContent = `Còn ${this.remainingRequests} tin nhắn`;
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('chatbotButton')) {
+        new ChatbotWidget();
     }
 });
