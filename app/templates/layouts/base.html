@@ -161,7 +161,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.min.css') }}?v={{ css_version }}" />
 
     {% block extra_css %}{% endblock %}
   </head>
@@ -320,145 +320,227 @@
       {% block content %}{% endblock %}
     </main>
 
-    <!-- ==================== FOOTER  ==================== -->
-    <footer class="bg-dark text-white py-5 mt-0">
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-lg-3 col-md-6">
-            <h5 class="text-warning text-uppercase fw-semibold mb-4">
-              <i class="bi bi-headset me-2"></i>Chăm sóc khách hàng
-            </h5>
-            <ul class="list-unstyled">
-              <li class="mb-3"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-light">0901 1800 93</span></li>
-              <li class="mb-3"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-light">0901 1800 95</span></li>
-              <li class="mb-3"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-light">0901 1800 71</span></li>
-              <li class="mb-3"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-light">0901 1800 73</span></li>
-              <li class="mb-3"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-light">0901 1800 17</span></li>
-              <li class="mb-3"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-light">0901 1800 10</span></li>
-              <li class="mb-3"><i class="bi bi-clock-fill text-warning me-2"></i>{{ get_setting('working_hours', '8h - 17h30 (Thứ 2 - Thứ 7)') }}</li>
-            </ul>
+<!-- ==================== FOOTER ==================== -->
+<footer class="bg-dark text-white py-5 mt-0">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Column 1: Company Info + Logo + Description -->
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-widget">
+          <!-- Logo -->
+          <div class="footer-logo mb-4">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="{{ get_setting('website_name', 'BRICON') }} Logo" height="50">
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <h5 class="text-warning text-uppercase fw-semibold mb-4">
-              <i class="bi bi-headset me-2"></i>Hỗ trợ khách hàng
-            </h5>
-            <ul class="list-unstyled">
-              {% set terms = get_setting('terms_of_service', '') %}
-              {% set shipping = get_setting('shipping_policy', '') %}
-              {% set warranty = get_setting('warranty_policy', '') %}
-              {% set return_pol = get_setting('return_policy', '') %}
-              {% set privacy = get_setting('privacy_policy', '') %}
+          <!-- Description -->
+          <p class="footer-desc">
+            Đơn vị cung cấp <strong>keo dán gạch, keo chà ron và chống thấm</strong> uy tín,
+            cam kết chất lượng và an toàn cho mọi công trình.
+          </p>
 
-              {% if terms %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#terms" class="text-white text-decoration-none">Điều khoản dịch vụ</a></li>{% endif %}
-              {% if shipping %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#shipping" class="text-white text-decoration-none">Chính sách vận chuyển</a></li>{% endif %}
-              {% if warranty %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#warranty" class="text-white text-decoration-none">Chính sách bảo hành</a></li>{% endif %}
-              {% if return_pol %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#return" class="text-white text-decoration-none">Chính sách đổi trả</a></li>{% endif %}
-              {% if privacy %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#privacy" class="text-white text-decoration-none">Chính sách bảo mật</a></li>{% endif %}
-              <li class="mb-2"><a href="{{ url_for('main.faq') }}" class="text-white text-decoration-none">Câu hỏi thường gặp</a></li>
-
-              {% if not (terms or shipping or warranty or return_pol or privacy) %}
-              <li class="mb-2"><a href="{{ url_for('main.policy') }}" class="text-white text-decoration-none">Chính sách</a></li>
-              {% endif %}
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <h5 class="text-warning text-uppercase fw-semibold mb-4">
-              <i class="bi bi-building me-2"></i>Về {{ get_setting('website_name', 'BRICON') }}
-            </h5>
-            <ul class="list-unstyled">
-              <li class="mb-2"><a href="{{ url_for('main.about') }}" class="text-white text-decoration-none">Giới thiệu</a></li>
-              <li class="mb-2"><a href="{{ url_for('main.contact') }}" class="text-white text-decoration-none">Liên hệ</a></li>
-              <li class="mb-2"><a href="{{ url_for('main.careers') }}" class="text-white text-decoration-none">Tuyển dụng</a></li>
-              <li class="mb-2"><a href="{{ url_for('main.blog') }}" class="text-white text-decoration-none">Tin tức</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <h5 class="text-warning text-uppercase fw-semibold mb-4">
-              <i class="bi bi-chat-dots-fill me-2"></i>Kết nối với chúng tôi
-            </h5>
-            <ul class="list-unstyled mb-4">
-              <li class="mb-2">
-                <i class="bi bi-envelope-fill text-warning me-2"></i>
-                <a href="mailto:{{ get_setting('contact_email', 'info@bricon.vn') }}" class="text-white text-decoration-none">
-                  {{ get_setting('contact_email', 'info@bricon.vn') }}
-                </a>
-              </li>
-              <li class="mb-2">
-                <i class="bi bi-telephone-fill text-warning me-2"></i>
-                <a href="tel:{{ get_setting('hotline', '0901180094')|replace('.', '')|replace(' ', '') }}" class="text-white text-decoration-none">
-                  {{ get_setting('hotline', '0901.180.094') }}
-                </a>
-              </li>
-              <li class="mb-2 d-flex align-items-start">
-                <i class="bi bi-geo-alt-fill text-warning me-2"></i>
-                {% set branch_text = get_setting('branch_addresses', '171, Đường An Phú Đông 03, Phường An Phú Đông, Quận 12, TP.HCM') %}
-                {% set branches = branch_text.strip().split('\n') %}
-                {% set valid_branches = [] %}
-                {% for b in branches %}
-                  {% if b.strip() %}
-                    {% set _ = valid_branches.append(b.strip()) %}
-                  {% endif %}
-                {% endfor %}
-
-                {% if valid_branches|length == 0 %}
-                  <span>171, Đường An Phú Đông 03, Phường An Phú Đông, Quận 12, TP.HCM</span>
-                {% elif valid_branches|length == 1 %}
-                  <span>{{ valid_branches[0] }}</span>
-                {% else %}
-                  <div>
-                    {% for branch in valid_branches %}
-                      {% if loop.first %}
-                        <span>{{ branch }}</span>
-                      {% else %}
-                        <div class="mt-2 ms-4">
-                          <i class="bi bi-geo-alt-fill text-warning me-2"></i>{{ branch }}
-                        </div>
-                      {% endif %}
-                    {% endfor %}
-                  </div>
+          <!-- Contact Info -->
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2">
+              <i class="bi bi-telephone-fill text-warning me-2"></i>
+              <a href="tel:{{ get_setting('hotline', '0901180094')|replace('.', '')|replace(' ', '') }}" class="text-white text-decoration-none">
+                {{ get_setting('hotline', '0901.180.094') }}
+              </a>
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-envelope-fill text-warning me-2"></i>
+              <a href="mailto:{{ get_setting('contact_email', 'info@bricon.vn') }}" class="text-white text-decoration-none">
+                {{ get_setting('contact_email', 'info@bricon.vn') }}
+              </a>
+            </li>
+            <li class="mb-2 d-flex align-items-start">
+              <i class="bi bi-geo-alt-fill text-warning me-2 mt-1"></i>
+              {% set branch_text = get_setting('branch_addresses', '171, Đường An Phú Đông 03, Phường An Phú Đông, Quận 12, TP.HCM') %}
+              {% set branches = branch_text.strip().split('\n') %}
+              {% set valid_branches = [] %}
+              {% for b in branches %}
+                {% if b.strip() %}
+                  {% set _ = valid_branches.append(b.strip()) %}
                 {% endif %}
-              </li>
-            </ul>
+              {% endfor %}
 
-            <div class="social-links">
-              {% if get_setting('facebook_url') %}
-              <a href="{{ get_setting('facebook_url') }}" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">
+              {% if valid_branches|length == 0 %}
+                <span>171, Đường An Phú Đông 03, Phường An Phú Đông, Quận 12, TP.HCM</span>
+              {% elif valid_branches|length == 1 %}
+                <span>{{ valid_branches[0] }}</span>
+              {% else %}
+                <div>
+                  {% for branch in valid_branches %}
+                    {% if loop.first %}
+                      <div class="mt-2">{{ branch }}</div>
+                    {% else %}
+                      <div class="mt-2">
+                        <i class="bi bi-geo-alt-fill text-warning me-2"></i>{{ branch }}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Column 2: Customer Support -->
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-widget">
+          <h5 class="text-warning text-uppercase fw-semibold mb-4">
+            <i class="bi bi-headset me-2"></i>Hỗ trợ khách hàng
+          </h5>
+
+          <!-- Hotlines -->
+          <ul class="list-unstyled mb-4">
+            <li class="mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-white">0901 1800 93</span></li>
+            <li class="mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-white">0901 1800 95</span></li>
+            <li class="mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-white">0901 1800 71</span></li>
+            <li class="mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i><span class="text-white">0901 1800 73</span></li>
+            <li class="mb-2"><i class="bi bi-clock-fill text-warning me-2"></i><span class="text-light">{{ get_setting('working_hours', '8h - 17h30 (T2-T7)') }}</span></li>
+          </ul>
+
+          <!-- Policies -->
+          <h5 class="text-warning text-uppercase fw-semibold mb-4">
+            Chính Sách
+          </h5>
+          <ul class="list-unstyled footer-links">
+            {% set terms = get_setting('terms_of_service', '') %}
+            {% set shipping = get_setting('shipping_policy', '') %}
+            {% set warranty = get_setting('warranty_policy', '') %}
+            {% set return_pol = get_setting('return_policy', '') %}
+            {% set privacy = get_setting('privacy_policy', '') %}
+
+            {% if terms %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#terms" class="text-white text-decoration-none">Điều khoản dịch vụ</a></li>{% endif %}
+            {% if shipping %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#shipping" class="text-white text-decoration-none">Chính sách vận chuyển</a></li>{% endif %}
+            {% if warranty %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#warranty" class="text-white text-decoration-none">Chính sách bảo hành</a></li>{% endif %}
+            {% if return_pol %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#return" class="text-white text-decoration-none">Chính sách đổi trả</a></li>{% endif %}
+            {% if privacy %}<li class="mb-2"><a href="{{ url_for('main.policy') }}#privacy" class="text-white text-decoration-none">Chính sách bảo mật</a></li>{% endif %}
+            <li class="mb-2"><a href="{{ url_for('main.faq') }}" class="text-white text-decoration-none">Câu hỏi thường gặp</a></li>
+
+            {% if not (terms or shipping or warranty or return_pol or privacy) %}
+            <li class="mb-2"><a href="{{ url_for('main.policy') }}" class="text-white text-decoration-none">Chính sách</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Column 3: About Company + Services -->
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-widget">
+          <h5 class="text-warning text-uppercase fw-semibold mb-4">
+            <i class="bi bi-building me-2"></i>Về {{ get_setting('website_name', 'BRICON') }}
+          </h5>
+          <ul class="list-unstyled footer-links">
+            <li class="mb-2"><a href="{{ url_for('main.about') }}" class="text-white text-decoration-none">Giới thiệu</a></li>
+            <li class="mb-2"><a href="{{ url_for('main.contact') }}" class="text-white text-decoration-none">Liên hệ</a></li>
+            <li class="mb-2"><a href="{{ url_for('main.careers') }}" class="text-white text-decoration-none">Tuyển dụng</a></li>
+            <li class="mb-2"><a href="{{ url_for('main.blog') }}" class="text-white text-decoration-none">Tin tức</a></li>
+          </ul>
+
+          <h5 class="text-warning text-uppercase fw-semibold mb-3 mt-4">
+            <i class="bi bi-tools me-2"></i>Sản Phẩm - Dự Án
+          </h5>
+          <ul class="list-unstyled footer-links">
+            {% for category in all_categories[:8] %}
+              <li class="mb-2">
+                <a href="{{ url_for('main.products', category_slug=category.slug) }}" class="text-white text-decoration-none">
+                  {{ category.name }}
+                </a>
+              </li>
+            {% endfor %}
+              <li class="mb-2"><a href="{{ url_for('main.projects') }}" class="text-white text-decoration-none">Dự án</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Column 4: Fanpage + Social Media -->
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-widget">
+          <h5 class="text-warning text-uppercase fw-semibold mb-4">
+            <i class="bi bi-chat-dots-fill me-2"></i>Kết nối với chúng tôi
+          </h5>
+
+          <!-- Fanpage Card -->
+          <div class="fanpage-card">
+            <h6 class="fanpage-card-title text-center text-white">Fanpage</h6>
+            <div class="fanpage-card-body">
+              <!-- Logo with Badge -->
+              <div class="fanpage-image-wrapper">
+                <div class="fanpage-logo-container">
+                  <img src="{{ url_for('static', filename='img/logo-fanpage.webp') }}"
+                       alt="BRICON Logo"
+                       class="fanpage-logo"
+                       onerror="this.src='{{ url_for('static', filename='img/logo-fanpage.webp') }}'">
+                </div>
+              </div>
+
+              <!-- Fanpage Info -->
+              <div class="fanpage-info">
+                <div class="fanpage-name text-white">BRICON Việt Nam</div>
+                <div class="fanpage-followers">
+                  <i class="bi bi-people-fill"></i>
+                  <span>80k người theo dõi</span>
+                </div>
+              </div>
+
+              <!-- Follow Button -->
+              <a href="{{ get_setting('facebook_url', 'https://www.facebook.com/bricon') }}"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="btn-follow-fanpage">
                 <i class="bi bi-facebook"></i>
+                <span>Theo dõi Trang</span>
               </a>
-              {% endif %}
-              {% if get_setting('zalo_url') %}
-              <a href="{{ get_setting('zalo_url') }}" target="_blank" rel="noopener noreferrer" title="Zalo" aria-label="Zalo">
-                <i class="bi bi-chat-dots-fill"></i>
-              </a>
-              {% endif %}
-              {% if get_setting('youtube_url') %}
-              <a href="{{ get_setting('youtube_url') }}" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">
-                <i class="bi bi-youtube"></i>
-              </a>
-              {% endif %}
-              {% if get_setting('tiktok_url') %}
-              <a href="{{ get_setting('tiktok_url') }}" target="_blank" rel="noopener noreferrer" title="TikTok" aria-label="TikTok">
-                <i class="bi bi-tiktok"></i>
-              </a>
-              {% endif %}
             </div>
           </div>
-        </div>
 
-        <hr class="border-secondary opacity-25 my-4" />
-        <div class="row">
-          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-            <p class="mb-0">&copy; {{ current_year|default('2025') }} {{ get_setting('website_name', 'BRICON') }}. All Rights Reserved.</p>
-          </div>
-          <div class="col-md-6 text-center text-md-end">
-            <p class="mb-0">Designed by Bricon IT Team</p>
+          <!-- Social Media -->
+          <div class="social-links">
+            {% if get_setting('facebook_url') %}
+            <a href="{{ get_setting('facebook_url') }}" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook">
+              <i class="bi bi-facebook"></i>
+            </a>
+            {% endif %}
+            {% if get_setting('zalo_url') %}
+            <a href="{{ get_setting('zalo_url') }}" target="_blank" rel="noopener noreferrer" title="Zalo" aria-label="Zalo">
+              <i class="bi bi-chat-dots-fill"></i>
+            </a>
+            {% endif %}
+            {% if get_setting('youtube_url') %}
+            <a href="{{ get_setting('youtube_url') }}" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube">
+              <i class="bi bi-youtube"></i>
+            </a>
+            {% endif %}
+            {% if get_setting('tiktok_url') %}
+            <a href="{{ get_setting('tiktok_url') }}" target="_blank" rel="noopener noreferrer" title="TikTok" aria-label="TikTok">
+              <i class="bi bi-tiktok"></i>
+            </a>
+            {% endif %}
           </div>
         </div>
       </div>
-    </footer>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <hr class="border-secondary opacity-25 my-4" />
+    <div class="row">
+      <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+        <p class="mb-0">
+          &copy; {{ current_year|default('2025') }} {{ get_setting('website_name', 'BRICON') }}. All Rights Reserved.
+        </p>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <p class="mb-0">
+          Designed by Bricon IT Team
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
 
     <!-- ==================== FLOATING ACTION BUTTONS  ==================== -->
     <div class="floating-buttons">
@@ -484,7 +566,7 @@
 
     <!-- ==================== SCRIPTS ==================== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='js/main.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.min.js') }}?v={{ js_version }}"></script>
 
     <!-- Page Loader Script -->
     <script>

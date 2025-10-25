@@ -158,8 +158,18 @@ CSS_MODULES = {
     },
     '28-about-company-section.css': {
         'start': '/* ==================== ABOUT COMPANY SECTION',
-        'end': None,
+        'end': '/* ==================== QUY TRÌNH LÀM VIỆC SECTION',
         'description': 'CSS của about ở trang index'
+    },
+    '29-quy-trinh-lam-viec.css': {
+        'start': '/* ==================== QUY TRÌNH LÀM VIỆC SECTION',
+        'end': '/* ==================== WHY CHOOSE US SECTION',
+        'description': 'QUY TRÌNH LÀM VIỆC SECTION'
+    },
+    '30-why-chose-us.css': {
+        'start': '/* ==================== WHY CHOOSE US SECTION',
+        'end': None,
+        'description': 'WHY CHOOSE US SECTION'
     }
 }
 
@@ -319,7 +329,7 @@ def build_css():
     # Tạo header cho file build
     build_header = f"""/*! 
  * ============================================================================
- * BRICON - Main CSS Build
+ * Main CSS Build
  * ============================================================================
  * Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
  * Modules: {module_count} files

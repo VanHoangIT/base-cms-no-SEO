@@ -46,7 +46,7 @@
                         <li class="mb-2">
                             <a href="{{ url_for('main.products', category_slug=category.slug) }}"
                                class="text-decoration-none {% if current_category and current_category.id == category.id %}text-warning fw-bold{% endif %}">
-                                <i class="bi bi-arrow-right-short"></i> {{ category.name }}
+                                <i class="bi bi-grid"></i> {{ category.name }}
                             </a>
                         </li>
                         {% endfor %}

@@ -115,7 +115,6 @@ def create_app(config_class=Config):
             'all_categories': g.all_categories,
             'current_year': datetime.now().year,
             # Pre-load settings thường dùng
-            'primary_color': get_setting('primary_color', '#ffc107'),
             'default_banner': get_setting('default_banner', ''),
             'per_page': int(get_setting('default_posts_per_page', '12')),
             # Thêm các settings quan trọng cho base.html
@@ -123,6 +122,11 @@ def create_app(config_class=Config):
             'logo_url': get_setting('logo_url', '/static/img/logo.png'),
             'hotline': get_setting('hotline', '0901.180.094'),
             'contact_email': get_setting('contact_email', 'info@bricon.vn'),
+
+                    # ===== CACHE BUSTING =====
+            'css_version': app.config.get('CSS_VERSION'),
+            'js_version': app.config.get('JS_VERSION'),
+            'static_version': app.config.get('STATIC_VERSION'),
         }
 
     # ==================== JINJA2 FILTERS ====================

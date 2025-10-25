@@ -1,15 +1,60 @@
 /* ==================== FOOTER STYLES ====================
  * File: 12-footer.css
  * Auto-generated from style.css
- * Date: 2025-10-25 00:28:19
+ * Date: 2025-10-25 18:05:59
  * ========================================================================== */
 
 /* ==================== FOOTER ==================== */
+/* Main Footer Container */
 footer {
-  background: linear-gradient(180deg, #212529 0%, #1a1d20 100%);
-  padding: 2.75rem 0;
+  background: linear-gradient(135deg, #1a1d20 0%, #212529 100%);
+  padding: 3rem 0 0;
+  color: #adb5bd;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Top Border Gradient */
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffc107, #ff9800, #ffc107);
+}
+
+/* Footer Widget Container */
+.footer-widget {
+  margin-bottom: 2rem;
+}
+
+/* ==================== LOGO ==================== */
+.footer-logo {
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo img {
+  max-height: 50px;
+  width: auto;
+  filter: brightness(1.1);
+}
+
+/* ==================== DESCRIPTION ==================== */
+.footer-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #adb5bd;
+  margin-bottom: 1.5rem;
+}
+
+.footer-desc strong {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+/* ==================== TITLES / HEADINGS ==================== */
 footer h5 {
   color: #ffc107;
   font-weight: 600;
@@ -17,7 +62,8 @@ footer h5 {
   text-transform: uppercase;
   margin-bottom: 1.25rem;
   position: relative;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+  letter-spacing: 0.5px;
 }
 
 footer h5::after {
@@ -25,27 +71,116 @@ footer h5::after {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 40px;
+  width: 50px;
   height: 2px;
   background: #ffc107;
 }
 
-footer p,
-footer li,
+footer h6 {
+  color: #ffc107;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* ==================== TEXT ELEMENTS ==================== */
+footer p {
+  color: #adb5bd;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+}
+
+footer span {
+  color: #adb5bd;
+}
+
+footer .text-light {
+  color: #adb5bd !important;
+}
+
+/* ==================== LISTS ==================== */
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  margin-bottom: 0.65rem;
+  position: relative;
+}
+
+footer ul li:last-child {
+  margin-bottom: 0;
+}
+
+/* ==================== LINKS ==================== */
 footer a {
   color: #adb5bd;
   font-size: 0.85rem;
   line-height: 1.8;
-}
-
-footer a {
   text-decoration: none;
   transition: all 0.3s ease;
+  display: inline-block;
 }
 
 footer a:hover {
   color: #ffc107 !important;
   padding-left: 5px;
+}
+
+/* Footer Links with Arrow Effect */
+.footer-links li a {
+  position: relative;
+  padding-left: 0;
+}
+
+.footer-links li a::before {
+  content: '›';
+  position: absolute;
+  left: -15px;
+  color: #ffc107;
+  opacity: 0;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.footer-links li a:hover::before {
+  opacity: 1;
+  left: 0;
+}
+
+.footer-links li a:hover {
+  padding-left: 20px;
+}
+
+/* ==================== ICONS ==================== */
+footer .bi-telephone-fill,
+footer .bi-envelope-fill,
+footer .bi-geo-alt-fill,
+footer .bi-clock-fill,
+footer .bi-headset,
+footer .bi-building,
+footer .bi-chat-dots-fill,
+footer .bi-tools,
+footer .bi-envelope-heart,
+footer .bi-qr-code,
+footer .bi-people-fill {
+  color: #ffc107;
+}
+
+/* Icon spacing in lists */
+footer li i {
+  margin-right: 0.5rem;
+}
+
+/* ==================== SOCIAL MEDIA LINKS ==================== */
+footer .social-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 footer .social-links a {
@@ -54,43 +189,273 @@ footer .social-links a {
   justify-content: center;
   width: 40px;
   height: 40px;
-  margin-right: 0.5rem;
+  margin-right: 0;
   border-radius: 50%;
   background-color: #343a40;
   color: #fff;
   transition: all 0.3s ease;
+  padding: 0;
+  font-size: 1.1rem;
 }
 
 footer .social-links a:hover {
-  background-color: #ffc107;
   color: #212529 !important;
   transform: translateY(-4px);
-  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+  padding-left: 0;
 }
 
-footer hr {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  opacity: 1;
-  margin: 2rem 0 1.5rem;
+/* Default hover - Yellow */
+footer .social-links a:hover {
+  background-color: #ffc107;
 }
 
-footer ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* Specific Social Media Hover Colors */
+footer .social-links a[title*="Facebook"]:hover,
+footer .social-links a[aria-label*="Facebook"]:hover {
+  background: #1877f2;
+  color: white !important;
 }
 
-footer ul li {
+footer .social-links a[title*="YouTube"]:hover,
+footer .social-links a[aria-label*="YouTube"]:hover {
+  background: #ff0000;
+  color: white !important;
+}
+
+footer .social-links a[title*="TikTok"]:hover,
+footer .social-links a[aria-label*="TikTok"]:hover {
+  background: #000000;
+  color: white !important;
+}
+
+footer .social-links a[title*="Zalo"]:hover,
+footer .social-links a[aria-label*="Zalo"]:hover {
+  background: #0068ff;
+  color: white !important;
+}
+
+/* ==================== FANPAGE CARD - BRICON STYLE ==================== */
+.fanpage-card {
+  background-image: url('../img/background-fanpage.webp');
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.fanpage-card-title {
+  color: #212529;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.fanpage-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.fanpage-image-wrapper {
+  display: flex;
+  justify-content: center;
   margin-bottom: 0.5rem;
 }
 
-footer ul li:last-child {
+.fanpage-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ffc107;
+  background: white;
+  padding: 2px;
+}
+
+.fanpage-info {
+  text-align: center;
+}
+
+.fanpage-name {
+  color: #212529;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.fanpage-followers {
+  color: #6c757d;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.fanpage-followers i {
+  font-size: 0.9rem;
+}
+
+.btn-follow-fanpage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #1877f2;
+  color: white;
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: none;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-follow-fanpage:hover {
+  background: #145dbf;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+  padding-left: 0 !important;
+}
+
+.btn-follow-fanpage i {
+  font-size: 1rem;
+}
+
+/* ==================== CONTACT ITEMS ==================== */
+.footer-contact {
+  margin-bottom: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.contact-item i {
+  color: #ffc107;
+  font-size: 1rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.contact-item a {
+  color: #adb5bd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+  color: #ffc107;
+  padding-left: 0;
+}
+
+/* Multiple Branch Addresses */
+footer .d-flex.align-items-start {
+  gap: 0.5rem;
+}
+
+footer .d-flex.align-items-start .ms-4 {
+  margin-left: 1.5rem !important;
+}
+
+/* ==================== HORIZONTAL RULE ==================== */
+footer hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 1;
+  margin: 2.5rem 0 1.5rem;
+}
+
+/* ==================== FOOTER BOTTOM ==================== */
+.footer-bottom {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copyright {
+  font-size: 0.875rem;
+  color: #adb5bd;
   margin-bottom: 0;
 }
 
+.brand-link,
+.dev-link {
+  color: #ffc107;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.brand-link:hover,
+.dev-link:hover {
+  color: #ffb300;
+  padding-left: 0;
+}
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.footer-bottom-links a {
+  color: #adb5bd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+  color: #ffc107;
+}
+
+.footer-bottom-links .separator {
+  color: #495057;
+}
+
+/* Extra padding for bottom section */
+footer .row:last-child {
+  padding-bottom: 1.5rem;
+}
+
+/* ==================== RESPONSIVE - TABLET ==================== */
+@media (max-width: 991px) {
+  footer {
+    padding: 2.5rem 0 0;
+  }
+
+  .footer-widget {
+    margin-bottom: 2.5rem;
+  }
+
+  footer h5 {
+    font-size: 0.95rem;
+  }
+}
+
+/* ==================== RESPONSIVE - MOBILE ==================== */
 @media (max-width: 767.98px) {
+  footer {
+    padding: 2rem 0 0;
+  }
+
+  /* Center all content on mobile */
   footer .row > [class*="col-"] {
     text-align: center !important;
+    margin-bottom: 0.5rem;
   }
 
   footer .row .text-md-start {
@@ -104,5 +469,215 @@ footer ul li:last-child {
   footer ul li {
     text-align: center;
   }
+
+  .footer-widget {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Center logo on mobile */
+  .footer-logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Center title underline on mobile */
+  footer h5::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Center social links on mobile */
+  footer .social-links {
+    justify-content: center;
+  }
+
+  /* Center contact items */
+  .contact-item {
+    justify-content: center;
+    text-align: left;
+  }
+
+  /* FIX: Căn giữa địa chỉ chi nhánh trên mobile */
+  footer li.mb-2.d-flex.align-items-start {
+    flex-direction: column;
+    align-items: center !important;
+  }
+
+  footer li.mb-2.d-flex.align-items-start > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  footer li.mb-2.d-flex.align-items-start > div > div {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Remove arrow effect on mobile */
+  .footer-links li a::before {
+    display: none;
+  }
+
+  .footer-links li a:hover {
+    padding-left: 5px;
+  }
+
+  /* Adjust spacing */
+  footer hr {
+    margin: 2rem 0 1.25rem;
+  }
+
+  /* Fanpage Card responsive */
+  .fanpage-card {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 320px;
+  }
+
+  /* Footer bottom */
+  .footer-bottom {
+    margin-top: 2rem;
+    padding: 1.25rem 0;
+  }
+
+  .footer-bottom-links {
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .copyright {
+    margin-bottom: 0.5rem;
+  }
+
+  footer .row:last-child {
+    padding-bottom: 1.25rem;
+  }
 }
+
+/* ==================== RESPONSIVE - SMALL MOBILE ==================== */
+@media (max-width: 576px) {
+  footer {
+    padding: 1.5rem 0 0;
+  }
+
+  footer h5 {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  footer h6 {
+    font-size: 0.875rem;
+  }
+
+  .footer-desc {
+    font-size: 0.85rem;
+  }
+
+  footer p,
+  footer li,
+  footer a {
+    font-size: 0.8rem;
+  }
+
+  .contact-item {
+    font-size: 0.825rem;
+  }
+
+  .footer-links li a {
+    font-size: 0.8rem;
+  }
+
+  footer .social-links a {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  footer ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Fanpage Card on small mobile */
+  .fanpage-card {
+    padding: 0.85rem;
+  }
+
+  .fanpage-card-title {
+    font-size: 1rem;
+  }
+
+  .fanpage-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .fanpage-name {
+    font-size: 0.95rem;
+  }
+
+  .fanpage-followers {
+    font-size: 0.8rem;
+  }
+
+  .btn-follow-fanpage {
+    font-size: 0.85rem;
+    padding: 0.6rem 0.85rem;
+  }
+}
+
+/* ==================== UTILITIES ==================== */
+.text-decoration-none {
+  text-decoration: none !important;
+}
+
+.fw-semibold {
+  font-weight: 600 !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.me-2 {
+  margin-right: 0.5rem !important;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
 

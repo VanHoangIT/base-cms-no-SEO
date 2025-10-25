@@ -102,83 +102,245 @@
 <!-- ==================== ABOUT COMPANY ==================== -->
 <section class="py-5 bg-white">
   <div class="container">
-    <div class="row align-items-center g-4">
-      <!-- Left Side - Images Grid -->
-      <div class="col-lg-6">
-        <div class="about-images-grid">
-          <!-- Main Image - Top Left -->
-          <div class="about-img-main">
-            <img
-              src="{{ url_for('static', filename='img/tau.webp') }}"
-              alt="Mạng lưới logistics toàn cầu"
-              class="img-fluid rounded shadow"
-              loading="lazy"
-            />
-          </div>
+    <div class="row align-items-stretch g-4">
+      <!-- Left Side - YouTube Video -->
+      <div class="col-lg-6 d-flex">
+        <div class="video-wrapper-full w-100">
+          <!-- Decorative Elements -->
+          <div class="video-decorative-bg"></div>
+          <div class="video-decorative-dots"></div>
 
-          <!-- Grid Right Side -->
-          <div class="about-img-secondary">
-            <!-- Top Right -->
-            <img
-              src="{{ url_for('static', filename='img/battay.webp') }}"
-              alt="Đối tác tin cậy"
-              class="img-fluid rounded shadow mb-3"
+          <!-- Video Container -->
+          <div class="video-container">
+            <!-- Play Badge -->
+            <div class="video-badge">
+              <i class="bi bi-play-circle-fill"></i>
+              <span>Video Giới Thiệu</span>
+            </div>
+
+            <iframe
+              src="https://www.youtube.com/embed/4Hm_h0nTCxY"
+              title="BRICON VIỆT NAM - Giới thiệu sản phẩm"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
               loading="lazy"
-            />
-            <!-- Bottom Right -->
-            <img
-              src="{{ url_for('static', filename='img/khohang.webp') }}"
-              alt="Kho vận chuyên nghiệp"
-              class="img-fluid rounded shadow"
-              loading="lazy"
-            />
+              class="rounded shadow-lg"
+            ></iframe>
+
+            <!-- Decorative Corner -->
+            <div class="video-corner-tl"></div>
+            <div class="video-corner-br"></div>
           </div>
         </div>
       </div>
 
-        <!-- Right Side - Content -->
-        <div class="col-lg-6">
-          <div class="about-content">
-            <h2 class="fw-bold mb-4 text-uppercase text-center" style="color:#ffd700;">BRICON VIỆT NAM</h2>
-            <p class="text-muted mb-4">
-              BRICON là thương hiệu Việt chuyên sản xuất <strong>keo dán gạch, keo chà ron và vật liệu chống thấm</strong>
-              với định hướng “<em>Keo của người Việt – Kết dính bền lâu, xây dựng niềm tin</em>”.
-              Chúng tôi không ngừng cải tiến công nghệ, kiểm soát chất lượng nghiêm ngặt và cung ứng sản phẩm đạt chuẩn quốc tế,
-              phục vụ hàng nghìn công trình, nhà thầu và đại lý trên toàn quốc.
-            </p>
+      <!-- Right Side - Content -->
+      <div class="col-lg-6 d-flex">
+        <div class="about-content w-100 d-flex flex-column">
+          <h2 class="fw-bold mb-4 text-uppercase text-center" style="color:#ffd700;">BRICON VIỆT NAM</h2>
+          <p class="text-dark mb-4">
+            BRICON là thương hiệu Việt chuyên sản xuất <strong>keo dán gạch, keo chà ron và vật liệu chống thấm</strong>
+            với định hướng "<em>Keo của người Việt – Kết dính bền lâu, xây dựng niềm tin</em>".
+            Chúng tôi không ngừng cải tiến công nghệ, kiểm soát chất lượng nghiêm ngặt và cung ứng sản phẩm đạt chuẩn quốc tế,
+            phục vụ hàng nghìn công trình, nhà thầu và đại lý trên toàn quốc.
+          </p>
 
-            <!-- Services List -->
-            <ul class="list-unstyled mb-4">
-              <li class="mb-3 d-flex align-items-start">
-                <i class="bi bi-bricks text-warning me-3" style="font-size: 1.5rem;"></i>
-                <span class="text-dark">Sản xuất keo dán gạch chất lượng cao – độ bám dính vượt trội</span>
-              </li>
-              <li class="mb-3 d-flex align-items-start">
-                <i class="bi bi-droplet-half text-warning me-3" style="font-size: 1.5rem;"></i>
-                <span class="text-dark">Keo chà ron chống thấm, chống mốc, bền màu theo thời gian</span>
-              </li>
-              <li class="mb-3 d-flex align-items-start">
-                <i class="bi bi-shield-check text-warning me-3" style="font-size: 1.5rem;"></i>
-                <span class="text-dark">Sơn và dung dịch chống thấm cho mọi bề mặt xây dựng</span>
-              </li>
-            </ul>
+          <!-- Services List -->
+          <ul class="list-unstyled mb-4">
+            <li class="mb-3 d-flex align-items-start">
+              <i class="bi bi-bricks text-warning me-3" style="font-size: 1.5rem;"></i>
+              <span class="text-dark">Sản xuất keo dán gạch chất lượng cao – độ bám dính vượt trội</span>
+            </li>
+            <li class="mb-3 d-flex align-items-start">
+              <i class="bi bi-droplet-half text-warning me-3" style="font-size: 1.5rem;"></i>
+              <span class="text-dark">Keo chà ron chống thấm, chống mốc, bền màu theo thời gian</span>
+            </li>
+            <li class="mb-3 d-flex align-items-start">
+              <i class="bi bi-shield-check text-warning me-3" style="font-size: 1.5rem;"></i>
+              <span class="text-dark">Sơn và dung dịch chống thấm cho mọi bề mặt xây dựng</span>
+            </li>
+          </ul>
 
-            <!-- Stats -->
-            <div class="about-stats d-flex align-items-center gap-4 mb-4">
-              <div class="stat-number">
-                <h3 class="fw-bold text-warning mb-0" style="font-size: 2.5rem;">10.000+</h3>
-              </div>
-              <div class="stat-text">
-                <p class="mb-0 text-dark fw-semibold">Công trình và đại lý</p>
-                <p class="mb-0 text-dark fw-semibold">đã tin dùng sản phẩm BRICON</p>
-              </div>
+          <!-- Stats -->
+          <div class="about-stats d-flex align-items-center gap-4 mb-4">
+            <div class="stat-number">
+              <h3 class="fw-bold text-warning mb-0" style="font-size: 2.5rem;">10.000+</h3>
             </div>
+            <div class="stat-text">
+              <p class="mb-0 text-dark fw-semibold">Công trình và đại lý</p>
+              <p class="mb-0 text-dark fw-semibold">đã tin dùng sản phẩm BRICON</p>
+            </div>
+          </div>
+
           <!-- CTA Button -->
-            <div class="text-center">
-              <a href="{{ url_for('main.contact') }}" class="btn btn-warning btn-lg px-4 py-2">
-                BÁO GIÁ NGAY
-              </a>
-            </div>
+          <div class="text-center mt-auto">
+            <a href="#" class="btn btn-warning btn-lg px-4 py-2">
+              BÁO GIÁ NGAY
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== QUY TRÌNH LÀM VIỆC ==================== -->
+<section class="work-process-section py-5 bg-white">
+  <div class="container">
+    <!-- Section Title -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">QUY TRÌNH LÀM VIỆC</h2>
+      <div class="title-underline mx-auto"></div>
+    </div>
+
+    <!-- Process Timeline -->
+    <div class="process-timeline">
+      <!-- Step 1 -->
+      <div class="process-step">
+        <div class="process-number">01</div>
+        <div class="process-icon">
+          <i class="bi bi-file-text"></i>
+        </div>
+        <h3 class="process-title">Yêu cầu báo giá</h3>
+        <p class="process-description">
+          Khách hàng gửi yêu cầu báo giá dịch vụ theo nhu cầu.
+          Chúng tôi nhanh chóng phản hồi với chi phí tối ưu và giải pháp phù hợp nhất cho từng lô hàng.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="process-step">
+        <div class="process-number">02</div>
+        <div class="process-icon">
+          <i class="bi bi-geo-alt"></i>
+        </div>
+        <h3 class="process-title">Tiếp nhận đơn hàng</h3>
+        <p class="process-description">
+          Sau khi thống nhất báo giá, chúng tôi tiếp nhận thông tin đơn hàng,
+          xác nhận chi tiết và bắt đầu tiến hành các thủ tục xử lý một cách chính xác và nhanh chóng.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="process-step">
+        <div class="process-number">03</div>
+        <div class="process-icon">
+          <i class="bi bi-box-seam"></i>
+        </div>
+        <h3 class="process-title">Đặt kho bãi lưu trữ</h3>
+        <p class="process-description">
+          Hàng hóa được sắp xếp vào kho bãi phù hợp, đảm bảo điều kiện bảo quản an toàn,
+          kiểm soát số lượng, tình trạng và hỗ trợ truy xuất dễ dàng khi cần.
+        </p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="process-step">
+        <div class="process-number">04</div>
+        <div class="process-icon">
+          <i class="bi bi-truck"></i>
+        </div>
+        <h3 class="process-title">Vận chuyển </h3>
+        <p class="process-description">
+          Chúng tôi tiến hành vận chuyển hàng hóa đến đúng địa điểm, đúng thời gian
+          với các phương tiện chuyên dụng, đảm bảo an toàn và tối ưu hóa chi phí.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DỊCH VỤ CỦA BRICON ==================== -->
+<section class="services-section py-5 bg-white">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="services-header mb-5">
+      <div class="section-label mb-3">
+        <span>DỊCH VỤ CỦA CHÚNG TÔI</span>
+      </div>
+      <h2 class="fw-bold mb-3">Chúng Tôi Cung Cấp Các Dịch Vụ</h2>
+      <p class="services-description">
+        Chuyên thi công và phát triển công trình uy tín, chuyên cung cấp giải pháp xây dựng toàn diện,
+        bền vững và tối ưu chi phí. Với đội ngũ kỹ sư giàu kinh nghiệm và công nghệ tiên tiến,
+        chúng tôi cam kết tạo nên những công trình chất lượng, an toàn và thẩm mỹ.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="services-grid">
+      <!-- Service 1 - Keo Dán Gạch -->
+      <div class="service-card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <div class="service-image">
+          <img
+            src="https://via.placeholder.com/600x400/2a5298/FFFFFF?text=Keo+Dan+Gach"
+            alt="Keo dán gạch BRICON - Độ bám dính vượt trội"
+            loading="lazy"
+          />
+        </div>
+        <div class="service-content">
+          <div class="service-icon">
+            <i class="bi bi-bricks"></i>
+          </div>
+          <h3 class="service-title">Keo dán gạch</h3>
+          <p class="service-desc">
+            Sản phẩm keo dán gạch chất lượng cao với độ bám dính vượt trội,
+            chịu nhiệt tốt và chống thấm hiệu quả. Phù hợp cho mọi loại gạch
+            từ gạch men, gạch granite đến gạch ốp lát cao cấp.
+          </p>
+          <a href="#" class="service-btn">
+            Xem chi tiết <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 2 - Keo Chà Ron -->
+      <div class="service-card" style="background: linear-gradient(135deg, #c79081 0%, #dfa579 100%);">
+        <div class="service-image">
+          <img
+            src="https://via.placeholder.com/600x400/dfa579/FFFFFF?text=Keo+Cha+Ron"
+            alt="Keo chà ron BRICON - Chống thấm, chống mốc"
+            loading="lazy"
+          />
+        </div>
+        <div class="service-content">
+          <div class="service-icon">
+            <i class="bi bi-droplet-half"></i>
+          </div>
+          <h3 class="service-title">Keo chà ron</h3>
+          <p class="service-desc">
+            Keo chà ron đa năng, chống thấm và chống mốc tuyệt đối.
+            Màu sắc đa dạng, bền màu theo thời gian, dễ thi công và
+            làm sạch. Tạo đường nối hoàn hảo cho mọi công trình.
+          </p>
+          <a href="#" class="service-btn">
+            Xem chi tiết <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 3 - Chống Thấm -->
+      <div class="service-card" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);">
+        <div class="service-image">
+          <img
+            src="https://via.placeholder.com/600x400/203a43/FFFFFF?text=Chong+Tham"
+            alt="Sơn chống thấm BRICON - Bảo vệ công trình"
+            loading="lazy"
+          />
+        </div>
+        <div class="service-content">
+          <div class="service-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h3 class="service-title">Chống thấm</h3>
+          <p class="service-desc">
+            Sơn và dung dịch chống thấm chuyên dụng cho mọi bề mặt xây dựng.
+            Bảo vệ công trình khỏi thấm nước, nứt tường và nấm mốc.
+            Độ bền cao, thân thiện môi trường và dễ dàng thi công.
+          </p>
+          <a href="#" class="service-btn">
+            Xem chi tiết <i class="bi bi-arrow-right"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -196,7 +358,7 @@
 
     <!-- Products Grid -->
     <div class="row g-4">
-      {% for product in featured_products[:3] %}
+      {% for product in featured_products[:6] %}
         {% include 'components/card_product.html' with context %}
       {% endfor %}
     </div>
@@ -209,6 +371,111 @@
       >
         Xem tất cả sản phẩm <i class="bi bi-arrow-right ms-2"></i>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TẠI SAO CHỌN BRICON ==================== -->
+<section class="why-choose-us py-5 bg-white">
+  <div class="container">
+    <div class="row align-items-stretch g-4">
+      <!-- Left Side - Image -->
+      <div class="col-lg-6 d-flex">
+        <div class="why-image-wrapper w-100">
+          <!-- Decorative Elements -->
+          <div class="why-decorative-bg"></div>
+          <div class="why-decorative-dots"></div>
+
+          <!-- Image Container -->
+          <div class="why-image-container">
+            <!-- Badge -->
+            <div class="why-badge">
+              <i class="bi bi-award-fill"></i>
+              <span>Uy Tín Hàng Đầu</span>
+            </div>
+
+            <img
+              src="{{ url_for('static', filename='img/tau.webp') }}"
+              alt="BRICON - Thi công xây dựng chuyên nghiệp"
+              class="rounded shadow-lg"
+              loading="lazy"
+            />
+
+            <!-- Decorative Corners -->
+            <div class="why-corner-tl"></div>
+            <div class="why-corner-br"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Content -->
+      <div class="col-lg-6 d-flex">
+        <div class="why-content w-100 d-flex flex-column">
+          <!-- Section Label -->
+          <div class="section-label mb-3">
+            <span>TẠI SAO CHỌN CHÚNG TÔI</span>
+          </div>
+
+          <h2 class="fw-bold mb-4">Từ Ý Tưởng Đến Công Trình Hoàn Thiện</h2>
+
+          <p class="text-dark mb-4">
+            Được phát triển thông qua sự hợp tác chặt chẽ với các đối tác và khách hàng,
+            kết hợp kiến thức ngành, kinh nghiệm nhiều thập kỷ, sự khéo léo và khả năng
+            thích ứng để mang lại sự hoàn hảo cho khách hàng.
+          </p>
+
+          <!-- Features Grid -->
+          <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-item">
+              <div class="feature-number">01</div>
+              <div class="feature-content">
+                <h5 class="feature-title">Giải pháp hiện đại</h5>
+                <p class="feature-desc">
+                  Công nghệ và phương pháp thi công tiên tiến, giúp tối ưu chi phí, rút ngắn
+                  thời gian nhưng vẫn đảm bảo chất lượng công trình.
+                </p>
+              </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-item">
+              <div class="feature-number">02</div>
+              <div class="feature-content">
+                <h5 class="feature-title">Đội ngũ chuyên nghiệp</h5>
+                <p class="feature-desc">
+                  Đội ngũ kiến trúc sư, kỹ sư và công nhân lành nghề, tận tâm với nghề,
+                  luôn lắng nghe và đồng hành cùng khách hàng.
+                </p>
+              </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-item">
+              <div class="feature-number">03</div>
+              <div class="feature-content">
+                <h5 class="feature-title">Kinh nghiệm lâu năm</h5>
+                <p class="feature-desc">
+                  Với nhiều năm trong ngành xây dựng, chúng tôi mang đến cho khách hàng
+                  những công trình chất lượng, bền vững và đúng tiến độ.
+                </p>
+              </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-item">
+              <div class="feature-number">04</div>
+              <div class="feature-content">
+                <h5 class="feature-title">Cam kết lâu dài</h5>
+                <p class="feature-desc">
+                  Mỗi công trình không chỉ là một dự án, mà còn là lời hứa về sự bền vững, an toàn
+                  và giá trị sử dụng lâu dài cho khách hàng.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

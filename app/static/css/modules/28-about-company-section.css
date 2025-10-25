@@ -1,44 +1,184 @@
 /* ==================== CSS CỦA ABOUT Ở TRANG INDEX ====================
  * File: 28-about-company-section.css
  * Auto-generated from style.css
- * Date: 2025-10-25 00:28:19
+ * Date: 2025-10-25 18:05:59
  * ========================================================================== */
 
 /* ==================== ABOUT COMPANY SECTION ==================== */
-.about-images-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  height: 100%;
-}
-
-.about-img-main {
-  grid-row: 1 / 3;
-}
-
-.about-img-main img {
+.video-wrapper-full {
+  position: relative;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  min-height: 400px;
+  min-height: 100%;
+  overflow: visible;
 }
 
-.about-img-secondary {
+/* Decorative Background Pattern */
+.video-decorative-bg {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  opacity: 0.15;
+  z-index: 0;
+  animation: blob-morph 8s ease-in-out infinite;
+}
+
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  50% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  }
+}
+
+/* Decorative Dots Pattern */
+.video-decorative-dots {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  width: 100px;
+  height: 100px;
+  background-image: radial-gradient(circle, #ffc107 2px, transparent 2px);
+  background-size: 15px 15px;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+/* Video Container with Border Animation */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  padding: 12px;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 193, 7, 0.1);
+  z-index: 1;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.video-container:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.15),
+    0 0 0 2px rgba(255, 193, 7, 0.3);
+}
+
+/* Video Badge */
+.video-badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  color: #212529;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+  animation: badge-pulse 3s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.video-badge i {
+  font-size: 1.2rem;
+  animation: play-icon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes play-icon-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Decorative Corners */
+.video-corner-tl,
+.video-corner-br {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ffc107;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.video-corner-tl {
+  top: -8px;
+  left: -8px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 12px 0 0 0;
+}
+
+.video-corner-br {
+  bottom: -8px;
+  right: -8px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 12px 0;
+}
+
+/* Iframe Styling */
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: none;
+  border: none;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Content Styling */
+.about-content {
+  padding: 0;
   display: flex;
   flex-direction: column;
-}
-
-.about-img-secondary img {
-  width: 100%;
+  justify-content: space-between;
   height: 100%;
-  object-fit: cover;
-  flex: 1;
 }
 
 .about-content h2 {
   color: #212529;
-  font-size: 1.75rem;
+  font-size: 2rem;
   letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.about-content p {
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.about-content ul {
+  flex-grow: 0;
+}
+
+.about-content ul li {
+  line-height: 1.6;
 }
 
 .about-content ul li i {
@@ -48,48 +188,329 @@
 
 .about-stats {
   background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   border-radius: 12px;
   border-left: 4px solid #ffc107;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
 }
 
-/* Responsive */
-@media (max-width: 991px) {
-  .about-images-grid {
-    grid-template-columns: 1fr;
-    margin-bottom: 2rem;
-  }
-
-  .about-img-main {
-    grid-row: auto;
-  }
-
-  .about-img-main img {
-    min-height: 250px;
-  }
-
-  .about-img-secondary {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .about-img-secondary img {
-    height: 200px;
-  }
-}
-
-@media (max-width: 576px) {
+/* ==================== TABLET LANDSCAPE (992px - 1199px) ==================== */
+@media (max-width: 1199px) {
   .about-content h2 {
-    font-size: 1.5rem;
+    font-size: 1.85rem;
+  }
+
+  .video-decorative-bg {
+    width: 120px;
+    height: 120px;
+  }
+
+  .video-decorative-dots {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* ==================== TABLET PORTRAIT (768px - 991px) ==================== */
+@media (max-width: 991px) {
+  .video-wrapper-full {
+    margin-bottom: 2rem;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .video-container {
+    min-height: 400px;
+  }
+
+  .video-container iframe {
+    min-height: 376px;
+  }
+
+  .about-content {
+    padding: 0;
+    height: auto;
+  }
+
+  .about-content h2 {
+    font-size: 1.75rem;
   }
 
   .about-stats {
-    flex-direction: column;
-    text-align: center;
+    padding: 1.25rem 1.5rem;
   }
 
-  .about-img-secondary {
-    grid-template-columns: 1fr;
+  .video-badge {
+    font-size: 0.8rem;
+    padding: 6px 16px;
+  }
+
+  .video-decorative-bg {
+    width: 100px;
+    height: 100px;
   }
 }
+
+/* ==================== MOBILE LANDSCAPE (576px - 767px) ==================== */
+@media (max-width: 767px) {
+  .video-wrapper-full {
+    margin-bottom: 1.5rem;
+    min-height: 350px;
+  }
+
+  .video-container {
+    min-height: 350px;
+    padding: 10px;
+  }
+
+  .video-container iframe {
+    min-height: 330px;
+  }
+
+  .about-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem !important;
+  }
+
+  .about-content p {
+    font-size: 0.95rem;
+  }
+
+  .about-content ul li {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .about-content ul li i {
+    font-size: 1.25rem !important;
+  }
+
+  .about-stats {
+    flex-direction: column !important;
+    text-align: center;
+    gap: 0.5rem !important;
+  }
+
+  .about-stats .stat-text p {
+    font-size: 0.9rem;
+  }
+
+  .video-badge {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+  }
+
+  .video-decorative-bg {
+    width: 80px;
+    height: 80px;
+    top: -15px;
+    left: -15px;
+  }
+
+  .video-decorative-dots {
+    width: 60px;
+    height: 60px;
+  }
+
+  .video-corner-tl,
+  .video-corner-br {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* ==================== MOBILE PORTRAIT (max 575px) ==================== */
+@media (max-width: 575px) {
+  .video-wrapper-full {
+    margin-bottom: 1.5rem;
+    min-height: 300px;
+    height: auto;
+  }
+
+  .video-container {
+    min-height: 300px;
+    padding: 8px;
+    border-radius: 12px;
+  }
+
+  .video-container iframe {
+    min-height: 284px;
+    border-radius: 8px;
+  }
+
+  .about-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem !important;
+  }
+
+  .about-content p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem !important;
+  }
+
+  .about-content ul {
+    margin-bottom: 1rem !important;
+  }
+
+  .about-content ul li {
+    font-size: 0.85rem;
+    margin-bottom: 0.65rem !important;
+  }
+
+  .about-content ul li i {
+    font-size: 1.15rem !important;
+    margin-right: 0.5rem !important;
+  }
+
+  .about-stats h3 {
+    font-size: 2rem !important;
+  }
+
+  .about-stats .stat-text p {
+    font-size: 0.85rem;
+  }
+
+  .about-stats {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem !important;
+  }
+
+  .video-badge {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+    top: -10px;
+    left: 16px;
+  }
+
+  .video-badge i {
+    font-size: 1rem;
+  }
+
+  .video-decorative-bg {
+    width: 60px;
+    height: 60px;
+    top: -10px;
+    left: -10px;
+  }
+
+  .video-decorative-dots {
+    width: 50px;
+    height: 50px;
+    bottom: -10px;
+    right: -10px;
+    background-size: 12px 12px;
+  }
+
+  .video-corner-tl,
+  .video-corner-br {
+    width: 25px;
+    height: 25px;
+    border-width: 2px;
+  }
+}
+
+/* ==================== EXTRA SMALL DEVICES (max 425px) ==================== */
+@media (max-width: 425px) {
+  .about-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .about-stats h3 {
+    font-size: 1.85rem !important;
+  }
+
+  .video-wrapper-full {
+    min-height: 280px;
+  }
+
+  .video-container {
+    min-height: 280px;
+  }
+
+  .video-container iframe {
+    min-height: 264px;
+  }
+}
+
+/* ==================== VERY SMALL DEVICES (max 375px) ==================== */
+@media (max-width: 375px) {
+  .video-wrapper-full {
+    margin-bottom: 1.25rem;
+    min-height: 250px;
+  }
+
+  .video-container {
+    min-height: 250px;
+  }
+
+  .video-container iframe {
+    min-height: 234px;
+  }
+
+  .about-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .about-content p,
+  .about-content ul li {
+    font-size: 0.8rem;
+  }
+
+  .about-stats {
+    padding: 0.85rem 1rem;
+  }
+
+  .about-stats h3 {
+    font-size: 1.7rem !important;
+  }
+
+  .about-stats .stat-text p {
+    font-size: 0.8rem;
+  }
+
+  .video-decorative-bg,
+  .video-decorative-dots {
+    display: none;
+  }
+
+  .video-corner-tl,
+  .video-corner-br {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* ==================== COMPACT DEVICES (max 320px) ==================== */
+@media (max-width: 320px) {
+  .about-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .about-stats h3 {
+    font-size: 1.5rem !important;
+  }
+
+  .video-wrapper-full {
+    min-height: 220px;
+  }
+
+  .video-container {
+    min-height: 220px;
+    padding: 6px;
+  }
+
+  .video-container iframe {
+    min-height: 208px;
+  }
+
+  .video-badge {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+  }
+
+  .video-corner-tl,
+  .video-corner-br {
+    display: none;
+  }
+}
+

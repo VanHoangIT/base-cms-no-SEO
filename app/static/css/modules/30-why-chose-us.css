@@ -1,0 +1,1110 @@
+/* ==================== WHY CHOOSE US SECTION ====================
+ * File: 30-why-chose-us.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 18:05:59
+ * ========================================================================== */
+
+/* ==================== WHY CHOOSE US SECTION ==================== */
+.why-choose-us {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== IMAGE SIDE ===== */
+.why-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: visible;
+}
+
+/* Decorative Background */
+.why-decorative-bg {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  opacity: 0.15;
+  z-index: 0;
+  animation: blob-morph 8s ease-in-out infinite;
+}
+
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  50% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  }
+}
+
+/* Decorative Dots */
+.why-decorative-dots {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  width: 100px;
+  height: 100px;
+  background-image: radial-gradient(circle, #ffc107 2px, transparent 2px);
+  background-size: 15px 15px;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+/* Image Container */
+.why-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  padding: 12px;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 193, 7, 0.1);
+  z-index: 1;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.why-image-container:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.15),
+    0 0 0 2px rgba(255, 193, 7, 0.3);
+}
+
+.why-image-container img {
+  width: 100%;
+  height: auto;
+  min-height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+/* Badge */
+.why-badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  color: #212529;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+  animation: badge-pulse 3s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.why-badge i {
+  font-size: 1.2rem;
+}
+
+/* Decorative Corners */
+.why-corner-tl,
+.why-corner-br {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ffc107;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.why-corner-tl {
+  top: -8px;
+  left: -8px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 12px 0 0 0;
+}
+
+.why-corner-br {
+  bottom: -8px;
+  right: -8px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 12px 0;
+}
+
+/* ===== CONTENT SIDE ===== */
+.why-content {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Section Label */
+.section-label {
+  display: inline-block;
+  width: fit-content;
+}
+
+.section-label span {
+  color: #ffd700;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  padding-left: 50px;
+}
+
+.section-label span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 2px;
+  background: #ffd700;
+}
+
+/* Title */
+.why-content h2 {
+  color: #212529;
+  font-size: 2rem;
+  line-height: 1.3;
+  letter-spacing: 0.3px;
+}
+
+.why-content > p {
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #495057;
+}
+
+/* ===== FEATURES GRID ===== */
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.feature-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 15%, #ffffff 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #ff6b35;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.15);
+  border-left-color: #ffc107;
+}
+
+/* Feature Number Badge */
+.feature-number {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(255, 107, 53, 0.3);
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.feature-desc {
+  font-size: 0.9rem;
+  color: #6c757d;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==================== TABLET LANDSCAPE (992px - 1199px) ==================== */
+@media (max-width: 1199px) {
+  .why-content h2 {
+    font-size: 1.85rem;
+  }
+
+  .feature-title {
+    font-size: 1.05rem;
+  }
+
+  .feature-desc {
+    font-size: 0.875rem;
+  }
+}
+
+/* ==================== TABLET PORTRAIT (768px - 991px) ==================== */
+@media (max-width: 991px) {
+  .why-image-wrapper {
+    margin-bottom: 2rem;
+    height: auto;
+    min-height: 450px;
+  }
+
+  .why-image-container img {
+    min-height: 426px;
+  }
+
+  .why-content {
+    padding: 0;
+    height: auto;
+  }
+
+  .why-content h2 {
+    font-size: 1.75rem;
+  }
+
+  .features-grid {
+    gap: 1.25rem;
+  }
+
+  .feature-item {
+    padding: 1.25rem;
+  }
+
+  .feature-number {
+    width: 45px;
+    height: 45px;
+    font-size: 1.15rem;
+  }
+}
+
+/* ==================== MOBILE LANDSCAPE (576px - 767px) ==================== */
+@media (max-width: 767px) {
+  .why-choose-us {
+    padding: 3rem 0 !important;
+  }
+
+  .why-image-wrapper {
+    margin-bottom: 1.5rem;
+    min-height: 400px;
+  }
+
+  .why-image-container img {
+    min-height: 376px;
+  }
+
+  .why-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem !important;
+  }
+
+  .why-content > p {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .section-label span {
+    font-size: 0.8rem;
+  }
+
+  .features-grid {
+    gap: 1rem;
+  }
+
+  .feature-item {
+    padding: 1rem;
+  }
+
+  .feature-number {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+
+  .feature-title {
+    font-size: 1rem;
+  }
+
+  .feature-desc {
+    font-size: 0.85rem;
+  }
+
+  .why-badge {
+    font-size: 0.8rem;
+    padding: 6px 16px;
+  }
+
+  .why-decorative-bg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .why-decorative-dots {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* ==================== MOBILE PORTRAIT (max 575px) ==================== */
+@media (max-width: 575px) {
+  .why-choose-us {
+    padding: 2.5rem 0 !important;
+  }
+
+  .why-image-wrapper {
+    margin-bottom: 1.5rem;
+    min-height: 350px;
+  }
+
+  .why-image-container {
+    padding: 10px;
+  }
+
+  .why-image-container img {
+    min-height: 330px;
+  }
+
+  .why-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .why-content > p {
+    font-size: 0.9rem;
+  }
+
+  .section-label span {
+    font-size: 0.75rem;
+    padding-left: 40px;
+  }
+
+  .section-label span::before {
+    width: 32px;
+  }
+
+  .features-grid {
+    gap: 0.875rem;
+  }
+
+  .feature-item {
+    padding: 0.875rem;
+    gap: 1rem;
+  }
+
+  .feature-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .feature-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .feature-desc {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .why-badge {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    top: -10px;
+    left: 16px;
+  }
+
+  .why-badge i {
+    font-size: 1rem;
+  }
+
+  .why-decorative-bg {
+    width: 80px;
+    height: 80px;
+    top: -15px;
+    left: -15px;
+  }
+
+  .why-decorative-dots {
+    width: 60px;
+    height: 60px;
+    bottom: -10px;
+    right: -10px;
+    background-size: 12px 12px;
+  }
+
+  .why-corner-tl,
+  .why-corner-br {
+    width: 30px;
+    height: 30px;
+    border-width: 2px;
+  }
+}
+
+/* ==================== EXTRA SMALL DEVICES (max 425px) ==================== */
+@media (max-width: 425px) {
+  .why-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .why-image-wrapper {
+    min-height: 320px;
+  }
+
+  .why-image-container img {
+    min-height: 300px;
+  }
+}
+
+/* ==================== VERY SMALL DEVICES (max 375px) ==================== */
+@media (max-width: 375px) {
+  .why-image-wrapper {
+    margin-bottom: 1.25rem;
+    min-height: 300px;
+  }
+
+  .why-image-container {
+    padding: 8px;
+  }
+
+  .why-image-container img {
+    min-height: 284px;
+  }
+
+  .why-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .why-content > p {
+    font-size: 0.85rem;
+  }
+
+  .feature-item {
+    padding: 0.75rem;
+    gap: 0.875rem;
+  }
+
+  .feature-number {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+
+  .feature-title {
+    font-size: 0.9rem;
+  }
+
+  .feature-desc {
+    font-size: 0.75rem;
+  }
+
+  .why-decorative-bg,
+  .why-decorative-dots {
+    display: none;
+  }
+
+  .why-corner-tl,
+  .why-corner-br {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+/* ==================== COMPACT DEVICES (max 320px) ==================== */
+@media (max-width: 320px) {
+  .why-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .why-image-wrapper {
+    min-height: 280px;
+  }
+
+  .why-image-container {
+    padding: 6px;
+  }
+
+  .why-image-container img {
+    min-height: 268px;
+  }
+
+  .section-label span {
+    font-size: 0.7rem;
+  }
+
+  .feature-item {
+    padding: 0.65rem;
+  }
+
+  .feature-number {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .why-badge {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+  }
+
+  .why-corner-tl,
+  .why-corner-br {
+    display: none;
+  }
+}
+/* ==================== SERVICES SECTION ==================== */
+.services-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== HEADER ===== */
+.services-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Section Label */
+.services-header .section-label {
+  display: inline-block;
+}
+
+.services-header .section-label span {
+  color: #ffd700;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  padding: 0 50px;
+}
+
+.services-header .section-label span::before,
+.services-header .section-label span::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #ff6b35, #ffc107);
+}
+
+.services-header .section-label span::before {
+  left: 0;
+}
+
+.services-header .section-label span::after {
+  right: 0;
+}
+
+/* Title */
+.services-header h2 {
+  color: #212529;
+  font-size: 2rem;
+  line-height: 1.3;
+  letter-spacing: 0.3px;
+}
+
+/* Description */
+.services-description {
+  font-size: 1rem;
+  color: #6c757d;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ===== SERVICES GRID ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* ===== SERVICE CARD ===== */
+.service-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Service Image */
+.service-image {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.service-card:hover .service-image img {
+  transform: scale(1.15);
+}
+
+/* Overlay Effect */
+.service-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.service-card:hover .service-image::after {
+  opacity: 1;
+}
+
+/* Service Content */
+.service-content {
+  padding: 2rem 1.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Service Icon */
+.service-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  transform: rotate(360deg) scale(1.1);
+}
+
+.service-icon i {
+  font-size: 1.75rem;
+  color: #212529;
+}
+
+/* Service Title */
+.service-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+/* Service Description */
+.service-desc {
+  font-size: 0.9rem;
+  color: #495057;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+/* Service Button */
+.service-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+  color: #212529;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: fit-content;
+  box-shadow: 0 3px 10px rgba(255, 193, 7, 0.3);
+}
+
+.service-btn:hover {
+  background: linear-gradient(135deg, #ff9800 0%, #ff6b35 100%);
+  color: #fff;
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+}
+
+.service-btn i {
+  transition: transform 0.3s ease;
+}
+
+.service-btn:hover i {
+  transform: translateX(5px);
+}
+
+/* ==================== TABLET LANDSCAPE (992px - 1199px) ==================== */
+@media (max-width: 1199px) {
+  .services-grid {
+    gap: 1.75rem;
+  }
+
+  .service-image {
+    height: 220px;
+  }
+
+  .service-content {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .service-title {
+    font-size: 1.25rem;
+  }
+
+  .service-desc {
+    font-size: 0.875rem;
+  }
+}
+
+/* ==================== TABLET PORTRAIT (768px - 991px) ==================== */
+@media (max-width: 991px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .services-header h2 {
+    font-size: 1.85rem;
+  }
+
+  .services-description {
+    font-size: 0.95rem;
+  }
+
+  .service-image {
+    height: 200px;
+  }
+
+  .service-content {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .service-icon {
+    width: 55px;
+    height: 55px;
+  }
+
+  .service-icon i {
+    font-size: 1.6rem;
+  }
+
+  .service-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* ==================== MOBILE LANDSCAPE (576px - 767px) ==================== */
+@media (max-width: 767px) {
+  .services-section {
+    padding: 3rem 0 !important;
+  }
+
+  .services-header {
+    margin-bottom: 2rem !important;
+  }
+
+  .services-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .services-header .section-label span {
+    font-size: 0.8rem;
+    padding: 0 45px;
+  }
+
+  .services-header .section-label span::before,
+  .services-header .section-label span::after {
+    width: 35px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .service-image {
+    height: 220px;
+  }
+
+  .service-content {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .service-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .service-icon i {
+    font-size: 1.5rem;
+  }
+
+  .service-title {
+    font-size: 1.15rem;
+  }
+
+  .service-desc {
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-btn {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* ==================== MOBILE PORTRAIT (max 575px) ==================== */
+@media (max-width: 575px) {
+  .services-section {
+    padding: 2.5rem 0 !important;
+  }
+
+  .services-header {
+    padding: 0 1rem;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .services-header h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem !important;
+  }
+
+  .services-description {
+    font-size: 0.9rem;
+  }
+
+  .services-header .section-label span {
+    font-size: 0.75rem;
+    padding: 0 40px;
+  }
+
+  .services-header .section-label span::before,
+  .services-header .section-label span::after {
+    width: 32px;
+  }
+
+  .services-grid {
+    gap: 1.25rem;
+    padding: 0 0.75rem;
+  }
+
+  .service-card {
+    border-radius: 12px;
+  }
+
+  .service-image {
+    height: 200px;
+  }
+
+  .service-content {
+    padding: 1.25rem 1rem;
+  }
+
+  .service-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+  }
+
+  .service-icon i {
+    font-size: 1.4rem;
+  }
+
+  .service-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .service-desc {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .service-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    border-radius: 20px;
+  }
+}
+
+/* ==================== EXTRA SMALL DEVICES (max 425px) ==================== */
+@media (max-width: 425px) {
+  .services-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .service-image {
+    height: 180px;
+  }
+
+  .service-content {
+    padding: 1.15rem 0.9rem;
+  }
+}
+
+/* ==================== VERY SMALL DEVICES (max 375px) ==================== */
+@media (max-width: 375px) {
+  .services-section {
+    padding: 2rem 0 !important;
+  }
+
+  .services-header {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .services-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .services-description {
+    font-size: 0.85rem;
+  }
+
+  .services-header .section-label span {
+    font-size: 0.7rem;
+    padding: 0 35px;
+  }
+
+  .services-header .section-label span::before,
+  .services-header .section-label span::after {
+    width: 28px;
+  }
+
+  .services-grid {
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .service-image {
+    height: 170px;
+  }
+
+  .service-content {
+    padding: 1rem 0.875rem;
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.875rem;
+  }
+
+  .service-icon i {
+    font-size: 1.3rem;
+  }
+
+  .service-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-desc {
+    font-size: 0.8rem;
+    line-height: 1.55;
+    margin-bottom: 0.875rem;
+  }
+
+  .service-btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ==================== COMPACT DEVICES (max 320px) ==================== */
+@media (max-width: 320px) {
+  .services-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .services-description {
+    font-size: 0.8rem;
+  }
+
+  .services-header .section-label span {
+    font-size: 0.65rem;
+  }
+
+  .service-image {
+    height: 160px;
+  }
+
+  .service-content {
+    padding: 0.875rem 0.75rem;
+  }
+
+  .service-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .service-icon i {
+    font-size: 1.2rem;
+  }
+
+  .service-title {
+    font-size: 1rem;
+  }
+
+  .service-desc {
+    font-size: 0.75rem;
+  }
+
+  .service-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+}

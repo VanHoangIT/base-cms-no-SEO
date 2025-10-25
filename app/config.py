@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import time
 
 load_dotenv()
 
@@ -8,6 +9,15 @@ class Config:
 
     # ===== CƠ BẢN =====
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key-change-in-production'
+
+    # ===== STATIC FILES VERSION (CACHE BUSTING) =====
+    STATIC_VERSION = os.environ.get('STATIC_VERSION') or str(int(time.time()))
+    # Dùng chung 1 version cho cả CSS + JS
+    # Production: set STATIC_VERSION='1.0.1'
+    # Development: auto timestamp
+
+    CSS_VERSION = STATIC_VERSION  # Backward compatible
+    JS_VERSION = STATIC_VERSION  # ← THÊM DÒNG NÀY
 
     # ===== DATABASE =====
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \

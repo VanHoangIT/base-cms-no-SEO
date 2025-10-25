@@ -1,0 +1,253 @@
+/* ==================== QUY TRÌNH LÀM VIỆC SECTION ====================
+ * File: 29-quy-trinh-lam-viec.css
+ * Auto-generated from style.css
+ * Date: 2025-10-25 18:05:59
+ * ========================================================================== */
+
+/* ==================== QUY TRÌNH LÀM VIỆC SECTION ==================== */
+.work-process-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Process Timeline Container */
+.process-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Process Step Card */
+.process-step {
+  position: relative;
+  text-align: center;
+  background: white;
+  padding: 2.5rem 1.5rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+}
+
+.process-step:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(255, 193, 7, 0.25);
+  border-color: #ffc107;
+}
+
+/* Number Badge */
+.process-number {
+  position: absolute;
+  top: -20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff4500 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+  z-index: 2;
+  border: 3px solid white;
+}
+
+/* Icon Circle */
+.process-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffc107;
+  transition: all 0.4s ease;
+}
+
+.process-step:hover .process-icon {
+  transform: rotate(360deg) scale(1.1);
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+}
+
+.process-icon i {
+  font-size: 2.5rem;
+  color: #ff6b35;
+  transition: color 0.3s ease;
+}
+
+.process-step:hover .process-icon i {
+  color: white;
+}
+
+/* Title & Description */
+.process-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.process-description {
+  font-size: 0.9rem;
+  color: #6c757d;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Connecting Arrows - Desktop Only */
+.process-step::after {
+  content: '→';
+  position: absolute;
+  top: 80px;
+  right: -2.5rem;
+  font-size: 2rem;
+  color: #ffc107;
+  font-weight: bold;
+  z-index: 1;
+  opacity: 0.6;
+  animation: arrow-pulse 2s ease-in-out infinite;
+}
+
+.process-step:last-child::after {
+  display: none;
+}
+
+@keyframes arrow-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(5px);
+  }
+}
+
+/* ==================== TABLET RESPONSIVE (≤991px) ==================== */
+@media (max-width: 991px) {
+  .process-timeline {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 1.5rem;
+  }
+
+  .process-step::after {
+    display: none;
+  }
+
+  .process-step {
+    padding: 2rem 1.25rem 1.75rem;
+  }
+
+  .process-icon {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1.25rem;
+  }
+
+  .process-icon i {
+    font-size: 2.25rem;
+  }
+
+  .process-title {
+    font-size: 1rem;
+  }
+
+  .process-description {
+    font-size: 0.875rem;
+  }
+}
+
+/* ==================== MOBILE RESPONSIVE (≤576px) - 2 CARDS/ROW ==================== */
+@media (max-width: 576px) {
+  .work-process-section {
+    padding: 3rem 0 !important;
+  }
+
+  .process-timeline {
+    grid-template-columns: repeat(2, 1fr); /* 2 card/hàng giống tablet */
+    gap: 1.5rem 1rem;
+    padding: 0 0.75rem;
+  }
+
+  .process-step {
+    padding: 1.75rem 0.75rem 1.25rem;
+  }
+
+  .process-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    top: -15px;
+    right: 10px;
+  }
+
+  .process-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 0.875rem;
+  }
+
+  .process-icon i {
+    font-size: 1.75rem;
+  }
+
+  .process-title {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .process-description {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+}
+
+/* ==================== SMALL MOBILE (≤375px) ==================== */
+@media (max-width: 375px) {
+  .process-timeline {
+    gap: 1.25rem 0.75rem;
+    padding: 0 0.5rem;
+  }
+
+  .process-step {
+    padding: 1.5rem 0.625rem 1rem;
+  }
+
+  .process-number {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+    top: -14px;
+    right: 8px;
+  }
+
+  .process-icon {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 0.75rem;
+  }
+
+  .process-icon i {
+    font-size: 1.6rem;
+  }
+
+  .process-title {
+    font-size: 0.825rem;
+  }
+
+  .process-description {
+    font-size: 0.7rem;
+  }
+}
+
